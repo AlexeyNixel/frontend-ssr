@@ -5,6 +5,7 @@
 <template>
   <div>
     <the-slider/>
+    <the-navigation/>
   </div>
 </template>
 

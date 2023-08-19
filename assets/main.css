@@ -5,6 +5,6 @@
 }
 
 body {
-    background: var(--el-bg-color);
+    background: var(--el-bg-color-page);
     transition: background-color .2s !important;
 }
