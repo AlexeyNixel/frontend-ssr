@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { findEntries, findEntry } from '~/api/entryApi';
+import { findEntries, findEntriesByRubric, findEntry } from '~/api/entryApi';
 import { EntryType, ParamsType } from '~/models/baseTypes';
 
 export const useEntryStore = defineStore('entry', () => {
@@ -7,8 +7,7 @@ export const useEntryStore = defineStore('entry', () => {
   const entry = ref<EntryType>();
 
   const getEntry = async (slug: string, params?: ParamsType) => {
-    const { data } = await findEntry(slug, params);
-    entry.value = data;
+    entry.value = await findEntry(slug, params);
     return entry.value;
   };
 
@@ -18,10 +17,16 @@ export const useEntryStore = defineStore('entry', () => {
     return entries.value;
   };
 
+  const getEntriesByRubric = async (rubric: string, params?: ParamsType) => {
+    entries.value = await findEntriesByRubric(rubric, params);
+    return entries.value;
+  };
+
   return {
     entry,
     entries,
     getEntry,
     getEntries,
+    getEntriesByRubric,
   };
 });

@@ -21,7 +21,7 @@ sliderStore.getSlides({include:'image,entry'});
 
 <style scoped lang='scss'>
 .slider {
-  margin: 1vw 0;
+  margin: 1vh 0;
   border-radius: 10px;
   &__img {
     width: 100%;

@@ -79,7 +79,7 @@ const search = ref<string>()
 <template>
   <header class="header">
     <div class="header__logo">
-      <NuxtLink class="header__link">
+      <NuxtLink to='/' class="header__link">
         <img src="/logo.png" alt="">
       </NuxtLink>
     </div>

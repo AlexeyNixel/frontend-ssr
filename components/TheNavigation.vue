@@ -52,6 +52,7 @@ const swapMenus = (menu: string) => {
   background: var(--el-bg-color);
   padding: 20px;
   border-radius: 10px;
+  margin: 1vh 0;
 
   &__btn-group {
     display: flex;
