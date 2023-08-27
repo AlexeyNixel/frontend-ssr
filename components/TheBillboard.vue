@@ -1,9 +1,8 @@
 <script setup lang='ts'>
 import { useBillboardStore } from '~/stores/billboardStore';
 import { BillboardType } from '~/models/baseTypes';
-// import moment from 'moment';
-const moment = require('moment')
-moment.locale('ru')
+import moment from 'moment';
+import dayjs from 'dayjs';
 
 const billboardStore = useBillboardStore();
 const billboards = ref<BillboardType[]>();
@@ -11,25 +10,25 @@ const billboards = ref<BillboardType[]>();
 const dateEvents = ref<string[]>([]);
 
 const whatADay = (date:string) => {
-  console.log(moment(date).locale('ru').format('dddd'));
-  if (moment(date).locale('ru').format('dd') === 'пн') {
-    console.log(123);
-    return 'dayOff';
+  if (dayjs(date).format('dd') === 'пн') return 'day-off';
+  else if (dateEvents.value.includes(`${date}T00:00:00.000Z`)) {
+    return 'event-day';
   }
-  else if (dateEvents.value.includes(`${date}T00:00:00.000Z`)) return 'eventDay'
-  else return 'regularDay'
+  else return 'regular-day'
 }
 
 const fetchData = async () => {
-  const { data } = await billboardStore.getBillboards();
+  const { data } = await billboardStore.getBillboards({
+    pageSize:50,
+    orderBy:'-eventDate'
+  });
   billboards.value = data;
   billboards.value?.forEach((item) => {
     dateEvents.value.push(item.eventDate);
   });
-  console.log(dateEvents.value);
 };
-
 fetchData()
+
 
 </script>
 
@@ -83,26 +82,50 @@ fetchData()
     width: 70%;
     padding-bottom: 20px;
   }
-
 }
 
+.day {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  padding: 0.5vw;
+  width: 100%;
+  height: 100%;
+  margin: 1px;
+}
 
+.day-off {
+  border: 2px solid orangered;
+}
+
+.event-day {
+  border: 2px solid #1d5deb;
+}
+
+:deep(.el-calendar__body) {
+  padding: 0 0 20px 0;
+}
+:deep(.el-calendar__header) {
+  //display: none;
+}
+:deep(.el-calendar-table td) {
+  border: none;
+}
 :deep(.el-calendar-table .el-calendar-day) {
-  padding: 10px;
+  padding: 0px;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
-:deep(.el-calendar-table td) {
-  padding: 0;
-  margin-bottom: 0;
-  height: 100%;
-  width: 100%;
+:deep(.el-calendar-table tr td:first-child) {
+  border: none;
 }
-
-:deep(.el-calendar__body) {
-  padding: 0 0 20px 0;
+:deep(.el-calendar-table tr:first-child td) {
+  border: none;
+}
+:deep(.el-calendar-table:not(.is-range) td.prev) {
+  border: none;
 }
 </style>

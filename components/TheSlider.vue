@@ -6,7 +6,8 @@ const sliderStore = useSliderStore();
 const { slides } = storeToRefs(sliderStore);
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL'])
 
-sliderStore.getSlides({include:'image,entry'});
+await sliderStore.getSlides({include:'image,entry'});
+
 </script>
 
 <template>

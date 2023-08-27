@@ -9,6 +9,9 @@ import TheBillboard from '~/components/TheBillboard.vue';
     <the-navigation />
     <TheBillboard/>
     <TheNews />
+    <client-only>
+      <TheGos/>
+    </client-only>
   </div>
 </template>
 

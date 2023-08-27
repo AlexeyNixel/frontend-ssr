@@ -11,7 +11,6 @@ menu.value = await menuStore.getMenus({
 });
 
 menu.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
-console.log(menu.value);
 </script>
 
 <template>
