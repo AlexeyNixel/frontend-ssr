@@ -17,8 +17,9 @@ export const useEntryStore = defineStore('entry', () => {
     return entries.value;
   };
 
-  const getEntriesByRubric = async (rubric: string, params?: ParamsType) => {
-    entries.value = await findEntriesByRubric(rubric, params);
+  const getEntriesByRubric = async (rubric: string, params?: ParamsType): Promise<any> => {
+    const {data} = await findEntriesByRubric(rubric, params);
+    entries.value = data
     return entries.value;
   };
 
