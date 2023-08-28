@@ -54,6 +54,7 @@ about.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
   }
 
   &__container {
+    margin: .5vh 0;
     &:nth-child(odd) {
       color: var(--el-text-color-secondary);
     }

@@ -2,12 +2,28 @@
 import { useBillboardStore } from '~/stores/billboardStore';
 import { BillboardType } from '~/models/baseTypes';
 import dayjs from 'dayjs';
+import type { CalendarDateType, CalendarInstance } from 'element-plus';
+import moment from 'moment';
 
 const billboardStore = useBillboardStore();
 const billboards = ref<BillboardType[]>();
 
 const currentEvent = ref<BillboardType[]>()
 const dateEvents = ref<string[]>([]);
+
+const calendar = ref<CalendarInstance>()
+const selectDate = (val: CalendarDateType) => {
+  if (!calendar.value) return
+  calendar.value.selectDate(val)
+
+  const fromDate = moment(calendar.value.selectedDay.$d)
+    .startOf('month')
+    .format('YYYY-MM-DD');
+  const toDate = moment(calendar.value.selectedDay.$d)
+    .endOf('month')
+    .format('YYYY-MM-DD');
+  fetchData(fromDate, toDate);
+}
 
 const whatADay = (date: string) => {
   if (dayjs(date).format('dd') === 'пн') return 'day-off';
@@ -24,17 +40,24 @@ const handleEventCheck = async (date: string) => {
   console.log(currentEvent.value);
 }
 
-const fetchData = async () => {
+const fetchData = async (fromDate: string, toDate: string) => {
   const { data } = await billboardStore.getBillboards({
+    fromDate: fromDate + 'T00:00:00.000Z',
+    toDate: toDate + 'T00:00:00.000Z',
     pageSize: 50,
     orderBy: '-eventDate',
   });
+
   billboards.value = data;
   billboards.value?.forEach((item) => {
     dateEvents.value.push(item.eventDate);
   });
 };
-fetchData();
+const fromDate: string = moment(new Date())
+  .startOf('month')
+  .format('YYYY-MM-DD');
+const toDate: string = moment(new Date()).endOf('month').format('YYYY-MM-DD');
+fetchData(fromDate, toDate );
 
 
 </script>
@@ -44,8 +67,18 @@ fetchData();
     <div class='billboard__header'>Афиша</div>
     <div class='billboard__container'>
       <div class='billboard-calendar'>
-        <el-calendar>
-          <template #header='{date}'>{{ date }}</template>
+        <el-calendar ref='calendar'>
+          <template #header='{date}'>
+            <div class='calendar-header'>
+              <el-button class='calendar-header__btn' @click="selectDate('prev-month')">
+                <font-awesome-icon :icon="['fas', 'chevron-left']" />
+              </el-button>
+              <div class='calendar-header__date'>{{date}}</div>
+              <el-button class='calendar-header__btn' @click="selectDate('next-month')">
+                <font-awesome-icon :icon="['fas', 'chevron-right']" />
+              </el-button>
+            </div>
+          </template>
           <template #dateCell='dateCell'>
             <div
               class='day event-day'
@@ -60,7 +93,6 @@ fetchData();
             <div class='day regular-day' v-if='whatADay(dateCell.data.day) === "regular-day"'>
               {{ dateCell.data.day.slice(-2) }}
             </div>
-
           </template>
         </el-calendar>
       </div>
@@ -97,16 +129,30 @@ fetchData();
 </template>
 
 <style scoped lang='scss'>
+.calendar-header {
+  width: 100%;
+  margin: 0 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  &__btn {
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+  }
+}
+
 .billboard {
   background: var(--el-bg-color);
   border-radius: 10px;
-  padding: 0 20px;
+
   margin: 1vh 0;
 
   &__header {
     display: flex;
     align-items: center;
-    padding: 10px 0;
+    padding: 20px 20px 0 20px;
     font-weight: bold;
     font-size: 1.4rem;
   }
@@ -121,7 +167,6 @@ fetchData();
 
   .billboard-content {
     width: 70%;
-    padding-bottom: 20px;
   }
 }
 
@@ -149,7 +194,6 @@ fetchData();
     }
   }
 }
-
 
 .empty-day {
   display: flex;
@@ -188,12 +232,18 @@ fetchData();
   border: 2px solid #1d5deb;
 }
 
-:deep(.el-calendar__body) {
-  padding: 0 0 20px 0;
+:deep(.el-calendar) {
+  padding: 20px;
+  border-radius: 0 0 0 10px;
 }
 
 :deep(.el-calendar__header) {
-  //display: none;
+  border: none;
+  padding: 0;
+}
+
+:deep(.el-calendar__body) {
+  padding: 0;
 }
 
 :deep(.el-calendar-table td) {

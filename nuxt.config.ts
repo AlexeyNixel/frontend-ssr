@@ -18,6 +18,26 @@ export default defineNuxtConfig({
     defaultLocale: 'ru',
   },
 
+  vite: {
+    server: {
+      proxy: {
+        '/site': {
+          target: 'http://static.infomania.ru/',
+          changeOrigin: true,
+        },
+        '/media': {
+          target: 'http://static.infomania.ru/site',
+          changeOrigin: true,
+        },
+        '/news': {
+          target: 'http://dev.infomania.ru/',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/entry/, ''),
+        },
+      },
+    }
+  },
+
   //@ts-ignore
   css: [
     '@fortawesome/fontawesome-svg-core/styles.css',

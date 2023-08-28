@@ -64,6 +64,10 @@ const swapMenus = (menu: string) => {
     height: 2.5vw;
     color: white;
     border: none;
+    border-radius: 10px;
+    &:active {
+      transform: scale(.9);
+    }
 
     &:nth-child(1) {
       background: #F44242;

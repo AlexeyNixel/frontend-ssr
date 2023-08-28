@@ -94,10 +94,10 @@ const search = ref<string>()
           size="large"
           placeholder="Поиск по сайту"
           :prefix-icon="Search"
+          @keyup.enter='router.push("/entry/search/"+search)'
       />
     </div>
   </header>
-  <worktime-library/>
 </template>
 
 <style scoped lang="scss">
@@ -117,6 +117,7 @@ const search = ref<string>()
     width: 25%;
     display: flex;
     justify-content: space-between;
+    margin: 0 10px;
   }
 
   &__btn {
@@ -125,6 +126,9 @@ const search = ref<string>()
     &:hover {
       color: #035cbc;
       transition: .3s;
+    }
+    &:active {
+      transform: scale(.7);
     }
   }
 

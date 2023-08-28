@@ -8,3 +8,11 @@ body {
     background: var(--el-bg-color-page);
     transition: background-color .2s !important;
 }
+
+html.dark {
+    --logo-color:white;
+}
+
+html {
+    --logo-color:black;
+}
