@@ -12,6 +12,7 @@ import TheBillboard from '~/components/TheBillboard.vue';
     <client-only>
       <TheGos/>
     </client-only>
+    <TheDepartment />
   </div>
 </template>
 
