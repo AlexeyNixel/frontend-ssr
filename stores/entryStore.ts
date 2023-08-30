@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { findEntries, findEntriesByRubric, findEntry } from '~/api/entryApi';
+import { findEntries, findEntriesByDepartment, findEntriesByRubric, findEntry } from '~/api/entryApi';
 import { EntryType, ParamsType } from '~/models/baseTypes';
 
 export const useEntryStore = defineStore('entry', () => {
@@ -12,14 +12,21 @@ export const useEntryStore = defineStore('entry', () => {
   };
 
   const getEntries = async (params?: ParamsType) => {
-    const { data } = await findEntries(params);
+    const { data, meta } = await findEntries(params);
+    entries.value = data;
+    return {data, meta};
+  };
+
+  const getEntriesByRubric = async (rubric: string, params?: ParamsType): Promise<any> => {
+    const { data } = await findEntriesByRubric(rubric, params);
     entries.value = data;
     return entries.value;
   };
 
-  const getEntriesByRubric = async (rubric: string, params?: ParamsType): Promise<any> => {
-    const {data} = await findEntriesByRubric(rubric, params);
-    entries.value = data
+  const getEntriesByDepartment = async (department: string, params?: ParamsType): Promise<any> => {
+    const { data } = await findEntriesByDepartment(department, params);
+    console.log(data);
+    entries.value = data;
     return entries.value;
   };
 
@@ -29,5 +36,6 @@ export const useEntryStore = defineStore('entry', () => {
     getEntry,
     getEntries,
     getEntriesByRubric,
+    getEntriesByDepartment,
   };
 });

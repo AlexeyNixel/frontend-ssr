@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { Search } from '@element-plus/icons-vue'
-
 const router = useRouter()
 
 const darkMode = useDark()
@@ -54,6 +52,10 @@ const handleDisabledRoute = () => {
 
 const buttons = [
   {
+    icon:'fa-solid fa-magnifying-glass',
+    event:() => router.push('/entry/search/')
+  },
+  {
     icon: 'fa-solid fa-map-location-dot',
     event:() => handleOpenMap()
   },
@@ -70,6 +72,7 @@ const buttons = [
   },
   {
     icon: 'fa-solid fa-moon',
+    style: 'sun',
     event:() => handleDarkModeOn()
   },
 ]
@@ -85,17 +88,8 @@ const search = ref<string>()
     </div>
     <div class="header__btn-group">
       <el-button class="header__btn" v-for="(item, index) in buttons" :key="index" link @click="item?.event">
-        <font-awesome-icon :icon="item.icon" />
+        <font-awesome-icon :icon="item.icon" :class='item?.style'/>
       </el-button>
-    </div>
-    <div class="header__search">
-      <el-input
-          v-model="search"
-          size="large"
-          placeholder="Поиск по сайту"
-          :prefix-icon="Search"
-          @keyup.enter='router.push("/entry/search/"+search)'
-      />
     </div>
   </header>
 </template>
@@ -105,6 +99,7 @@ const search = ref<string>()
   display: flex;
   margin: 1vh 0;
   align-items: center;
+  justify-content: space-between;
 
   &__logo {
     width: 50%;
@@ -131,10 +126,9 @@ const search = ref<string>()
       transform: scale(.7);
     }
   }
+}
 
-  &__search {
-    width: 25%;
-  }
-
+.sun {
+  color: orange;
 }
 </style>

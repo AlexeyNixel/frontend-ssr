@@ -1,6 +1,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
+  //@ts-ignore
+  app: {
+    head: {
+      title:"НОМБ",
+    }
+  },
   //@ts-ignore
   buildModules: [
     '@nuxtjs/moment', ['ru'],
