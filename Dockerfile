@@ -1,22 +1,15 @@
-FROM node:lts-alpine as build-stage
+FROM node:17-alpine
 
-WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
+RUN mkdir -p /usr/src/nuxt-app
+WORKDIR /usr/src/nuxt-app
 COPY . .
 
+RUN npm ci && npm cache clean --force
 RUN npm run build
 
-# этап production (production-stage)
-FROM nginx:stable-alpine as production-stage
+ENV NUXT_HOST=0.0.0.0
+ENV NUXT_PORT=3000
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html
-COPY --from=build-stage /app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=build-stage /app/nginx/mime.types /etc/nginx/mime.types
+EXPOSE 3000
 
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["node", ".output/server/index.mjs"]

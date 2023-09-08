@@ -25,6 +25,7 @@ export default defineNuxtConfig({
 
   vite: {
     server: {
+      port: 3001,
       proxy: {
         '/site': {
           target: 'http://static.infomania.ru/',
@@ -37,6 +38,7 @@ export default defineNuxtConfig({
         '/news': {
           target: 'http://dev.infomania.ru/',
           changeOrigin: true,
+          //@ts-ignore
           rewrite: (path) => path.replace(/^\/entry/, ''),
         },
       },
@@ -51,6 +53,5 @@ export default defineNuxtConfig({
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'element-plus/theme-chalk/dark/css-vars.css',
-
   ],
 });

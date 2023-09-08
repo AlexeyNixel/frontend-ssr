@@ -53,22 +53,28 @@ const handleDisabledRoute = () => {
 const buttons = [
   {
     icon:'fa-solid fa-magnifying-glass',
-    event:() => router.push('/entry/search/')
+    event:() => router.push('/entry/search/'),
+    style: null,
   },
   {
     icon: 'fa-solid fa-map-location-dot',
-    event:() => handleOpenMap()
+    event:() => handleOpenMap(),
+    style: null,
   },
   {
     icon: 'fa-solid fa-clock',
-    event:() => handleOpenTime()
+    event:() => handleOpenTime(),
+    style: null,
   },
   {
     icon: 'fa-solid fa-wheelchair-move',
+    event:() => null,
+    style: null,
   },
   {
     icon: 'fa-solid fa-eye',
-    event:() => handleDisabledRoute()
+    event:() => handleDisabledRoute(),
+    style: null,
   },
   {
     icon: 'fa-solid fa-moon',
@@ -87,7 +93,7 @@ const search = ref<string>()
       </NuxtLink>
     </div>
     <div class="header__btn-group">
-      <el-button class="header__btn" v-for="(item, index) in buttons" :key="index" link @click="item?.event">
+      <el-button class="header__btn" v-for="(item, index) in buttons" :key="index" link @click="item.event">
         <font-awesome-icon :icon="item.icon" :class='item?.style'/>
       </el-button>
     </div>
@@ -100,6 +106,7 @@ const search = ref<string>()
   margin: 1vh 0;
   align-items: center;
   justify-content: space-between;
+
 
   &__logo {
     width: 50%;

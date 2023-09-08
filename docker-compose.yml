@@ -1,11 +1,14 @@
-version: "3.8"
+version: '3.3'
 
 services:
-  web:
-    build: .
-    restart: always
-    image: nixel666/infomania_nuxt
-    env_file:
-      - .env
+  nuxt:
+    build:
+      context: .
+    image: nixel666/infomania_ssr
+    container_name: nuxt_dev
+    command: npm run dev
+    volumes:
+      - .:/app
+      - /app/node_modules
     ports:
-      - "3001:80"
+      - "3000:3000"

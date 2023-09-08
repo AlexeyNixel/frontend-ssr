@@ -9,10 +9,11 @@ import TheBillboard from '~/components/TheBillboard.vue';
     <the-navigation />
     <TheBillboard/>
     <TheNews />
+    <TheDepartment />
     <client-only>
       <TheGos/>
     </client-only>
-    <TheDepartment />
+    <TheFooter />
   </div>
 </template>
 

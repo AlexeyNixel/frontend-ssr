@@ -16,9 +16,11 @@ const selectDate = (val: CalendarDateType) => {
   if (!calendar.value) return
   calendar.value.selectDate(val)
 
+  //@ts-ignore
   const fromDate = moment(calendar.value.selectedDay.$d)
     .startOf('month')
     .format('YYYY-MM-DD');
+  //@ts-ignore
   const toDate = moment(calendar.value.selectedDay.$d)
     .endOf('month')
     .format('YYYY-MM-DD');
@@ -37,7 +39,6 @@ const handleEventCheck = async (date: string) => {
     searchByField: `eventDate=${date}T00:00:00.000Z`,
   })
   currentEvent.value = data
-  console.log(currentEvent.value);
 }
 
 const fetchData = async (fromDate: string, toDate: string) => {

@@ -6,9 +6,9 @@
   },
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port=3000",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview PORT=3000",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {

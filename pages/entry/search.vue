@@ -68,7 +68,6 @@ const fetchData = async (val?: number) => {
     entries.value = data;
     pages.value = meta.pages;
   }
-
 };
 
 fetchData();
@@ -123,7 +122,6 @@ fetchData();
           </div>
           <div class='filters__item'>
             <span>Отдел</span>
-            <div v-for='item in departments.data'>{{ item.title }}</div>
             <el-select class='filters__field' v-model='departmentFilter'>
               <el-option
                 v-for='item in departments'

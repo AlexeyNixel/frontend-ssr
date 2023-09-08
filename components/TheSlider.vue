@@ -14,7 +14,9 @@ await sliderStore.getSlides({include:'image,entry'});
   <div>
     <el-carousel class='slider' trigger="click" height="22vw">
       <el-carousel-item class='slider__item' v-for="item in slides" :key="item.id">
-        <img class='slider__img' :src='staticUrl+item.image.path' alt=''>
+        <NuxtLink :to='`/entry/${item?.entry.slug}`'>
+          <img class='slider__img' :src='staticUrl+item.image.path' alt=''>
+        </NuxtLink>
       </el-carousel-item>
     </el-carousel>
   </div>

@@ -14,10 +14,10 @@ departments.value = data
 
 <template>
   <div class='departments'>
-   <div class='departments__item' v-for='item in departments' :key='item.title'>
+   <NuxtLink :to='`department/${item.slug}`' class='departments__item' v-for='item in departments' :key='item.title'>
      <img :src='staticUrl+item.preview.path' alt='' class='departments__img'>
      <div class='departments__title'>{{item.title}}</div>
-   </div>
+   </NuxtLink>
   </div>
 </template>
 
