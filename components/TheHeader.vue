@@ -116,14 +116,14 @@ const search = ref<string>()
   }
 
   &__btn-group {
-    width: 25%;
+    width: 30%;
     display: flex;
     justify-content: space-between;
-    margin: 0 10px;
+    margin: 0 ;
   }
 
   &__btn {
-    font-size: 1.8rem;
+    font-size: 1.5vw;
     color: #007BFF;
     &:hover {
       color: #035cbc;

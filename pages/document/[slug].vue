@@ -16,7 +16,7 @@ document.value = data
 <template>
   <div class='document'>
     <div class='document__title'>{{document?.document.title}}</div>
-    <div class='document__content' v-html='document?.document.content'></div>
+    <div class='document__content ck-content' v-html='document?.document.content'></div>
   </div>
 </template>
 

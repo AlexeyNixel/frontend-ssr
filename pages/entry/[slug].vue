@@ -15,36 +15,51 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
 
 <template>
   <div class='entry' v-if='entry'>
-    <div class='entry-header'>
-      <div class='entry-header__title'>{{ entry.title }}</div>
+    <div class='entry__header'>
+      <div class='entry__title'>
+        {{ entry.title }}
+      </div>
       <div class='entry__info'>
-        <div class='entry-header__department'>{{ entry.department.title }}</div>
-        <div class='entry-header__date'>{{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}</div>
+        <NuxtLink :to='`/department/${entry.department.slug}`' class='entry__department'>{{ entry.department.title }}
+        </NuxtLink>
+        <div class='entry__date'>{{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}</div>
       </div>
     </div>
-    <div class='entry__content ck-content' v-html='entry.content'></div>
+    <div class='entry__content ck-content' v-html='entry.content'>
+    </div>
   </div>
 </template>
 
 <style scoped lang='scss'>
 .entry {
-
-}
-
-.entry-header {
-  display: flex;
-  margin-bottom: 10px;
-  justify-content: space-between;
-  align-items: center;
-
-  &__info {
+  &__header {
+    width: 100%;
     display: flex;
-    float: right;
+    justify-content: space-between;
+    align-items: center;
   }
 
   &__title {
-    font-size: 1.4rem;
     font-weight: bold;
+    font-size: 1.4rem;
+  }
+
+  &__info {
+    text-align: right;
+  }
+
+  &__department {
+    color: #007BFF;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__date {
+    font-style: italic;
   }
 }
 </style>

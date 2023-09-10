@@ -59,7 +59,7 @@
 <style lang='scss' scoped>
 .footer {
   padding: 10px;
-  background: var(--el-bg-color);
+  background: var(--footer-bg);
   border-radius: 10px 10px 0 0;
 
   &-container {

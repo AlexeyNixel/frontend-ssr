@@ -1,6 +1,11 @@
 <script setup lang='ts'>
-
 import TheBillboard from '~/components/TheBillboard.vue';
+
+if (process.client) {
+  const token = localStorage.getItem('token')
+  if (!token) console.log('not found');
+}
+
 </script>
 
 <template>

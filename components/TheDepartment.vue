@@ -31,6 +31,8 @@ departments.value = data
     background: var(--el-bg-color);
     border-radius: 10px;
     height: 300px;
+    text-decoration: none;
+    color: var(--el-text-color);
   }
   &__img {
     width: 100%;
@@ -44,6 +46,7 @@ departments.value = data
     justify-content: center;
     align-items: center;
     text-align: center;
+    text-decoration: none;
   }
 }
 </style>

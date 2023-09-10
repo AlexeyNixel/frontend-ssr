@@ -11,8 +11,10 @@ body {
 
 html.dark {
     --logo-color:white;
+    --footer-bg: var(--el-bg-color);
 }
 
 html {
     --logo-color:black;
+    --footer-bg: #007BFF;;
 }
