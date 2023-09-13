@@ -17,8 +17,9 @@ if (process.client) {
     <TheDepartment />
     <client-only>
       <TheGos/>
+      <TheExhibitions />
+      <TheFooter />
     </client-only>
-    <TheFooter />
   </div>
 </template>
 

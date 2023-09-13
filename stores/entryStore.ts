@@ -25,7 +25,6 @@ export const useEntryStore = defineStore('entry', () => {
 
   const getEntriesByDepartment = async (department: string, params?: ParamsType): Promise<any> => {
     const { data } = await findEntriesByDepartment(department, params);
-    console.log(data);
     entries.value = data;
     return entries.value;
   };

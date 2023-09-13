@@ -14,11 +14,11 @@ setPageLayout('empty');
     <el-form class='login'>
       <div class='login__header'>Авторизация</div>
       <div class='login__item'>
-        <span>Логин</span>
+        <div class='login__icon'><font-awesome-icon :icon="['fas', 'envelope']" /></div>
         <el-input class='login__name' v-model='user.username' />
       </div>
       <div class='login__item'>
-        <span>Пароль</span>
+        <div class='login__icon'><font-awesome-icon :icon="['fas', 'key']" /></div>
         <el-input
           type='password'
           show-password
@@ -48,11 +48,19 @@ setPageLayout('empty');
   &__header {
     text-align: center;
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
+    margin: 1vh 0;
   }
 
   &__item {
-    margin: 3vh 0;
+    margin: 5vh 0;
+    display: flex;
+    align-items: center;
+  }
+
+  &__icon {
+    margin-right: 10px;
+    color: #007BFF;
   }
 
   &__btn {
@@ -60,7 +68,17 @@ setPageLayout('empty');
     justify-content: center;
     align-items: center;
     width: 100%;
+    margin-top: 60px;
   }
+}
 
+:deep(.el-input__wrapper) {
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid gray;
+}
+
+:deep(.el-button) {
+  border-radius: 10px;
 }
 </style>
