@@ -40,13 +40,13 @@
           <a target='_blank' class='footer__right_group-item' href='https://ok.ru/group/70000001168881'>
             <font-awesome-icon class='footer__right_group-item-icon' icon='fa-brands fa-odnoklassniki' />
           </a>
-          <a target='_blank' class='footer__right_group-item'
-             href='https://novosibirsk.flamp.ru/firm/novosibirskaya_oblastnaya_molodezhnaya_biblioteka-141265769360530'>
-            <img class='footer__right_group-item-icon' src='@/assets/flamp.svg' alt=''>
-          </a>
-          <a target='_blank' class='footer__right_group-item' href='https://clck.ru/edeCg'>
-            <img class='footer__right_group-item-icon' src='@/assets/dzen.svg' alt=''>
-          </a>
+<!--          <a target='_blank' class='footer__right_group-item'-->
+<!--             href='https://novosibirsk.flamp.ru/firm/novosibirskaya_oblastnaya_molodezhnaya_biblioteka-141265769360530'>-->
+<!--            <img class='footer__right_group-item-icon' src='@/assets/flamp.svg' alt=''>-->
+<!--          </a>-->
+<!--          <a target='_blank' class='footer__right_group-item' href='https://clck.ru/edeCg'>-->
+<!--            <img class='footer__right_group-item-icon' src='@/assets/dzen.svg' alt=''>-->
+<!--          </a>-->
         </div>
       </div>
     </div>

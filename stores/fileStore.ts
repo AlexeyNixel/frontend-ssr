@@ -10,6 +10,5 @@ export const useFileStore = defineStore('file', () => {
 
   return {
     getFiles,
-
   }
 });

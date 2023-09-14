@@ -3,7 +3,9 @@ import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
+import { useGeneralStore } from '~/stores/generalStore';
 
+const generalStore = useGeneralStore()
 const route = useRoute();
 const entryStore = useEntryStore();
 const entry = ref<EntryType>();
@@ -26,6 +28,10 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
       </div>
     </div>
     <div class='entry__content ck-content' v-html='entry.content'>
+    </div>
+    <div class='entry_admin-btn' v-if='generalStore.token'>
+      <el-button type='warning'>Редактировать</el-button>
+      <el-button type='danger'>Удалить</el-button>
     </div>
   </div>
 </template>
@@ -61,5 +67,8 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
   &__date {
     font-style: italic;
   }
+}
+:deep(.el-button) {
+  border-radius: 10px;
 }
 </style>

@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useBillboardStore } from '~/stores/billboardStore';
 import { BillboardType } from '~/models/baseTypes';
 import dayjs from 'dayjs';
@@ -8,13 +8,13 @@ import moment from 'moment';
 const billboardStore = useBillboardStore();
 const billboards = ref<BillboardType[]>();
 
-const currentEvent = ref<BillboardType[]>()
+const currentEvent = ref<BillboardType[]>();
 const dateEvents = ref<string[]>([]);
 
-const calendar = ref<CalendarInstance>()
+const calendar = ref<CalendarInstance>();
 const selectDate = (val: CalendarDateType) => {
-  if (!calendar.value) return
-  calendar.value.selectDate(val)
+  if (!calendar.value) return;
+  calendar.value.selectDate(val);
 
   //@ts-ignore
   const fromDate = moment(calendar.value.selectedDay.$d)
@@ -25,7 +25,7 @@ const selectDate = (val: CalendarDateType) => {
     .endOf('month')
     .format('YYYY-MM-DD');
   fetchData(fromDate, toDate);
-}
+};
 
 const whatADay = (date: string) => {
   if (dayjs(date).format('dd') === 'пн') return 'day-off';
@@ -37,9 +37,9 @@ const whatADay = (date: string) => {
 const handleEventCheck = async (date: string) => {
   const { data } = await billboardStore.getBillboards({
     searchByField: `eventDate=${date}T00:00:00.000Z`,
-  })
-  currentEvent.value = data
-}
+  });
+  currentEvent.value = data;
+};
 
 const fetchData = async (fromDate: string, toDate: string) => {
   const { data } = await billboardStore.getBillboards({
@@ -58,78 +58,100 @@ const fromDate: string = moment(new Date())
   .startOf('month')
   .format('YYYY-MM-DD');
 const toDate: string = moment(new Date()).endOf('month').format('YYYY-MM-DD');
-fetchData(fromDate, toDate );
-
-
+fetchData(fromDate, toDate);
 </script>
 
 <template>
-  <div class='billboard'>
-    <div class='billboard__header'>Афиша</div>
-    <div class='billboard__container'>
-      <div class='billboard-calendar'>
-        <el-calendar ref='calendar'>
-          <template #header='{date}'>
-            <div class='calendar-header'>
-              <el-button class='calendar-header__btn' @click="selectDate('prev-month')">
-                <font-awesome-icon :icon="['fas', 'chevron-left']" />
+  <div class="billboard">
+    <div class="billboard__header">Афиша</div>
+    <div class="billboard__container">
+      <div class="billboard-calendar">
+        <el-calendar ref="calendar">
+          <template #header="{ date }">
+            <div class="calendar-header">
+              <el-button
+                class="calendar-header__btn"
+                @click="selectDate('prev-month')">
+                <client-only
+                  ><font-awesome-icon :icon="['fas', 'chevron-left']"
+                /></client-only>
               </el-button>
-              <div class='calendar-header__date'>{{date}}</div>
-              <el-button class='calendar-header__btn' @click="selectDate('next-month')">
-                <font-awesome-icon :icon="['fas', 'chevron-right']" />
+              <div class="calendar-header__date">{{ date }}</div>
+              <el-button
+                class="calendar-header__btn"
+                @click="selectDate('next-month')">
+                <client-only
+                  ><font-awesome-icon :icon="['fas', 'chevron-right']"
+                /></client-only>
               </el-button>
             </div>
           </template>
-          <template #dateCell='dateCell'>
+          <template #date-cell="{data}">
             <div
-              class='day event-day'
-              v-if='whatADay(dateCell.data.day) === "event-day"'
-              @click='handleEventCheck(dateCell.data.day)'
-            >
-              {{ dateCell.data.day.slice(-2) }}
+              class="day event-day"
+              v-if="whatADay(data.day) === 'event-day'"
+              @click="handleEventCheck(data.day)">
+              {{ data.day.slice(-2) }}
             </div>
-            <div class='day day-off' v-if='whatADay(dateCell.data.day) === "day-off"'>{{ dateCell.data.day.slice(-2)
-              }}
+            <div
+              class="day day-off"
+              v-if="whatADay(data.day) === 'day-off'">
+              {{ data.day.slice(-2) }}
             </div>
-            <div class='day regular-day' v-if='whatADay(dateCell.data.day) === "regular-day"'>
-              {{ dateCell.data.day.slice(-2) }}
+            <div
+              class="day regular-day"
+              v-if="whatADay(data.day) === 'regular-day'">
+              {{ data.day.slice(-2) }}
             </div>
           </template>
         </el-calendar>
       </div>
-      <div class='billboard-content'>
-        <el-carousel class='event' trigger="click" height="290px" v-if='currentEvent'>
-          <el-carousel-item class='event__item' v-for="item in currentEvent" :key="item">
-            <div class='event__day'>
-              <div class='day-number'>{{dayjs(item.eventDate).format('DD')}}</div>
-              <div class='time'>{{dayjs(item.eventTime).format('HH:mm')}}</div>
+      <div class="billboard-content">
+        <el-carousel
+          class="event"
+          trigger="click"
+          height="290px"
+          v-if="currentEvent">
+          <el-carousel-item
+            class="event__item"
+            v-for="item in currentEvent"
+            :key="item">
+            <div class="event__day">
+              <div class="day-number">
+                {{ dayjs(item.eventDate).format('DD') }}
+              </div>
+              <div class="time">
+                {{ dayjs(item.eventTime).format('HH:mm') }}
+              </div>
             </div>
-            <div class='event__month'>
-              <div class='month'>{{dayjs(item.eventDate).format('MMM')}}</div>
-              <div class='day-name'>({{dayjs(item.eventDate).format('dd')}})</div>
+            <div class="event__month">
+              <div class="month">{{ dayjs(item.eventDate).format('MMM') }}</div>
+              <div class="day-name">
+                ({{ dayjs(item.eventDate).format('dd') }})
+              </div>
             </div>
-            <div class='event__text'>
-              <div class='title'>{{item.title}}</div>
+            <div class="event__text">
+              <div class="title">{{ item.title }}</div>
               <el-scrollbar height="80%">
-                <div class='content' v-html='item.desc'></div>
-                <div class='info'>
-                  <div class='phone'>{{item.phone}}</div>
-                  <div class='place'>{{item.eventPlace}}</div>
+                <div class="content" v-html="item.desc"></div>
+                <div class="info">
+                  <div class="phone">{{ item.phone }}</div>
+                  <div class="place">{{ item.eventPlace }}</div>
                 </div>
               </el-scrollbar>
             </div>
           </el-carousel-item>
         </el-carousel>
-        <div class='empty-day' v-else>
-          <img src='/books.svg' alt=''>
-          <p class='empty-day__title'>Сегодня можете взять книги</p>
+        <div class="empty-day" v-else>
+          <img src="/books.svg" alt="" />
+          <p class="empty-day__title">Сегодня можете взять книги</p>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .calendar-header {
   width: 100%;
   margin: 0 10px;
