@@ -1,4 +1,7 @@
 <script lang='ts' setup>
+import { useGeneralStore } from '~/stores/generalStore';
+
+const generalStore = useGeneralStore()
 
 </script>
 
@@ -18,7 +21,10 @@
           <font-awesome-icon class='footer__left-item-icon' :icon="['fas', 'envelope']" />
           <span>noub@nso.ru</span>
         </div>
-
+        <NuxtLink to='http://admin.infomania.ru' class='footer__left-item' v-if='generalStore.token'>
+          <font-awesome-icon class='footer__left-item-icon' :icon="['fas', 'envelope']" />
+          <span>Админ панель</span>
+        </NuxtLink>
       </div>
       <div class='footer__right'>
         <div class='footer__right_item'>
@@ -28,7 +34,6 @@
             У нас можно посмотреть фильмы, послушать музыку, выйти в Интернет, встретиться с интересными людьми и,
             разумеется, почитать книги. А еще — пообщаться с ровесниками и познакомиться с нашими молодежными клубами!
           </div>
-
         </div>
         <div class='footer__right_group'>
           <a target='_blank' class='footer__right_group-item' href='https://www.youtube.com/user/noub77nsk'>
@@ -40,21 +45,12 @@
           <a target='_blank' class='footer__right_group-item' href='https://ok.ru/group/70000001168881'>
             <font-awesome-icon class='footer__right_group-item-icon' icon='fa-brands fa-odnoklassniki' />
           </a>
-<!--          <a target='_blank' class='footer__right_group-item'-->
-<!--             href='https://novosibirsk.flamp.ru/firm/novosibirskaya_oblastnaya_molodezhnaya_biblioteka-141265769360530'>-->
-<!--            <img class='footer__right_group-item-icon' src='@/assets/flamp.svg' alt=''>-->
-<!--          </a>-->
-<!--          <a target='_blank' class='footer__right_group-item' href='https://clck.ru/edeCg'>-->
-<!--            <img class='footer__right_group-item-icon' src='@/assets/dzen.svg' alt=''>-->
-<!--          </a>-->
         </div>
       </div>
     </div>
     <div class='footer-bottom'>© Новосибирская областная молодежная библиотека 2009-{{ new Date().getFullYear() }}</div>
   </footer>
 </template>
-
-
 
 <style lang='scss' scoped>
 .footer {

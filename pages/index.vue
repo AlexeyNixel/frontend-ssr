@@ -11,6 +11,10 @@ if (process.client) {
   if (!token) console.log('not found');
 }
 
+if (process.client && window.innerWidth < 997) {
+  navigateTo('http://m.infomania.ru', {external: true})
+}
+
 setPageLayout('default');
 </script>
 

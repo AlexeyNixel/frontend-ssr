@@ -17,19 +17,22 @@ const user = ref({
 
 const handleAuth = async () => {
   authStatus.value = await auth(user.value);
-  if (authStatus.value.status) {
+  console.log(authStatus.value.data);
+
+  if (authStatus.value.data && process.client) {
+    console.log(authStatus.value);
     token.value = authStatus.value.data.access_token
+    useLocalStorage('token',authStatus.value.data.access_token )
     navigateTo({ path: '/' });
   }
 };
-
 
 setPageLayout('empty');
 </script>
 
 <template>
   <div class='container'>
-    <el-form class='login'>
+    <el-form class='login' @keydown.enter='handleAuth()'>
       <div class='login__header'>Авторизация</div>
       <div class='login__item'>
         <div class='login__icon'>

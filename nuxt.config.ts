@@ -15,7 +15,17 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@/modules/moment-reset',
-    'dayjs-nuxt'
+    'dayjs-nuxt',
+    ['@nuxtjs/google-fonts', {
+      families: {
+        Montserrat: true,
+        Inter: [400, 700],
+        Raleway: {
+          wght: [100, 400, 700],
+          ital: [100]
+        },
+      }
+    }],
   ],
 
   dayjs: {

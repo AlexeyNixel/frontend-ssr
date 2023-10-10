@@ -48,6 +48,7 @@ const handleSearch = () => {
 const fetchData = async (val?: number) => {
   if (val) {
     navigateTo({ path: '/entry/search', query: { search: searchText.value, page: val } });
+    window.scroll(0,0)
   }
 
   const params = {

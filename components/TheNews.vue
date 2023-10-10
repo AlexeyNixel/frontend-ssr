@@ -20,7 +20,6 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   });
   news.value[rubric] = data;
 }
-
 </script>
 
 <template>

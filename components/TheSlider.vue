@@ -19,13 +19,11 @@ await sliderStore.getSlides({include:'image,entry'});
       <el-carousel-item class='slider__item' v-for="item in slides" :key="item.id">
         <NuxtLink :to='`/entry/${item?.entry.slug}`'>
           <img class='slider__img' :src='staticUrl+item.image.path' alt=''>
-
         </NuxtLink>
-        <NuxtLink to='/' class='slider__icon'>
+        <NuxtLink :to='`http://admin.infomania.ru/slides/update/${item.id}`' class='slider__icon'>
           <font-awesome-icon v-if='generalStore.token'  icon='fa-solid fa-gear' />
         </NuxtLink>
       </el-carousel-item>
-
     </el-carousel>
   </div>
 </template>
