@@ -6,7 +6,6 @@ export default defineNuxtConfig({
       title:"НОМБ",
     }
   },
-  //@ts-ignore
   buildModules: [
     '@nuxtjs/moment', ['ru'],
   ],
@@ -19,9 +18,9 @@ export default defineNuxtConfig({
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,
-        Inter: [400, 700],
+        Inter: [400],
         Raleway: {
-          wght: [100, 400, 700],
+          wght: [100, 700],
           ital: [100]
         },
       }
