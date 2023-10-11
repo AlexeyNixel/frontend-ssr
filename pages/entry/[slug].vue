@@ -1,36 +1,89 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
+import dayjs from 'dayjs';
+import { useGeneralStore } from '~/stores/generalStore';
 
-const route = useRoute()
-const entryStore = useEntryStore()
-const entry = ref<EntryType>()
+const generalStore = useGeneralStore();
+const route = useRoute();
+const entryStore = useEntryStore();
+const entry = ref<EntryType>();
 
-entry.value = await entryStore.getEntry(route.params.slug as string)
+entry.value = await entryStore.getEntry(route.params.slug as string, {
+  include: 'department',
+});
 </script>
 
 <template>
-  <div class='entry' v-if='entry'>
-    <div class='entry-header'>
-      <div class='entry-header__title'>{{ entry.title }}</div>
-      <div class='entry-header__department'>Отдел отраслевой литературы</div>
-      <div class='entry-header__date'>{{ entry.publishedAt}}</div>
+  <div class="entry" v-if="entry">
+    <div class="entry__header">
+      <div class="entry__title">
+        {{ entry.title }}
+      </div>
+      <div class="entry__info">
+        <NuxtLink
+          :to="`/department/${entry.department.slug}`"
+          class="entry__department"
+          >{{ entry.department.title }}
+        </NuxtLink>
+        <div class="entry__date">
+          {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
+        </div>
+      </div>
     </div>
-    <div class='entry__content ck-content' v-html='entry.content'></div>
+    <div class="entry__content ck-content" v-html="entry.content"></div>
+    <div class="entry__admin-btn" v-if="generalStore.token">
+      <el-button
+        type="warning"
+        @click="
+          navigateTo('http://admin.infomania.ru/entry/update/' + entry.slug, {
+            external: true,
+          })
+        ">
+        Редактировать
+      </el-button>
+    </div>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .entry {
+  margin-bottom: 50px;
+  &__header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
-}
-
-.entry-header {
-  display: flex;
-  margin-bottom: 10px;
-  &__title{
+  &__title {
+    font-weight: bold;
     font-size: 1.4rem;
   }
+
+  &__info {
+    text-align: right;
+  }
+
+  &__department {
+    color: #007bff;
+    font-weight: bold;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__date {
+    font-style: italic;
+  }
+  &__admin-btn {
+    margin-top: 10px;
+  }
+}
+:deep(.el-button) {
+  border-radius: 10px;
 }
 </style>

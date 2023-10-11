@@ -1,12 +1,19 @@
 <script setup lang="ts">
-
-import TheHeader from "~/components/TheHeader.vue";
+import TheHeader from '~/components/TheHeader.vue';
 import WorktimeLibrary from '~/components/modals/WorktimeLibrary.vue';
+import { useGeneralStore } from '~/stores/generalStore';
+import { storeToRefs } from 'pinia';
+
+const generalStore = useGeneralStore()
+const {token} = storeToRefs(generalStore)
+if (process.client) {
+  token.value = localStorage.getItem('token') as string
+}
 </script>
 
 <template>
   <div class="common-layout">
-    <TheHeader/>
+    <TheHeader />
     <slot />
   </div>
   <worktime-library />

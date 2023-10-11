@@ -1,6 +1,11 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
-
+  //@ts-ignore
+  app: {
+    head: {
+      title:"НОМБ",
+    }
+  },
   //@ts-ignore
   buildModules: [
     '@nuxtjs/moment', ['ru'],
@@ -10,12 +15,44 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     '@pinia/nuxt',
     '@/modules/moment-reset',
-    'dayjs-nuxt'
+    'dayjs-nuxt',
+    ['@nuxtjs/google-fonts', {
+      families: {
+        Montserrat: true,
+        Inter: [400, 700],
+        Raleway: {
+          wght: [100, 400, 700],
+          ital: [100]
+        },
+      }
+    }],
   ],
 
   dayjs: {
     locales:['ru'],
     defaultLocale: 'ru',
+  },
+
+  vite: {
+    server: {
+      port: 3001,
+      proxy: {
+        '/site': {
+          target: 'http://static.infomania.ru/',
+          changeOrigin: true,
+        },
+        '/media': {
+          target: 'http://static.infomania.ru/site',
+          changeOrigin: true,
+        },
+        '/news': {
+          target: 'http://dev.infomania.ru/',
+          changeOrigin: true,
+          //@ts-ignore
+          rewrite: (path) => path.replace(/^\/entry/, ''),
+        },
+      },
+    }
   },
 
   //@ts-ignore
@@ -26,6 +63,5 @@ export default defineNuxtConfig({
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'element-plus/theme-chalk/dark/css-vars.css',
-
   ],
 });

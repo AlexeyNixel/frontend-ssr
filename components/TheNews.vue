@@ -20,7 +20,6 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   });
   news.value[rubric] = data;
 }
-
 </script>
 
 <template>
@@ -36,6 +35,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
           class='news-menu__item-news'
           v-for='item in menu'
           :key='item.id'
+          :to='`entry/${item.slug}`'
         >
           <div class='news-menu__item_news-preview'>
             <img v-if='item.preview' :src='`${staticUrl}${item.preview.path}`' alt=''>
@@ -59,8 +59,6 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 
   &__item {
     padding: 10px;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%),
-    0 2px 10px 0 rgb(0 0 0 / 12%);
     background: var(--el-bg-color);
     border-radius: 10px;
     width: calc((100% / 3) - 30px);

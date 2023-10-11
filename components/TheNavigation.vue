@@ -13,12 +13,12 @@ const tabs = {
   'documents': TheDocuments,
 };
 
-const btns = [
-  'reader',
-  'about',
-  'colleagues',
-  'documents',
-];
+const ruTabs = {
+  'reader': 'Читателям',
+  'about': 'О библиотеке',
+  'colleagues': 'Коллегам',
+  'documents': 'Документы',
+}
 
 const swapMenus = (menu: string) => {
   if (currentMenu.value === menu) {
@@ -34,9 +34,9 @@ const swapMenus = (menu: string) => {
     <div class='navigation-menu__btn-group'>
       <el-button
         class='navigation-menu__btn'
-        v-for='item in btns'
-        :key='item'
-        @click='swapMenus(item)'
+        v-for='(item, name) in ruTabs'
+        :key='name'
+        @click='swapMenus(name)'
       >
         {{ item }}
       </el-button>
@@ -64,6 +64,10 @@ const swapMenus = (menu: string) => {
     height: 2.5vw;
     color: white;
     border: none;
+    border-radius: 10px;
+    &:active {
+      transform: scale(.9);
+    }
 
     &:nth-child(1) {
       background: #F44242;

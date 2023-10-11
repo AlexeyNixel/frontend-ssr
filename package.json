@@ -6,14 +6,15 @@
   },
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --port=3000",
     "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "preview": "nuxt preview PORT=3000",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
     "@element-plus/nuxt": "^1.0.5",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/google-fonts": "^3.0.2",
     "@types/node": "^18.17.3",
     "@vueuse/core": "^10.3.0",
     "@vueuse/nuxt": "^10.3.0",
