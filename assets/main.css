@@ -24,3 +24,15 @@ html {
   --logo-color: black;
   --footer-bg: #007bff;
 }
+
+.el-overlay-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.el-dialog__body {
+  margin: 0;
+}

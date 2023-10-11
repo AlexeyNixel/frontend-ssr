@@ -1,31 +1,29 @@
 <script setup lang='ts'>
 import { useFileStore } from '~/stores/fileStore';
+import { useGeneralStore } from '~/stores/generalStore';
+import TheExhibitionsItem from '~/components/modals/TheExhibitionsItem.vue';
 
+const generalStore = useGeneralStore()
 const fileStore = useFileStore();
-const files = ref<Array<any>>([]);
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
-const isActive = ref(false);
-const currentPath = ref<string>();
+const files = ref<Array<any>>([]);
+const currentPath = ref<string>('');
 
 const { data } = await fileStore.getFiles({
   pageSize: 9,
   searchByField: 'type=EXHIBITION',
   orderBy: '-createdAt',
 });
-
-//@ts-ignore
 const res = Object.entries(data).map((key) => ({
   [key[0]]: key[1],
 }));
-
 for (let value = 0; value < res.length; value += 3) {
   const chunk = res.slice(value, value + 3);
   files.value.push(chunk);
 }
-
 const handleChangeExhibition = (path: string) => {
-  isActive.value = !isActive.value;
+  generalStore.isExhibition = !generalStore.isExhibition
   currentPath.value = path;
 };
 </script>
@@ -39,12 +37,13 @@ const handleChangeExhibition = (path: string) => {
           :key='item.id'
           :src='staticUrl+image.preview'
           class='exhibition__image'
-          @click='handleChangeExhibition(image.preview)'
+          @click='handleChangeExhibition(image.path)'
           alt=''
         >
       </template>
     </el-carousel-item>
   </el-carousel>
+  <the-exhibitions-item :path='currentPath'/>
 </template>
 
 <style scoped lang='scss'>

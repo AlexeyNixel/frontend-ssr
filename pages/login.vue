@@ -17,10 +17,8 @@ const user = ref({
 
 const handleAuth = async () => {
   authStatus.value = await auth(user.value);
-  console.log(authStatus.value.data);
 
   if (authStatus.value.data && process.client) {
-    console.log(authStatus.value);
     token.value = authStatus.value.data.access_token
     useLocalStorage('token',authStatus.value.data.access_token )
     navigateTo({ path: '/' });

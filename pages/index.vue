@@ -8,7 +8,6 @@ const generalStore = useGeneralStore();
 if (process.client) {
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
-  if (!token) console.log('not found');
 }
 
 if (process.client && window.innerWidth < 997) {
