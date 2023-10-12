@@ -34,3 +34,7 @@ html {
 .el-dialog__body {
     margin: 0;
 }
+
+.el-message-box {
+    border-radius: 10px;
+}

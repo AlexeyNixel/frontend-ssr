@@ -29,7 +29,7 @@ const handleChangeExhibition = (path: string) => {
 </script>
 
 <template>
-  <el-carousel class='exhibition' trigger='click' height='250px'>
+  <el-carousel class='exhibition' trigger='click' height='400px'>
     <el-carousel-item class='exhibition__item' v-for='(slide, index) in files' :key='index'>
       <template v-for='(item, index) in slide' :key='index'>
         <img
@@ -61,6 +61,7 @@ const handleChangeExhibition = (path: string) => {
     align-items: center;
     width: calc(100% / 3 - 10px);
     height: 100%;
+    cursor: pointer;
   }
 }
 </style>

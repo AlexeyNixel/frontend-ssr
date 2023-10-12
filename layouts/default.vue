@@ -23,4 +23,10 @@ if (process.client) {
 .common-layout {
   margin: 0 14vw;
 }
+
+@media (min-width: 320px) and (max-width: 1199px) {
+  .common-layout {
+    margin: 1vw;
+  }
+}
 </style>

@@ -99,6 +99,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     &_news-text {
       width: 70%;
       margin-left: 10px;
+      word-break: break-word;
     }
   }
 

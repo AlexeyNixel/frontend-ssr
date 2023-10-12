@@ -60,8 +60,8 @@ const swapMenus = (menu: string) => {
   }
 
   &__btn {
-    width: 13vw;
-    height: 2.5vw;
+    width: 300px;
+    height: 50px;
     color: white;
     border: none;
     border-radius: 10px;

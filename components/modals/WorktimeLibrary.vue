@@ -7,7 +7,6 @@ const { isWorkTime } = storeToRefs(generalStore);
 </script>
 
 <template>
-  <div v-if='isWorkTime'>aasd</div>
   <div>
     <el-dialog v-if='isWorkTime'>
       <template #header>
