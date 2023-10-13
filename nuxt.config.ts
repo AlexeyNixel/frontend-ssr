@@ -25,6 +25,17 @@ export default defineNuxtConfig({
         },
       }
     }],
+    [
+      '@nuxtjs/yandex-metrika',
+      {
+        id: '85679319',
+        webvisor: true,
+        // clickmap: true,
+        // useCDN: false,
+        // trackLinks: true,
+        // accurateTrackBounce: true,
+      }
+    ]
   ],
 
   dayjs: {
