@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@/modules/moment-reset',
     'dayjs-nuxt',
+    'nuxt-swiper',
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,
@@ -25,17 +26,6 @@ export default defineNuxtConfig({
         },
       }
     }],
-    [
-      '@nuxtjs/yandex-metrika',
-      {
-        id: '85679319',
-        webvisor: true,
-        // clickmap: true,
-        // useCDN: false,
-        // trackLinks: true,
-        // accurateTrackBounce: true,
-      }
-    ]
   ],
 
   dayjs: {
@@ -73,5 +63,6 @@ export default defineNuxtConfig({
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'element-plus/theme-chalk/dark/css-vars.css',
+    'v-calendar/style.css'
   ],
 });
