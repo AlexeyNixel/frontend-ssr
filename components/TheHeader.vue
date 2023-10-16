@@ -129,19 +129,19 @@ const buttons = [
     width: 50%;
 
     img {
-      width: 12vw;
+      width: 250px;
     }
   }
 
   &__btn-group {
     width: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     margin: 0;
   }
 
   &__btn {
-    font-size: 1.5vw;
+    font-size: 1.8rem;
     color: #007bff;
 
     &:hover {
@@ -159,46 +159,52 @@ const buttons = [
   color: orange;
 }
 
+@media (min-width: 992px) and (max-width: 1269px) {
+  .slider {
+    height: 300px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .slider {
+    height: 250px;
+  }
+}
+
+@media(min-width: 360px) and (max-width: 767px) {
+  .header {
+    &__logo img{
+      width: 40vw;
+    }
+    &__btn {
+      font-size: 1.3rem;
+      &:nth-child(5) {
+        display: none;
+      }
+    }
+  }
+}
+
+@media(max-width: 359px) {
+  .header {
+    &__logo img{
+      width: 40vw;
+    }
+    &__btn {
+      font-size: 4vw;
+      &:nth-child(5) {
+        display: none;
+      }
+    }
+  }
+}
+
 :deep(.dialog-time) {
   border-radius: 10px;
   box-shadow: none;
   border: none;
 }
-
 :deep(.el-message-box) {
   border-radius: 10px;
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .header {
-    &__logo img {
-      width: 25vw;
-    }
-
-    &__btn-group {
-      width: 40%;
-    }
-
-    &__btn {
-      font-size: 2.5vw;
-    }
-  }
-}
-
-@media (min-width: 320px) and (max-width: 991px) {
-  .header {
-    &__logo img {
-      width: 40vw;
-    }
-
-    &__btn-group {
-      width: 50%;
-    }
-
-    &__btn {
-      font-size: 4vw;
-      margin: 0 5px 0 0;
-    }
-  }
 }
 </style>

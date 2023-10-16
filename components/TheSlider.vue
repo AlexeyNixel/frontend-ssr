@@ -43,7 +43,7 @@ await sliderStore.getSlides({ include: 'image,entry' });
 .slider {
   margin: 1vh 0;
   border-radius: 10px;
-  height: 22vw;
+  height: 22rem;
 
   &__img {
     width: 100%;
@@ -60,7 +60,19 @@ await sliderStore.getSlides({ include: 'image,entry' });
     margin: .5vw;
   }
 }
-@media (min-width: 320px) and (max-width: 991px) {
+@media (min-width: 992px) and (max-width: 1269px) {
+  .slider {
+    height: 300px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .slider {
+    height: 250px;
+  }
+}
+
+@media(max-width: 767px) {
   .slider {
     height: 30vw;
   }

@@ -15,6 +15,7 @@ if (process.client) {
 //   navigateTo('http://m.infomania.ru', {external: true})
 // }
 
+
 setPageLayout('default');
 </script>
 
@@ -22,18 +23,35 @@ setPageLayout('default');
   <div>
     <the-slider />
     <the-navigation />
-<!--    <TheBillboard />-->
-<!--    <TheNews />-->
-    <TheTestBillboard/>
-<!--    <TheDepartment />-->
-<!--    <client-only>-->
-<!--      <TheGos />-->
-<!--      <TheExhibitions />-->
-<!--      <TheFooter />-->
-<!--    </client-only>-->
+    <!--    <TheBillboard />-->
+    <TheNews class='desktop' />
+    <TheNewsMobile class='mobile' />
+    <!--    <TheTestBillboard/>-->
+    <!--    <TheDepartment />-->
+    <!--    <client-only>-->
+    <!--      <TheGos />-->
+    <!--      <TheExhibitions />-->
+    <!--      <TheFooter />-->
+    <!--    </client-only>-->
   </div>
 </template>
 
 <style scoped>
+.mobile {
+  display: none;
+}
 
+.desktop {
+  display: flex;
+}
+
+@media (min-width: 360px) and (max-width: 767px) {
+  .mobile {
+    display: block;
+  }
+
+  .desktop {
+    display: none;
+  }
+}
 </style>
