@@ -177,7 +177,7 @@ const buttons = [
       width: 40vw;
     }
     &__btn {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       &:nth-child(5) {
         display: none;
       }
@@ -191,7 +191,7 @@ const buttons = [
       width: 40vw;
     }
     &__btn {
-      font-size: 4vw;
+      font-size: 3vw;
       &:nth-child(5) {
         display: none;
       }

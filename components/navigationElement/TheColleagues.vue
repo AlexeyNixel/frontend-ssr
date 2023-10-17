@@ -16,8 +16,8 @@ about.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
 
 <template>
   <div>
-    <el-row class='navigation-content'>
-      <el-col :span='6' class='navigation-content__block' v-for='item in about' :key='item.id'>
+    <el-row class='navigation-content' justify='space-between'>
+      <el-col :span='5' class='navigation-content__block' v-for='item in about' :key='item.id'>
         <div class='navigation-content__title'>{{item.title}}</div>
         <div class='navigation-content__container' v-for='links in item.menuItems'>
           <NuxtLink
@@ -46,7 +46,7 @@ about.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
   background: var(--el-bg-color);
   padding: 10px 20px;
   border-radius: 10px;
-  margin-top: 2px;
+  //height: 300px;
 
   &__title {
     font-size: 1.3rem;

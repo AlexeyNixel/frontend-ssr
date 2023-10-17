@@ -76,7 +76,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     width: 200px;
     flex-shrink: 0;
     margin-right: 10px;
-    background: var(--element-bg-color);
+    background: var(--el-bg-color);
     border-radius: 10px;
     text-decoration: none;
     color: var(--font-color);

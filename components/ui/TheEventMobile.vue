@@ -37,7 +37,7 @@ const {activeComp} = storeToRefs(billboardStore)
 .slider {
   height: 445px;
 
-  background: #141414;
+  background: var(--el-bg-color);
   border-radius: 10px;
 
   &__content {

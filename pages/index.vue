@@ -1,5 +1,4 @@
 <script setup lang='ts'>
-import TheBillboard from '~/components/TheBillboard.vue';
 import { setPageLayout } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
 import TheTestBillboard from '~/components/TheTestBillboard.vue';
@@ -18,7 +17,8 @@ setPageLayout('default');
 <template>
   <div>
     <the-slider />
-    <the-navigation />
+    <the-navigation v-if='generalStore.device === "desktop"'/>
+    <the-navigation-mobile v-else/>
     <client-only>
       <TheTestBillboard v-if='generalStore.device === "desktop"' />
       <TheBillboardMobile v-else />

@@ -44,7 +44,7 @@ const swapMenus = (menu: string) => {
       </div>
     </el-scrollbar>
   </div>
-  <Transition :duration='250' name='nested'>
+  <Transition :duration='300' name='nested'>
     <component :is='tabs[currentMenu]' />
   </Transition>
 </template>
@@ -67,22 +67,19 @@ const swapMenus = (menu: string) => {
     color: white;
     border: none;
     border-radius: 10px;
+
     &:active {
       transform: scale(.9);
     }
-
     &:nth-child(1) {
       background: #F44242;
     }
-
     &:nth-child(2) {
       background: #6ea917;
     }
-
     &:nth-child(3) {
       background: #ff6600;
     }
-
     &:nth-child(4) {
       background: #4285f4;
     }
@@ -90,7 +87,7 @@ const swapMenus = (menu: string) => {
 }
 
 .nested-enter-active, .nested-leave-active {
-  max-height: 250px;
+  max-height: 400px;
   overflow: hidden;
   transition: max-height 0.3s;
 }

@@ -8,7 +8,6 @@ const generalStore = useGeneralStore()
 const {token} = storeToRefs(generalStore)
 if (process.client) {
   token.value = localStorage.getItem('token') as string
-  console.log(window.innerWidth);
 }
 </script>
 

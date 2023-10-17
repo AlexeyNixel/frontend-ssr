@@ -16,7 +16,6 @@ const component = {
 <template>
   <div class='billboard'>
     <component :is='component[activeComp]' />
-
   </div>
 </template>
 
@@ -24,6 +23,5 @@ const component = {
 .billboard {
   height: 445px;
 }
-
 
 </style>

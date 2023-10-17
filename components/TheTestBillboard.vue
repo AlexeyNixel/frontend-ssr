@@ -17,7 +17,6 @@ const calendarMove = async (val: any) => {
   await handleFetchData(startDay, endDay );
 };
 
-
 const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
 const toDate = dayjs(new Date()).endOf('month').format('YYYY-MM-DD');
 
@@ -58,6 +57,9 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
       key: event.id,
       highlight: true,
       dates: dayjs(event.eventDate).format('YYYY-MM-DD'),
+      popover: {
+        label: event.title,
+      },
     });
   });
 };
@@ -106,6 +108,7 @@ handleFetchData(fromDate, toDate);
   border-radius: 10px;
   padding: 10px;
   max-height: 500px;
+  margin: 1vh 0;
 
   &__header {
     font-size: 1.3rem;
@@ -117,23 +120,13 @@ handleFetchData(fromDate, toDate);
     display: flex;
     min-height: 400px;
   }
-
-  //&__calendar {
-  //  min-width: 25%;
-  //}
-  //
-  //&__content {
-  //  width: 75%;
-  //}
 }
 
 .event {
-  //width: 100%;
   height: 95%;
 
   &__item {
     width: 100%;
-    //background: #007BFF;
   }
 
 }

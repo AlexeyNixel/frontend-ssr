@@ -57,6 +57,11 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     padding: 20px;
     border-radius: 10px;
   }
+  &__header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0 10px;
+  }
 }
 
 .entry {
@@ -64,6 +69,12 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   height: 100px;
   margin: 10px 0;
   justify-content: space-between;
+  padding: 10px 10px;
+  border-radius: 10px;
+  &:hover {
+    background: #d8d8d8;
+    transition: .3s;
+  }
 
   &__preview {
     width: 30%;
@@ -78,6 +89,14 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 
   &__title {
     width: 65%;
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media (min-width: 980px) and (max-width: 1363px) {
+  .entry__title {
+    font-size: .9rem;
   }
 }
 
