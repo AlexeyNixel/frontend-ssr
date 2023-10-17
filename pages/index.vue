@@ -20,17 +20,17 @@ setPageLayout('default');
     <the-slider />
     <the-navigation />
     <client-only>
-      <TheTestBillboard v-if='generalStore.device === "desktop"'/>
-      <TheBillboardMobile v-else/>
+      <TheTestBillboard v-if='generalStore.device === "desktop"' />
+      <TheBillboardMobile v-else />
     </client-only>
     <TheNews class='desktop' />
     <TheNewsMobile class='mobile' />
-    <!--    <TheDepartment />-->
-    <!--    <client-only>-->
-    <!--      <TheGos />-->
-    <!--      <TheExhibitions />-->
-    <!--      <TheFooter />-->
-    <!--    </client-only>-->
+    <TheDepartment />
+    <client-only>
+      <TheGos />
+      <TheExhibitions />
+      <TheFooter />
+    </client-only>
   </div>
 </template>
 

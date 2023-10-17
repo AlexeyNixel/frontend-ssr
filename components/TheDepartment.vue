@@ -26,6 +26,7 @@ departments.value = data
   display: flex;
   justify-content: space-between;
   margin: 1vh 0;
+
   &__item {
     width: calc(100% / 5 - 10px);
     background: var(--el-bg-color);
@@ -34,19 +35,35 @@ departments.value = data
     text-decoration: none;
     color: var(--el-text-color);
   }
+
   &__img {
     width: 100%;
     border-radius: 10px 10px 0 0 ;
-    height: 250px;
+    height: 65%;
     display: inline-block;
     object-fit: cover;
   }
+
   &__title {
     display: flex;
+    height: 35%;
     justify-content: center;
     align-items: center;
     text-align: center;
     text-decoration: none;
+  }
+}
+
+
+@media (min-width: 980px) and (max-width: 1363px) {
+  .departments__item {
+    height: 200px;
+  }
+}
+
+@media (max-width: 980px)  {
+  .departments {
+    display: none;
   }
 }
 </style>

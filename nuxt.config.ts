@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     '@/modules/moment-reset',
     'dayjs-nuxt',
     'nuxt-swiper',
+    'nuxt-proxy',
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,
@@ -32,16 +33,7 @@ export default defineNuxtConfig({
     locales:['ru'],
     defaultLocale: 'ru',
   },
-  nitro: {
-    routeRules: {
-      '/site': {
-        proxy:'http://static.infomania.ru/'
-      },
-      '/media': {
-        proxy: 'http://static.infomania.ru/site',
-      },
-    }
-  },
+
   vite: {
     server: {
       port: 3001,

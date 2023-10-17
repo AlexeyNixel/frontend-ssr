@@ -26,13 +26,13 @@ if (process.client) {
   margin: auto;
 }
 
-@media (min-width: 1920px) {
+@media (min-width: 1921px) {
   .common-layout {
     max-width: 1920px;
   }
 }
 
-@media (min-width: 1364px) and (max-width: 1919px) {
+@media (min-width: 1364px) and (max-width: 1920px) {
   .common-layout {
     max-width: 1364px;
   }

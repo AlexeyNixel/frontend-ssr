@@ -3,6 +3,7 @@ import { useSliderStore } from '~/stores/sliderStore';
 import { storeToRefs } from 'pinia';
 import { useGeneralStore } from '~/stores/generalStore';
 
+
 const generalStore = useGeneralStore();
 
 const sliderStore = useSliderStore();
@@ -15,8 +16,9 @@ await sliderStore.getSlides({ include: 'image,entry' });
 <template>
   <div v-if='slides'>
     <Swiper
-      :modules='[SwiperAutoplay]'
+      :modules='[SwiperAutoplay, SwiperPagination]'
       :loop='true'
+      :pagination="true"
       :autoplay='{delay: 6000,disableOnInteraction: true,}'
       class='slider'
     >
@@ -63,7 +65,7 @@ await sliderStore.getSlides({ include: 'image,entry' });
   }
 }
 
-@media (min-width: 1364px) and (max-width: 1919px) {
+@media (min-width: 1364px) and (max-width: 1921px) {
   .slider {
     height: 426px;
   }

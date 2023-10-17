@@ -9,7 +9,10 @@ const {activeComp} = storeToRefs(billboardStore)
 </script>
 
 <template>
-  <Swiper v-if='selectedEvents' class='slider'>
+  <Swiper
+    :modules='[SwiperPagination]'
+    :pagination='true'
+    v-if='selectedEvents' class='slider'>
     <SwiperSlide class='slider__item' v-for='item in selectedEvents' :key='item.id'>
       <div class='slider__content'>
         <div class='slider__header'>
