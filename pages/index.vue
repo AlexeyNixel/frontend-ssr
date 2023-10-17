@@ -2,19 +2,15 @@
 import TheBillboard from '~/components/TheBillboard.vue';
 import { setPageLayout } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
-import TheTestBillboard from '~/components/ui/TheTestBillboard.vue';
+import TheTestBillboard from '~/components/TheTestBillboard.vue';
 
 const generalStore = useGeneralStore();
 
 if (process.client) {
+  generalStore.device = window.innerWidth < 980 ? 'mobile' : 'desktop';
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
 }
-
-// if (process.client && window.innerWidth < 997) {
-//   navigateTo('http://m.infomania.ru', {external: true})
-// }
-
 
 setPageLayout('default');
 </script>
@@ -23,10 +19,12 @@ setPageLayout('default');
   <div>
     <the-slider />
     <the-navigation />
-    <!--    <TheBillboard />-->
+    <client-only>
+      <TheTestBillboard v-if='generalStore.device === "desktop"'/>
+      <TheBillboardMobile v-else/>
+    </client-only>
     <TheNews class='desktop' />
     <TheNewsMobile class='mobile' />
-    <!--    <TheTestBillboard/>-->
     <!--    <TheDepartment />-->
     <!--    <client-only>-->
     <!--      <TheGos />-->

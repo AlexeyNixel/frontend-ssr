@@ -69,7 +69,7 @@ handleFetchData(fromDate, toDate);
   <div class='billboard'>
     <div class='billboard__header'>Афиша</div>
     <el-row class='billboard__main'>
-      <el-col :xs='10' :sm='8' :md='8' :lg='8' :xl='6'>
+      <el-col :xs='24' :sm='8' :md='8' :lg='8' :xl='6' class='billboard__calendar'>
         <Calendar
           :ref='calendar'
           :is-dark="{ selector: 'html', darkClass: 'dark' }"
@@ -83,7 +83,7 @@ handleFetchData(fromDate, toDate);
         >
         </Calendar>
       </el-col>
-      <el-col :xs='14' :sm='16' :md='16' :lg='16' :xl='18'>
+      <el-col :xs='14' :sm='16' :md='16' :lg='16' :xl='18' class='event__content'>
         <Swiper class='event'>
           <SwiperSlide class='event__item' v-for='item in selectEvent' :key='item'>
             <the-event :event='item' />
@@ -118,13 +118,13 @@ handleFetchData(fromDate, toDate);
     min-height: 400px;
   }
 
-  &__calendar {
-    min-width: 25%;
-  }
-
-  &__content {
-    width: 75%;
-  }
+  //&__calendar {
+  //  min-width: 25%;
+  //}
+  //
+  //&__content {
+  //  width: 75%;
+  //}
 }
 
 .event {
@@ -137,19 +137,25 @@ handleFetchData(fromDate, toDate);
   }
 
 }
-
 :deep(.vc-container) {
   --vc-text-sm: 18px;
   height: 320px;
 
 }
-
 :deep(.vc-highlight) {
   width: 30px;
   height: 30px;
 }
-
 :deep(.vc-day) {
   min-height: 55px;
+}
+
+@media (max-width: 767px) {
+  .event__content {
+    display: none;
+  }
+  .billboard__calendar {
+    width: 100%;
+  }
 }
 </style>

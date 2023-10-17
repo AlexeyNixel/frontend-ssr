@@ -81,34 +81,9 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   }
 }
 
-@media(min-width: 360px) and (max-width: 767px) {
-  .entries {
-    display: block;
-
-    &__block {
-      width: 100%;
-      padding: 0;
-    }
-    &__main {
-      display: flex;
-    }
-  }
-  .entry {
-    display: block;
-    width: 300px;
-    height: 250px;
-
-    &__preview {
-      width: 100%;
-      img {
-        width: 100%;
-        //height: 100%;
-        object-fit: cover;
-      }
-    }
-  }
-  .flex {
-    display: flex;
+@media (max-width: 979px)  {
+  .entry__title {
+    font-size: 1.5vw;
   }
 }
 </style>

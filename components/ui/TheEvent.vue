@@ -20,11 +20,13 @@ const placeName = AffichePlaces;
     </div>
     <div class='event__text'>
       <div class='title' v-html='event.title' />
-      <div class='desc' v-html='event.desc' />
-      <div class='event__info'>
-        <div class='phone'>{{ event.phone }}</div>
-        <div class='place' v-text='placeName[event.eventPlace]' />
-      </div>
+      <el-scrollbar height='250px'>
+        <div class='desc' v-html='event.desc' />
+        <div class='event__info'>
+          <div class='phone'>{{ event.phone }}</div>
+          <div class='place' v-text='placeName[event.eventPlace]' />
+        </div>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -38,7 +40,7 @@ const placeName = AffichePlaces;
     width: 6%;
     padding: 10px;
     .day {
-      font-size: 3vw;
+      font-size: 3rem;
       font-weight: bold;
     }
     .time {

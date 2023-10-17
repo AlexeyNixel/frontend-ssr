@@ -27,13 +27,15 @@ await sliderStore.getSlides({ include: 'image,entry' });
         <NuxtLink class='slider__link' v-else :to='`/entry/${item.entry.slug}`'>
           <img class='slider__img' :src='staticUrl+item.image.path' alt=''>
         </NuxtLink>
-        <NuxtLink
-          :to='`http://admin.infomania.ru/slides/update/${item.id}`'
-          class='slider__update'
-          v-if='generalStore.token'
-        >
-          <font-awesome-icon v-if='generalStore.token' icon='fa-solid fa-gear' />
-        </NuxtLink>
+        <client-only>
+          <NuxtLink
+            :to='`http://admin.infomania.ru/slides/update/${item.id}`'
+            class='slider__update'
+            v-if='generalStore.token'
+          >
+            <font-awesome-icon v-if='generalStore.token' icon='fa-solid fa-gear' />
+          </NuxtLink>
+        </client-only>
       </SwiperSlide>
     </Swiper>
   </div>
@@ -43,7 +45,7 @@ await sliderStore.getSlides({ include: 'image,entry' });
 .slider {
   margin: 1vh 0;
   border-radius: 10px;
-  height: 22rem;
+  height: 600px;
 
   &__img {
     width: 100%;
@@ -60,21 +62,22 @@ await sliderStore.getSlides({ include: 'image,entry' });
     margin: .5vw;
   }
 }
-@media (min-width: 992px) and (max-width: 1269px) {
+
+@media (min-width: 1364px) and (max-width: 1919px) {
   .slider {
-    height: 300px;
+    height: 426px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 980px) and (max-width: 1363px) {
   .slider {
-    height: 250px;
+    height: 306px;
   }
 }
 
-@media(max-width: 767px) {
+@media (max-width: 979px)  {
   .slider {
-    height: 30vw;
+    height: 31.4vw;
   }
 }
 </style>

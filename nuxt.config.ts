@@ -32,7 +32,16 @@ export default defineNuxtConfig({
     locales:['ru'],
     defaultLocale: 'ru',
   },
-
+  nitro: {
+    routeRules: {
+      '/site': {
+        proxy:'http://static.infomania.ru/'
+      },
+      '/media': {
+        proxy: 'http://static.infomania.ru/site',
+      },
+    }
+  },
   vite: {
     server: {
       port: 3001,

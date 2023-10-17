@@ -8,6 +8,7 @@ const generalStore = useGeneralStore()
 const {token} = storeToRefs(generalStore)
 if (process.client) {
   token.value = localStorage.getItem('token') as string
+  console.log(window.innerWidth);
 }
 </script>
 
@@ -21,24 +22,29 @@ if (process.client) {
 
 <style scoped lang="scss">
 .common-layout {
-  max-width: 1270px;
+  max-width: 1532px;
   margin: auto;
 }
 
-@media (min-width: 992px) and (max-width: 1269px) {
+@media (min-width: 1920px) {
   .common-layout {
-    max-width: 992px;
+    max-width: 1920px;
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+@media (min-width: 1364px) and (max-width: 1919px) {
   .common-layout {
-    max-width: 768px;
-
+    max-width: 1364px;
   }
 }
 
-@media (max-width: 767px)  {
+@media (min-width: 980px) and (max-width: 1363px) {
+  .common-layout {
+    max-width: 980px;
+  }
+}
+
+@media (max-width: 980px)  {
   .common-layout {
     margin: 1vh;
 
