@@ -2,6 +2,8 @@
 import { useFileStore } from '~/stores/fileStore';
 import { useRoute } from 'vue-router';
 import { navigateTo } from '#app';
+import { useGeneralStore } from '~/stores/generalStore';
+import TheExhibitionsItem from '~/components/modals/TheExhibitionsItem.vue';
 
 const route = useRoute();
 const fileStore = useFileStore();
@@ -9,6 +11,13 @@ const exhibitions = ref<any>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const page = ref<number>(Number(route.query.page) || 1);
 const totalPage = ref<number>(1);
+
+const generalStore = useGeneralStore()
+const currentPath = ref<string>('');
+
+const handleChangeExhibition = (path: string) => {
+  navigateTo({path:'http://static.infomania.ru'+ path})
+};
 
 const fetchData = async (val?: number) => {
   if (val) {
@@ -32,10 +41,23 @@ fetchData();
 <template>
   <div class='title'>Викторины и выставки</div>
   <div class='container'>
-    <div class='exhibition' v-for='item in exhibitions' :key='item.id'>
-      <img class='exhibition__img' :src='staticUrl + item.preview' alt='' />
-    </div>
+    <a
+      :href='`http://static.infomania.ru${item.path}`'
+      class='exhibition'
+      v-for='item in exhibitions'
+      :key='item.id'
+      target='_blank'
+    >
+      <img
+        class='exhibition__img'
+        :src='staticUrl + item.preview'
+        alt=''
+        @click='handleChangeExhibition(item.path)'
+      />
+    </a>
   </div>
+
+  <the-exhibitions-item :path='currentPath'/>
   <el-pagination
     :current-page='page'
     background

@@ -2,11 +2,13 @@
 import { setPageLayout } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
 import TheTestBillboard from '~/components/TheTestBillboard.vue';
+import { storeToRefs } from 'pinia';
 
 const generalStore = useGeneralStore();
 
+const { isDesktop } = useDevice();
+
 if (process.client) {
-  generalStore.device = window.innerWidth < 980 ? 'mobile' : 'desktop';
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
 }
@@ -15,41 +17,19 @@ setPageLayout('default');
 </script>
 
 <template>
-  <div>
-    <the-slider />
-    <the-navigation v-if='generalStore.device === "desktop"'/>
-    <the-navigation-mobile v-else/>
-    <client-only>
-      <TheTestBillboard v-if='generalStore.device === "desktop"' />
-      <TheBillboardMobile v-else />
-    </client-only>
-    <TheNews class='desktop' />
-    <TheNewsMobile class='mobile' />
-    <TheDepartment />
-    <client-only>
-      <TheGos />
-      <TheExhibitions />
-      <TheFooter />
-    </client-only>
-  </div>
+  <TheSlider/>
+  <TheNavigation v-if='isDesktop'/>
+  <TheNavigationMobile v-else/>
+  <client-only v-if='isDesktop'><TheTestBillboard/></client-only>
+  <client-only v-else><TheBillboardMobile/></client-only>
+  <TheNews v-if='isDesktop'/>
+  <TheNewsMobile v-else/>
+  <client-only><TheGos/></client-only>
+  <TheDepartment/>
+  <TheExhibitions v-if='isDesktop'/>
+  <TheFooter/>
 </template>
 
 <style scoped>
-.mobile {
-  display: none;
-}
 
-.desktop {
-  display: flex;
-}
-
-@media (min-width: 360px) and (max-width: 767px) {
-  .mobile {
-    display: block;
-  }
-
-  .desktop {
-    display: none;
-  }
-}
 </style>

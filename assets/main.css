@@ -11,6 +11,8 @@ a {
 }
 
 body {
+    display: flex;
+    flex-direction: column;
     background: var(--el-bg-color-page);
     transition: background-color 0.2s !important;
 }

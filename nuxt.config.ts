@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     'dayjs-nuxt',
     'nuxt-swiper',
     'nuxt-proxy',
+    '@nuxtjs/device',
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,

@@ -4,7 +4,6 @@ import { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 import { useGeneralStore } from '~/stores/generalStore';
-import VueViewer from 'v-viewer';
 
 const generalStore = useGeneralStore();
 const route = useRoute();
@@ -20,10 +19,14 @@ const handleRouteAdmin = (slug: string) => {
 entry.value = await entryStore.getEntry(route.params.slug as string, {
   include: 'department',
 });
+
 </script>
 
 <template>
   <div class='entry' v-if='entry'>
+    <Head>
+      <Title>{{entry.title}}</Title>
+    </Head>
     <div class='entry__header'>
       <div class='entry__title'>
         {{ entry.title }}

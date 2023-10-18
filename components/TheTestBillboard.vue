@@ -8,7 +8,13 @@ import { useBillboardStore } from '~/stores/billboardStore';
 import { CalendarDay } from 'v-calendar/src/utils/page';
 import TheEvent from '~/components/ui/TheEvent.vue';
 
+const billboardStore = useBillboardStore();
+
 const calendar = ref(null);
+const selectEvent = ref<BillboardType[]>([]);
+const events = ref<BillboardType[]>();
+const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
+const toDate = dayjs(new Date()).endOf('month').format('YYYY-MM-DD');
 
 const calendarMove = async (val: any) => {
   const startDay = dayjs(val[0].monthComps.firstDayOfMonth).format('YYYY-MM-DD');
@@ -17,12 +23,6 @@ const calendarMove = async (val: any) => {
   await handleFetchData(startDay, endDay );
 };
 
-const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
-const toDate = dayjs(new Date()).endOf('month').format('YYYY-MM-DD');
-
-const selectEvent = ref<BillboardType[]>();
-const billboardStore = useBillboardStore();
-const events = ref<BillboardType[]>();
 const attrs = ref<AttributeConfig[]>([
   {
     key: 'off',
@@ -44,6 +44,7 @@ const handleSelectDay = async (date: CalendarDay) => {
     toDate: day + 'T00:00:00.000Z',
   });
 };
+
 const handleFetchData = async (fromDate: string, toDate: string) => {
   events.value = await billboardStore.getBillboards({
     fromDate: fromDate + 'T00:00:00.000Z',
@@ -86,11 +87,16 @@ handleFetchData(fromDate, toDate);
         </Calendar>
       </el-col>
       <el-col :xs='14' :sm='16' :md='16' :lg='16' :xl='18' class='event__content'>
-        <Swiper class='event'>
+        <Swiper v-if='selectEvent.length > 0' class='event'>
           <SwiperSlide class='event__item' v-for='item in selectEvent' :key='item'>
             <the-event :event='item' />
           </SwiperSlide>
+
         </Swiper>
+        <div class='empty-day' v-else>
+          <img class='empty-day__img' src='/books.svg' alt=''>
+          <h2>Сегодня можете взять книги</h2>
+        </div>
       </el-col>
     </el-row>
 
@@ -113,6 +119,7 @@ handleFetchData(fromDate, toDate);
   &__header {
     font-size: 1.3rem;
     font-weight: bold;
+    padding: 0 10px;
   }
 
   &__main {
@@ -130,6 +137,18 @@ handleFetchData(fromDate, toDate);
   }
 
 }
+
+.empty-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  &__img  {
+    width: 300px;
+  }
+}
+
 :deep(.vc-container) {
   --vc-text-sm: 18px;
   height: 320px;

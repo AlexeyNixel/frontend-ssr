@@ -1,6 +1,6 @@
 <script setup lang='ts'>
 import elementRu from 'element-plus/es/locale/lang/ru';
-
+import { useGeneralStore } from '~/stores/generalStore';
 useHead({
   meta: [
     { name: 'proculture-verification', content: '809fabd30403850765b290f8565b099d' },
@@ -37,6 +37,10 @@ useHead({
   ],
 });
 
+const generalStore = useGeneralStore()
+if (process.client) {
+  generalStore.device = window.innerWidth < 980 ? 'mobile' : 'desktop'
+}
 
 </script>
 
