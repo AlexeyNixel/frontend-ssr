@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     '@element-plus/nuxt',
     '@vueuse/nuxt',
     '@pinia/nuxt',
+    'nuxt-swiper',
     '@/modules/moment-reset',
     'dayjs-nuxt',
     ['@nuxtjs/google-fonts', {
