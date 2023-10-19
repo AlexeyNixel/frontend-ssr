@@ -15,7 +15,6 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@/modules/moment-reset',
     'dayjs-nuxt',
-    'nuxt-swiper',
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,
@@ -23,9 +22,9 @@ export default defineNuxtConfig({
         Raleway: {
           wght: [100, 700],
           ital: [100]
-        }
+        },
       }
-    }]
+    }],
   ],
 
   dayjs: {
@@ -33,6 +32,27 @@ export default defineNuxtConfig({
     defaultLocale: 'ru',
   },
 
+  vite: {
+    server: {
+      port: 3001,
+      proxy: {
+        '/site': {
+          target: 'http://static.infomania.ru/',
+          changeOrigin: true,
+        },
+        '/media': {
+          target: 'http://static.infomania.ru/site',
+          changeOrigin: true,
+        },
+        '/news': {
+          target: 'http://dev.infomania.ru/',
+          changeOrigin: true,
+          //@ts-ignore
+          rewrite: (path) => path.replace(/^\/entry/, ''),
+        },
+      },
+    }
+  },
 
   //@ts-ignore
   css: [
@@ -42,6 +62,5 @@ export default defineNuxtConfig({
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'element-plus/theme-chalk/dark/css-vars.css',
-    'v-calendar/style.css'
   ],
 });
