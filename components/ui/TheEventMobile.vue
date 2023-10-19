@@ -28,9 +28,6 @@ const {activeComp} = storeToRefs(billboardStore)
       </div>
     </SwiperSlide><el-icon><Close /></el-icon>
   </Swiper>
-  <div>
-    {{}}
-  </div>
 </template>
 
 <style scoped lang='scss'>
