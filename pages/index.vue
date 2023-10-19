@@ -2,6 +2,7 @@
 import TheBillboard from '~/components/TheBillboard.vue';
 import { setPageLayout } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
+import TheTestBillboard from '~/components/ui/TheTestBillboard.vue';
 
 const generalStore = useGeneralStore();
 
@@ -10,9 +11,9 @@ if (process.client) {
   generalStore.token = token as string;
 }
 
-if (process.client && window.innerWidth < 997) {
-  navigateTo('http://m.infomania.ru', {external: true})
-}
+// if (process.client && window.innerWidth < 997) {
+//   navigateTo('http://m.infomania.ru', {external: true})
+// }
 
 setPageLayout('default');
 </script>
@@ -21,14 +22,15 @@ setPageLayout('default');
   <div>
     <the-slider />
     <the-navigation />
-    <TheBillboard />
-    <TheNews />
-    <TheDepartment />
-    <client-only>
-      <TheGos />
-      <TheExhibitions />
-      <TheFooter />
-    </client-only>
+<!--    <TheBillboard />-->
+<!--    <TheNews />-->
+    <TheTestBillboard/>
+<!--    <TheDepartment />-->
+<!--    <client-only>-->
+<!--      <TheGos />-->
+<!--      <TheExhibitions />-->
+<!--      <TheFooter />-->
+<!--    </client-only>-->
   </div>
 </template>
 
