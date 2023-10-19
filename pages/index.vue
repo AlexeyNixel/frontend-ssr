@@ -21,7 +21,9 @@ setPageLayout('default');
   <div>
     <the-slider />
     <the-navigation />
-    <TheBillboard />
+    <client-only>
+      <TheBillboard />
+    </client-only>
     <TheNews />
     <TheDepartment />
     <client-only>
