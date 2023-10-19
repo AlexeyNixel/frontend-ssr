@@ -1,189 +1,140 @@
 <script setup lang='ts'>
-import { useBillboardStore } from '~/stores/billboardStore';
-import { BillboardType } from '~/models/baseTypes';
+import { Calendar } from 'v-calendar';
+import 'v-calendar/style.css';
+import { AttributeConfig } from 'v-calendar/src/utils/attribute';
 import dayjs from 'dayjs';
-import type { CalendarDateType, CalendarInstance } from 'element-plus';
-import moment from 'moment';
+import { BillboardType } from '~/models/baseTypes';
+import { useBillboardStore } from '~/stores/billboardStore';
+import { CalendarDay } from 'v-calendar/src/utils/page';
 import TheEvent from '~/components/ui/TheEvent.vue';
 
 const billboardStore = useBillboardStore();
-const billboards = ref<BillboardType[]>();
 
+const calendar = ref(null);
+const selectEvent = ref<BillboardType[]>([]);
+const events = ref<BillboardType[]>();
+const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
+const toDate = dayjs(new Date()).endOf('month').format('YYYY-MM-DD');
 
-const currentEvent = ref<BillboardType[]>();
-const dateEvents = ref<string[]>([]);
-
-const calendar = ref<CalendarInstance>();
-const selectDate = (val: CalendarDateType) => {
-  if (!calendar.value) return;
-  calendar.value.selectDate(val);
-
-  //@ts-ignore
-  const fromDate = moment(calendar.value.selectedDay.$d)
-    .startOf('month')
-    .format('YYYY-MM-DD');
-  //@ts-ignore
-  const toDate = moment(calendar.value.selectedDay.$d)
-    .endOf('month')
-    .format('YYYY-MM-DD');
-  fetchData(fromDate, toDate);
+const calendarMove = async (val: any) => {
+  const startDay = dayjs(val[0].monthComps.firstDayOfMonth).format('YYYY-MM-DD');
+  const endDay = dayjs(val[0].monthComps.firstDayOfMonth).endOf('month').format('YYYY-MM-DD');
+  if (fromDate === startDay) return;
+  await handleFetchData(startDay, endDay );
 };
 
-const whatADay = (date: string) => {
-  if (dayjs(date).format('dd') === 'пн') return 'day-off';
-  else if (dateEvents.value.includes(`${date}T00:00:00.000Z`)) {
-    return 'event-day';
-  } else return 'regular-day';
-};
+const attrs = ref<AttributeConfig[]>([
+  {
+    key: 'off',
+    highlight: {
+      color: 'orange',
+    },
+    //@ts-ignore
+    dates: { repeat: { weekdays: 2 } },
+    popover: {
+      label: 'Выходной',
+    },
+  },
+]);
 
-const handleEventCheck = async (date: string) => {
-  const { data } = await billboardStore.getBillboards({
-    searchByField: `eventDate=${date}T00:00:00.000Z`,
+const handleSelectDay = async (date: CalendarDay) => {
+  const day = dayjs(date.date).format('YYYY-MM-DD');
+  selectEvent.value = await billboardStore.getBillboards({
+    fromDate: day + 'T00:00:00.000Z',
+    toDate: day + 'T00:00:00.000Z',
   });
-  currentEvent.value = data;
 };
 
-const fetchData = async (fromDate: string, toDate: string) => {
-  const { data } = await billboardStore.getBillboards({
+const handleFetchData = async (fromDate: string, toDate: string) => {
+  events.value = await billboardStore.getBillboards({
     fromDate: fromDate + 'T00:00:00.000Z',
     toDate: toDate + 'T00:00:00.000Z',
     pageSize: 50,
     orderBy: '-eventDate',
   });
-
-  billboards.value = data;
-  billboards.value?.forEach((item) => {
-    dateEvents.value.push(item.eventDate);
+  console.log(events.value);
+  events.value?.forEach((event) => {
+    //@ts-ignore
+    attrs.value.push({
+      key: event.id,
+      highlight: true,
+      dates: dayjs(event.eventDate).format('YYYY-MM-DD'),
+      popover: {
+        label: event.title,
+      },
+    });
   });
 };
-const fromDate: string = moment(new Date())
-  .startOf('month')
-  .format('YYYY-MM-DD');
-const toDate: string = moment(new Date()).endOf('month').format('YYYY-MM-DD');
-fetchData(fromDate, toDate);
+
+handleFetchData(fromDate, toDate);
 </script>
 
 <template>
   <div class='billboard'>
     <div class='billboard__header'>Афиша</div>
-    <div class='billboard__container'>
-      <div class='billboard-calendar'>
-        <el-calendar ref='calendar'>
-          <template #header='{ date }'>
-            <div class='calendar-header'>
-              <el-button
-                class='calendar-header__btn'
-                @click="selectDate('prev-month')">
-                <client-only
-                >
-                  <font-awesome-icon :icon="['fas', 'chevron-left']"
-                  />
-                </client-only>
-              </el-button>
-              <div class='calendar-header__date'>{{ date }}</div>
-              <el-button
-                class='calendar-header__btn'
-                @click="selectDate('next-month')">
-                <client-only
-                >
-                  <font-awesome-icon :icon="['fas', 'chevron-right']"
-                  />
-                </client-only>
-              </el-button>
-            </div>
-          </template>
-          <template #date-cell='{data}'>
-            <div
-              class='day event-day'
-              v-if="whatADay(data.day) === 'event-day'"
-              @click='handleEventCheck(data.day)'>
-              {{ data.day.slice(-2) }}
-            </div>
-            <div
-              class='day day-off'
-              v-if="whatADay(data.day) === 'day-off'">
-              {{ data.day.slice(-2) }}
-            </div>
-            <div
-              class='day regular-day'
-              v-if="whatADay(data.day) === 'regular-day'">
-              {{ data.day.slice(-2) }}
-            </div>
-          </template>
-        </el-calendar>
-      </div>
-      <div class='billboard-content'>
-        <el-carousel
-          class='event'
-          trigger='click'
-          height='330px'
-          v-if='currentEvent'
+    <el-row class='billboard__main'>
+      <el-col :xs='24' :sm='8' :md='8' :lg='8' :xl='6' class='billboard__calendar'>
+        <Calendar
+          :ref='calendar'
+          :is-dark="{ selector: 'html', darkClass: 'dark' }"
+          transparent
+          borderless
+          expanded
+          class='calendar'
+          :attributes='attrs'
+          @dayclick='handleSelectDay'
+          @did-move='calendarMove'
         >
-          <el-carousel-item
-            class='event__item'
-            v-for='item in currentEvent'
-            :key='item'
-          >
-            <the-event :event='item'/>
-          </el-carousel-item>
-        </el-carousel>
+        </Calendar>
+      </el-col>
+      <el-col :xs='14' :sm='16' :md='16' :lg='16' :xl='18' class='event__content'>
+        <Swiper v-if='selectEvent.length > 0' class='event'>
+          <SwiperSlide class='event__item' v-for='item in selectEvent' :key='item'>
+            <the-event :event='item' />
+          </SwiperSlide>
+        </Swiper>
         <div class='empty-day' v-else>
-          <img src='/books.svg' alt='' />
-          <p class='empty-day__title'>Сегодня можете взять книги</p>
+          <img class='empty-day__img' src='/books.svg' alt=''>
+          <h2>Сегодня можете взять книги</h2>
         </div>
-      </div>
-    </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <style scoped lang='scss'>
-.calendar-header {
-  width: 100%;
-  margin: 0 10px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border: none;
-
-  &__btn {
-    border-radius: 30px;
-    width: 30px;
-    height: 30px;
-  }
+.calendar {
+  width: 600px;
+  height: 600px;
 }
 
 .billboard {
   background: var(--el-bg-color);
   border-radius: 10px;
-
+  padding: 10px;
+  max-height: 500px;
   margin: 1vh 0;
 
   &__header {
-    display: flex;
-    align-items: center;
-    padding: 20px 20px 0 20px;
+    font-size: 1.3rem;
     font-weight: bold;
-    font-size: 1.4rem;
-  }
-}
-
-.billboard__container {
-  display: flex;
-
-  .billboard-calendar {
-    width: 30%;
+    padding: 0 10px;
   }
 
-  .billboard-content {
-    width: 70%;
+  &__main {
+    width: 100%;
+    display: flex;
+    min-height: 400px;
   }
 }
 
 .event {
+  height: 95%;
+
   &__item {
-    display: flex;
     width: 100%;
   }
+
 }
 
 .empty-day {
@@ -192,65 +143,30 @@ fetchData(fromDate, toDate);
   align-items: center;
   justify-content: center;
   height: 100%;
-
-  img {
-    width: 10vw;
-  }
-
-  &__title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    margin: 1vh 0;
+  &__img  {
+    width: 300px;
   }
 }
 
-.day {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  padding: 0.5vw;
-  width: 100%;
-  height: 100%;
-  margin: 1px;
+:deep(.vc-container) {
+  --vc-text-sm: 18px;
+  height: 320px;
+
+}
+:deep(.vc-highlight) {
+  width: 30px;
+  height: 30px;
+}
+:deep(.vc-day) {
+  min-height: 55px;
 }
 
-.day-off {
-  border: 2px solid orangered;
-}
-
-.event-day {
-  border: 2px solid #1d5deb;
-}
-
-:deep(.el-calendar) {
-  padding: 20px;
-  border-radius: 0 0 0 10px;
-}
-:deep(.el-calendar__header) {
-  border: none;
-  padding: 0;
-}
-:deep(.el-calendar__body) {
-  padding: 0;
-}
-:deep(.el-calendar-table td) {
-  border: none;
-}
-:deep(.el-calendar-table .el-calendar-day) {
-  padding: 0;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-:deep(.el-calendar-table tr td:first-child) {
-  border: none;
-}
-:deep(.el-calendar-table tr:first-child td) {
-  border: none;
-}
-:deep(.el-calendar-table:not(.is-range) td.prev) {
-  border: none;
+@media (max-width: 767px) {
+  .event__content {
+    display: none;
+  }
+  .billboard__calendar {
+    width: 100%;
+  }
 }
 </style>
