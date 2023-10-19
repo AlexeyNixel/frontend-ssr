@@ -31,18 +31,16 @@ const swapMenus = (menu: string) => {
 
 <template>
   <div class='navigation-menu'>
-    <el-scrollbar >
-      <div class='navigation-menu__btn-group' style='display: flex'>
-        <el-button
-          class='navigation-menu__btn'
-          v-for='(item, name) in ruTabs'
-          :key='name'
-          @click='swapMenus(name)'
-        >
-          {{ item }}
-        </el-button>
-      </div>
-    </el-scrollbar>
+    <div class='navigation-menu__btn-group'>
+      <el-button
+        class='navigation-menu__btn'
+        v-for='(item, name) in ruTabs'
+        :key='name'
+        @click='swapMenus(name)'
+      >
+        {{ item }}
+      </el-button>
+    </div>
   </div>
   <Transition :duration='250' name='nested'>
     <component :is='tabs[currentMenu]' />

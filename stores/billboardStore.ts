@@ -7,7 +7,7 @@ export const useBillboardStore = defineStore('billboard', () => {
   const getBillboards = async (params?: ParamsType) => {
     const { data } = await findBillboards(params);
     billboards.value = data;
-    return data.data;
+    return data;
   };
 
   return {

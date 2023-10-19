@@ -29,10 +29,10 @@ const handleOpenTime = () => {
     '      </div>',
     'Время работы библиотеки',
     {
-      customStyle: {
-        borderRadius: '10px',
-        boxShadow: 'none',
-        border: 'none',
+      customStyle:{
+        borderRadius:'10px',
+        boxShadow:'none',
+        border:'none'
       },
       dangerouslyUseHTMLString: true,
     },
@@ -47,11 +47,11 @@ const handleOpenMap = () => {
     'Время работы библиотеки',
     {
       dangerouslyUseHTMLString: true,
-      customStyle: {
-        borderRadius: '10px',
-        boxShadow: 'none',
-        border: 'none',
-        width: '70vw',
+      customStyle:{
+        borderRadius:'10px',
+        boxShadow:'none',
+        border:'none',
+        width:'70vw'
       },
     },
   );
@@ -158,47 +158,12 @@ const buttons = [
 .sun {
   color: orange;
 }
-
 :deep(.dialog-time) {
   border-radius: 10px;
   box-shadow: none;
   border: none;
 }
-
 :deep(.el-message-box) {
   border-radius: 10px;
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .header {
-    &__logo img {
-      width: 25vw;
-    }
-
-    &__btn-group {
-      width: 40%;
-    }
-
-    &__btn {
-      font-size: 2.5vw;
-    }
-  }
-}
-
-@media (min-width: 320px) and (max-width: 991px) {
-  .header {
-    &__logo img {
-      width: 40vw;
-    }
-
-    &__btn-group {
-      width: 50%;
-    }
-
-    &__btn {
-      font-size: 4vw;
-      margin: 0 5px 0 0;
-    }
-  }
 }
 </style>

@@ -23,8 +23,9 @@ export default defineNuxtConfig({
         Raleway: {
           wght: [100, 700],
           ital: [100]
-        },
+        }
       }
+    }]
   ],
 
   dayjs: {

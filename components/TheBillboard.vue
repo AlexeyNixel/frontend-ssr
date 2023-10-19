@@ -5,8 +5,6 @@ import dayjs from 'dayjs';
 import type { CalendarDateType, CalendarInstance } from 'element-plus';
 import moment from 'moment';
 import TheEvent from '~/components/ui/TheEvent.vue';
-import { Calendar } from 'v-calendar';
-import 'v-calendar/style.css';
 
 const billboardStore = useBillboardStore();
 const billboards = ref<BillboardType[]>();
@@ -63,82 +61,79 @@ const fromDate: string = moment(new Date())
   .format('YYYY-MM-DD');
 const toDate: string = moment(new Date()).endOf('month').format('YYYY-MM-DD');
 fetchData(fromDate, toDate);
-
 </script>
 
 <template>
-  <Calendar />
-<!--  <div class='billboard'>-->
-<!--    <div class='billboard__header'>Афиша</div>-->
-<!--    <div class='billboard__container'>-->
-<!--      <div class='billboard-calendar'>-->
-<!--        <el-calendar ref='calendar'>-->
-<!--          <template #header='{ date }'>-->
-<!--            <div class='calendar-header'>-->
-<!--              <el-button-->
-<!--                class='calendar-header__btn'-->
-<!--                @click="selectDate('prev-month')">-->
-<!--                <client-only-->
-<!--                >-->
-<!--                  <font-awesome-icon :icon="['fas', 'chevron-left']"-->
-<!--                  />-->
-<!--                </client-only>-->
-<!--              </el-button>-->
-<!--              <div class='calendar-header__date'>{{ date }}</div>-->
-<!--              <el-button-->
-<!--                class='calendar-header__btn'-->
-<!--                @click="selectDate('next-month')">-->
-<!--                <client-only-->
-<!--                >-->
-<!--                  <font-awesome-icon :icon="['fas', 'chevron-right']"-->
-<!--                  />-->
-<!--                </client-only>-->
-<!--              </el-button>-->
-<!--            </div>-->
-<!--          </template>-->
-<!--          <template #date-cell='{data}'>-->
-<!--            <div-->
-<!--              class='day event-day'-->
-<!--              v-if="whatADay(data.day) === 'event-day'"-->
-<!--              @click='handleEventCheck(data.day)'>-->
-<!--              {{ data.day.slice(-2) }}-->
-<!--            </div>-->
-<!--            <div-->
-<!--              class='day day-off'-->
-<!--              v-if="whatADay(data.day) === 'day-off'">-->
-<!--              {{ data.day.slice(-2) }}-->
-<!--            </div>-->
-<!--            <div-->
-<!--              class='day regular-day'-->
-<!--              v-if="whatADay(data.day) === 'regular-day'">-->
-<!--              {{ data.day.slice(-2) }}-->
-<!--            </div>-->
-<!--          </template>-->
-<!--        </el-calendar>-->
-<!--      </div>-->
-<!--      <div class='billboard-content'>-->
-<!--        <el-carousel-->
-<!--          class='event'-->
-<!--          trigger='click'-->
-<!--          height='330px'-->
-<!--          v-if='currentEvent'-->
-<!--        >-->
-<!--          <el-carousel-item-->
-<!--            class='event__item'-->
-<!--            v-for='item in currentEvent'-->
-<!--            :key='item'-->
-<!--          >-->
-<!--            <the-event :event='item'/>-->
-<!--          </el-carousel-item>-->
-<!--        </el-carousel>-->
-<!--        <div class='empty-day' v-else>-->
-<!--          <img src='/books.svg' alt='' />-->
-<!--          <p class='empty-day__title'>Сегодня можете взять книги</p>-->
-<!--        </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-
+  <div class='billboard'>
+    <div class='billboard__header'>Афиша</div>
+    <div class='billboard__container'>
+      <div class='billboard-calendar'>
+        <el-calendar ref='calendar'>
+          <template #header='{ date }'>
+            <div class='calendar-header'>
+              <el-button
+                class='calendar-header__btn'
+                @click="selectDate('prev-month')">
+                <client-only
+                >
+                  <font-awesome-icon :icon="['fas', 'chevron-left']"
+                  />
+                </client-only>
+              </el-button>
+              <div class='calendar-header__date'>{{ date }}</div>
+              <el-button
+                class='calendar-header__btn'
+                @click="selectDate('next-month')">
+                <client-only
+                >
+                  <font-awesome-icon :icon="['fas', 'chevron-right']"
+                  />
+                </client-only>
+              </el-button>
+            </div>
+          </template>
+          <template #date-cell='{data}'>
+            <div
+              class='day event-day'
+              v-if="whatADay(data.day) === 'event-day'"
+              @click='handleEventCheck(data.day)'>
+              {{ data.day.slice(-2) }}
+            </div>
+            <div
+              class='day day-off'
+              v-if="whatADay(data.day) === 'day-off'">
+              {{ data.day.slice(-2) }}
+            </div>
+            <div
+              class='day regular-day'
+              v-if="whatADay(data.day) === 'regular-day'">
+              {{ data.day.slice(-2) }}
+            </div>
+          </template>
+        </el-calendar>
+      </div>
+      <div class='billboard-content'>
+        <el-carousel
+          class='event'
+          trigger='click'
+          height='330px'
+          v-if='currentEvent'
+        >
+          <el-carousel-item
+            class='event__item'
+            v-for='item in currentEvent'
+            :key='item'
+          >
+            <the-event :event='item'/>
+          </el-carousel-item>
+        </el-carousel>
+        <div class='empty-day' v-else>
+          <img src='/books.svg' alt='' />
+          <p class='empty-day__title'>Сегодня можете взять книги</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped lang='scss'>
