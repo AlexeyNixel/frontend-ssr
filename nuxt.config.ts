@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     '@samk-dev/nuxt-vcalendar',
     'nuxt-swiper',
     '@nuxtjs/device',
+    'dayjs-nuxt',
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,

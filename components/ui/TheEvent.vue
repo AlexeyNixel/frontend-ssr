@@ -15,8 +15,8 @@ const placeName = AffichePlaces;
       <div class='time'>{{ event.eventTime.slice(11, 16) }}</div>
     </div>
     <div class='event__day'>
-      <div class='month'>{{ dayjs(event.eventDate).locale('ru').format('MMM') }}</div>
-      <div class='day-name'>({{ dayjs(event.eventDate).locale('ru').format('dd') }})</div>
+      <div class='month'>{{ dayjs(event.eventDate).format('MMM') }}</div>
+      <div class='day-name'>({{ dayjs(event.eventDate).format('dd') }})</div>
     </div>
     <div class='event__text'>
       <div class='title' v-html='event.title' />
