@@ -16,8 +16,6 @@ export default defineNuxtConfig({
     '@/modules/moment-reset',
     'dayjs-nuxt',
     'nuxt-swiper',
-    'nuxt-proxy',
-    '@nuxtjs/device',
     ['@nuxtjs/google-fonts', {
       families: {
         Montserrat: true,
@@ -25,15 +23,16 @@ export default defineNuxtConfig({
         Raleway: {
           wght: [100, 700],
           ital: [100]
-        },
+        }
       }
-    }],
+    }]
   ],
 
   dayjs: {
     locales:['ru'],
     defaultLocale: 'ru',
   },
+
 
   //@ts-ignore
   css: [

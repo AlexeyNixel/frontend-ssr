@@ -19,8 +19,8 @@ const placeName = AffichePlaces;
       <div class='day-name'>({{ dayjs(event.eventDate).locale('ru').format('dd') }})</div>
     </div>
     <div class='event__text'>
-      <div class='title' v-html='event.title' />
-      <el-scrollbar height='250px'>
+      <el-scrollbar height='100%'>
+        <div class='title' v-html='event.title' />
         <div class='desc' v-html='event.desc' />
         <div class='event__info'>
           <div class='phone'>{{ event.phone }}</div>
@@ -57,9 +57,8 @@ const placeName = AffichePlaces;
     width: 80%;
     padding: 10px;
     text-align: justify;
-    font-size: 18px;
     .title {
-      font-size: 24px;
+      font-size: 1.2rem;
       padding-bottom: 10px;
       font-weight: bold;
     }

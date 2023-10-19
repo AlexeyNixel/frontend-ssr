@@ -29,10 +29,10 @@ const handleOpenTime = () => {
     '      </div>',
     'Время работы библиотеки',
     {
-      customStyle: {
-        borderRadius: '10px',
-        boxShadow: 'none',
-        border: 'none',
+      customStyle:{
+        borderRadius:'10px',
+        boxShadow:'none',
+        border:'none'
       },
       dangerouslyUseHTMLString: true,
     },
@@ -47,11 +47,11 @@ const handleOpenMap = () => {
     'Время работы библиотеки',
     {
       dangerouslyUseHTMLString: true,
-      customStyle: {
-        borderRadius: '10px',
-        boxShadow: 'none',
-        border: 'none',
-        width: '70vw',
+      customStyle:{
+        borderRadius:'10px',
+        boxShadow:'none',
+        border:'none',
+        width:'70vw'
       },
     },
   );
@@ -129,19 +129,19 @@ const buttons = [
     width: 50%;
 
     img {
-      width: 250px;
+      width: 12vw;
     }
   }
 
   &__btn-group {
     width: 30%;
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     margin: 0;
   }
 
   &__btn {
-    font-size: 1.8rem;
+    font-size: 1.5vw;
     color: #007bff;
 
     &:hover {
@@ -158,47 +158,6 @@ const buttons = [
 .sun {
   color: orange;
 }
-
-@media (min-width: 992px) and (max-width: 1269px) {
-  .slider {
-    height: 300px;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .slider {
-    height: 250px;
-  }
-}
-
-@media(min-width: 360px) and (max-width: 767px) {
-  .header {
-    &__logo img{
-      width: 40vw;
-    }
-    &__btn {
-      font-size: 1.1rem;
-      &:nth-child(5) {
-        display: none;
-      }
-    }
-  }
-}
-
-@media(max-width: 359px) {
-  .header {
-    &__logo img{
-      width: 40vw;
-    }
-    &__btn {
-      font-size: 3vw;
-      &:nth-child(5) {
-        display: none;
-      }
-    }
-  }
-}
-
 :deep(.dialog-time) {
   border-radius: 10px;
   box-shadow: none;
