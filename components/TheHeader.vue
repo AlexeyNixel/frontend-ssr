@@ -129,19 +129,19 @@ const buttons = [
     width: 50%;
 
     img {
-      width: 12vw;
+      width: 250px;
     }
   }
 
   &__btn-group {
     width: 30%;
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     margin: 0;
   }
 
   &__btn {
-    font-size: 1.5vw;
+    font-size: 1.8rem;
     color: #007bff;
 
     &:hover {
@@ -158,6 +158,47 @@ const buttons = [
 .sun {
   color: orange;
 }
+
+@media (min-width: 992px) and (max-width: 1269px) {
+  .slider {
+    height: 300px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .slider {
+    height: 250px;
+  }
+}
+
+@media(min-width: 360px) and (max-width: 767px) {
+  .header {
+    &__logo img{
+      width: 40vw;
+    }
+    &__btn {
+      font-size: 1.1rem;
+      &:nth-child(5) {
+        display: none;
+      }
+    }
+  }
+}
+
+@media(max-width: 359px) {
+  .header {
+    &__logo img{
+      width: 40vw;
+    }
+    &__btn {
+      font-size: 3vw;
+      &:nth-child(5) {
+        display: none;
+      }
+    }
+  }
+}
+
 :deep(.dialog-time) {
   border-radius: 10px;
   box-shadow: none;

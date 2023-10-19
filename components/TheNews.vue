@@ -23,99 +23,86 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 </script>
 
 <template>
-  <div class='news-menu'>
-    <div class='news-menu__item' v-for='(menu, index) in news' :key='index'>
-      <div class='news-menu__item-title-container'>
-        <NuxtLink class='news-menu__item-title'>
-          {{ NEWS_MENU_RUBRICS[index] }}
-        </NuxtLink>
+  <div class='entries'>
+    <div class='entries__block' v-for='(menu, index) in news' :key='index'>
+      <div class='entries__header'>
+        {{ NEWS_MENU_RUBRICS[index] }}
       </div>
-      <div class='news-menu__item-container'>
-        <NuxtLink
-          class='news-menu__item-news'
-          v-for='item in menu'
-          :key='item.id'
-          :to='`entry/${item.slug}`'
-        >
-          <div class='news-menu__item_news-preview'>
-            <img v-if='item.preview' :src='`${staticUrl}${item.preview.path}`' alt=''>
-          </div>
-          <div class='news-menu__item_news-text'>
-            {{ `${item.title.length > 80 ? item.title.slice(0, 80).trim() + '...' : item.title.trim()}` }}
-          </div>
-        </NuxtLink>
-      </div>
+      <el-scrollbar class='entries__main'>
+        <div class='flex'>
+          <NuxtLink class='entry' v-for='item in menu' :key='item.id' :to='`entry/${item.slug}`'>
+            <div class='entry__preview'>
+              <img v-if='item.preview' :src='`${staticUrl}${item.preview.path}`' alt=''>
+            </div>
+            <div class='entry__title'>
+              {{ `${item.title.length > 80 ? item.title.slice(0, 80).trim() + '...' : item.title.trim()}` }}
+            </div>
+          </NuxtLink>
+        </div>
+      </el-scrollbar>
     </div>
   </div>
 
 </template>
 
 <style scoped lang='scss'>
-.news-menu {
+.entries {
   display: flex;
-  margin: 1vh 0;
   justify-content: space-between;
-  flex-wrap: wrap;
+  margin: 1vh 0;
 
-  &__item {
-    padding: 10px;
+  &__block {
+    width: calc(100% / 3 - 45px);
     background: var(--el-bg-color);
+    padding: 20px;
     border-radius: 10px;
-    width: calc((100% / 3) - 30px);
+  }
+  &__header {
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: 0 10px;
+  }
+}
 
-    &-container {
-      height: 97%;
-    }
+.entry {
+  display: flex;
+  height: 100px;
+  margin: 10px 0;
+  justify-content: space-between;
+  padding: 10px 10px;
+  border-radius: 10px;
+  &:hover {
+    background: #d8d8d8;
+    transition: .3s;
+  }
 
-    &-news {
-      text-decoration: none;
-      color: var(--font-color);
-      display: flex;
-      align-items: center;
-      padding: 5px 10px;
-      height: calc(16.666% - 15px);
-      border-radius: 10px;
+  &__preview {
+    width: 30%;
+    max-height: 200px;
 
-      &:hover {
-        box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%),
-        0 2px 10px 0 rgb(0 0 0 / 12%);
-        color: var(--font-hover-color);
-        transition: .3s;
-        background: var(--el-bg-color-overlay);
-      }
-    }
-
-    &_news-preview {
-      width: 30%;
-      height: 100%;
-    }
-
-    &_news-preview img {
+    img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
-    }
-
-    &_news-text {
-      width: 70%;
-      margin-left: 10px;
-      word-break: break-word;
+      object-fit: cover;
     }
   }
 
-  &__item-title-container {
-    height: 3%;
-    margin: 1vh 0;
-
+  &__title {
+    width: 65%;
+    display: flex;
+    align-items: center;
   }
+}
 
-  &__item-title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: var(--title-color);
-    padding: 10px;
-    text-decoration: none;
+@media (min-width: 980px) and (max-width: 1363px) {
+  .entry__title {
+    font-size: .9rem;
   }
+}
 
+@media (max-width: 979px)  {
+  .entry__title {
+    font-size: 1.5vw;
+  }
 }
 </style>

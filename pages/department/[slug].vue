@@ -4,6 +4,14 @@ import TheEntry from '~/components/ui/TheEntry.vue';
 import { EntryType } from '~/models/baseTypes';
 import { navigateTo } from '#app';
 
+const departmentRu = {
+  'ool':'Отдел отраслевой литературы',
+  'mediateka':'Медиатека',
+  'olp':'Отдел литературных программ',
+  'kohl':'Отдел художественной литературы',
+  'tspkim':'Центр поддержки культурных инициатив молодежи',
+}
+
 const route = useRoute();
 const router = useRouter();
 const slug = ref<string>(route.params.slug as string);
@@ -34,6 +42,12 @@ fetchData()
 </script>
 
 <template>
+  <Head>
+    <Title>
+      {{departmentRu[route.params.slug as string]}}
+    </Title>
+  </Head>
+  <div class='title'>{{departmentRu[route.params.slug as string]}}</div>
   <div>
     <TheEntry v-for='item in entries' :key='item.id' :entry='item' />
   </div>
@@ -49,6 +63,12 @@ fetchData()
 </template>
 
 <style scoped lang='scss'>
+.title {
+  margin: 20px 10px ;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
 .pagination {
   margin: 1vh 0;
   display: flex;
