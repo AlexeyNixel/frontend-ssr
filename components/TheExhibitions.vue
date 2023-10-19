@@ -31,12 +31,12 @@ slides.value = data
     :modules='[SwiperPagination]'
     class='exhibition' trigger='click' height='400px'>
     <SwiperSlide class='exhibition__item' v-for='(slide, index) in slides' :key='index'>
-        <img
-          :src='staticUrl+slide.preview'
-          class='exhibition__image'
-          @click='handleChangeExhibition(slide.path)'
-          alt=''
-        >
+      <img
+        :src='staticUrl+slide.preview'
+        class='exhibition__image'
+        @click='handleChangeExhibition(slide.path)'
+        alt=''
+      >
     </SwiperSlide>
   </Swiper>
   <the-exhibitions-item :path='currentPath'/>
