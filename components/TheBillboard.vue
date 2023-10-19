@@ -37,8 +37,9 @@ const attrs = ref<AttributeConfig[]>([
   },
 ]);
 
-const handleSelectDay = async (date: CalendarDay) => {
-  const day = dayjs(date.date).format('YYYY-MM-DD');
+const handleSelectDay = async (date?: CalendarDay) => {
+
+  const day = dayjs(date?.date || new Date).format('YYYY-MM-DD');
   selectEvent.value = await billboardStore.getBillboards({
     fromDate: day + 'T00:00:00.000Z',
     toDate: day + 'T00:00:00.000Z',
@@ -66,7 +67,8 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
   });
 };
 
-handleFetchData(fromDate, toDate);
+await handleFetchData(fromDate, toDate);
+await handleSelectDay()
 </script>
 
 <template>
