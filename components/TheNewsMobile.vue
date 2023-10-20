@@ -81,7 +81,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     color: var(--font-color);
   }
   &__img {
-    height: 60%;
+    height: 150px;
     img {
       object-fit: cover;
       height: 100%;
@@ -90,8 +90,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     }
   }
   &__content {
-    height: 40%;
-    //padding: 10px;
+    height: 35%;
     display: flex;
     flex-direction: column;
   }

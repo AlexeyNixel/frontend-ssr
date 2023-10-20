@@ -65,7 +65,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 
 .entry {
   display: flex;
-  height: 100px;
+  height: max-content;
   margin: 10px 0;
   justify-content: space-between;
   padding: 10px 10px;
@@ -76,9 +76,9 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   }
 
   &__preview {
-    width: 30%;
-    max-height: 200px;
-
+    width: 160px;
+    height: 120px;
+    margin-right: 10px;
     img {
       width: 100%;
       height: 100%;
