@@ -19,12 +19,11 @@ const rubricsTranslate: { [key: string]: string } = {
 };
 
 for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
-  const { data } = await entryStore.getEntriesByRubric(rubric, {
+  news.value[rubric] = await entryStore.getEntriesByRubric(rubric, {
     pageSize: 6,
     include: 'rubrics,preview',
     orderBy: '-publishedAt',
   });
-  news.value[rubric] = data;
 }
 </script>
 

@@ -3,41 +3,42 @@ import { useEntryStore } from '~/stores/entryStore';
 import TheEntry from '~/components/ui/TheEntry.vue';
 import { EntryType } from '~/models/baseTypes';
 import { navigateTo } from '#app';
+import { storeToRefs } from 'pinia';
 
 const departmentRu = {
-  'ool':'Отдел отраслевой литературы',
-  'mediateka':'Медиатека',
-  'olp':'Отдел литературных программ',
-  'kohl':'Отдел художественной литературы',
-  'tspkim':'Центр поддержки культурных инициатив молодежи',
-}
+  'ool': 'Отдел отраслевой литературы',
+  'mediateka': 'Медиатека',
+  'olp': 'Отдел литературных программ',
+  'kohl': 'Отдел художественной литературы',
+  'tspkim': 'Центр поддержки культурных инициатив молодежи',
+};
 
 const route = useRoute();
 const router = useRouter();
 const slug = ref<string>(route.params.slug as string);
 const entryStore = useEntryStore();
 const page = ref<number>(Number(route.query.page) || 1);
-const entries = ref<EntryType[]>()
 const totalPage = ref<number>(1);
+const { metaEntry } = storeToRefs(entryStore);
+const { entries } = storeToRefs(entryStore);
 
 const fetchData = async (val?: number) => {
   if (val) {
-    navigateTo({ path: `/department/${slug.value}`, query: {  page: val } });
+    navigateTo({ path: `/department/${slug.value}`, query: { page: val } });
     page.value = val;
   }
 
-  const { data, meta } = await entryStore.getEntriesByDepartment(slug.value, {
+  await entryStore.getEntriesByDepartment(slug.value, {
     orderBy: '-publishedAt',
     include: 'preview',
-    page:page.value || 1
+    page: page.value || 1,
   });
 
-  window.scroll(0, 0)
-  totalPage.value = meta.pages
-  entries.value = data
+  window.scroll(0, 0);
+  totalPage.value = metaEntry.value?.pages!
 };
 
-fetchData()
+fetchData();
 
 </script>
 
@@ -47,7 +48,7 @@ fetchData()
       {{departmentRu[route.params.slug as string]}}
     </Title>
   </Head>
-  <div class='title'>{{departmentRu[route.params.slug as string]}}</div>
+  <div class='title'>{{ departmentRu[route.params.slug as string] }}</div>
   <div>
     <TheEntry v-for='item in entries' :key='item.id' :entry='item' />
   </div>
@@ -64,7 +65,7 @@ fetchData()
 
 <style scoped lang='scss'>
 .title {
-  margin: 20px 10px ;
+  margin: 20px 10px;
   font-size: 1.3rem;
   font-weight: bold;
 }

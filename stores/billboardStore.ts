@@ -22,10 +22,9 @@ export const useBillboardStore = defineStore('billboard', () => {
   const activeComp = ref<'event' | 'calendar'>('calendar');
 
   const getBillboards = async (params?: ParamsType) => {
-    const { data } = await findBillboards(params);
-    billboards.value = data;
-    selectedEvents.value = data.data
-    return data.data;
+    billboards.value = await findBillboards(params);
+    selectedEvents.value = billboards.value
+    return billboards.value;
   };
 
   return {

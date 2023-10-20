@@ -38,7 +38,6 @@ const attrs = ref<AttributeConfig[]>([
 ]);
 
 const handleSelectDay = async (date?: CalendarDay) => {
-
   const day = dayjs(date?.date || new Date).format('YYYY-MM-DD');
   selectEvent.value = await billboardStore.getBillboards({
     fromDate: day + 'T00:00:00.000Z',
@@ -53,8 +52,8 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
     pageSize: 50,
     orderBy: '-eventDate',
   });
-  console.log(events.value);
-  events.value?.forEach((event) => {
+
+  events.value.forEach((event) => {
     //@ts-ignore
     attrs.value.push({
       key: event.id,

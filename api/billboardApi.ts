@@ -4,10 +4,10 @@ import { Routes } from '@/api/routes';
 import { BillboardType, ParamsType } from '~/models/baseTypes';
 
 const { AFFICHE_ROUTE } = Routes;
-export const findBillboards = async (params?: ParamsType) => {
+export const findBillboards = async (params?: ParamsType):Promise<BillboardType[]> => {
   // @ts-ignore
-  const { data, meta } = await axiosApi.get(AFFICHE_ROUTE, { params });
-  return { data, meta };
+  const { data } = await axiosApi.get(AFFICHE_ROUTE, { params });
+  return data;
 };
 
 export const findBillboard = async (slug: string, params?: ParamsType): Promise<BillboardType> => {
