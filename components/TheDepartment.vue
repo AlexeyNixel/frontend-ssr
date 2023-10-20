@@ -1,15 +1,17 @@
 <script setup lang='ts'>
 import { useDepartmentStore } from '~/stores/departmentStore';
 import { DepartmentType } from '~/models/baseTypes';
+import { useGeneralStore } from '~/stores/generalStore';
 
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const departmentStore = useDepartmentStore()
+
 const departments = ref<DepartmentType[]>()
 
-const {data} = await departmentStore.getDepartments({
+const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
+
+departments.value = await departmentStore.getDepartments({
   include:'preview'
 })
-departments.value = data
 </script>
 
 <template>
@@ -54,6 +56,17 @@ departments.value = data
   }
 }
 
+@media (min-width: 1921px) {
+  .departments__item {
+    height: 350px;
+  }
+}
+
+@media (min-width: 1364px) and (max-width: 1920px) {
+  .departments__item {
+    height: 300px;
+  }
+}
 
 @media (min-width: 980px) and (max-width: 1363px) {
   .departments__item {

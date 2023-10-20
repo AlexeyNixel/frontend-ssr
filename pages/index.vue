@@ -30,7 +30,6 @@ setPageLayout('default');
   <client-only><TheGos/></client-only>
   <TheDepartment/>
   <TheExhibitions v-if='isDesktop'/>
-  <client-only><TheFooter/></client-only>
 </template>
 
 <style scoped>

@@ -15,10 +15,9 @@ const handleRouteAdmin = (slug: string) => {
   });
 };
 
-const {data} = await menuStore.getMenu(slug.value, {
+document.value = await menuStore.getMenu(slug.value, {
   include:'document'
 })
-document.value = data
 </script>
 
 <template>

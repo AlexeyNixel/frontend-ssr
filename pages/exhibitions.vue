@@ -4,6 +4,7 @@ import { useRoute } from 'vue-router';
 import { navigateTo } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
 import TheExhibitionsItem from '~/components/modals/TheExhibitionsItem.vue';
+import { storeToRefs } from 'pinia';
 
 const route = useRoute();
 const fileStore = useFileStore();
@@ -14,6 +15,9 @@ const totalPage = ref<number>(1);
 
 const generalStore = useGeneralStore()
 const currentPath = ref<string>('');
+const {metaFile} = storeToRefs(fileStore)
+const {files} = storeToRefs(fileStore)
+
 
 const handleChangeExhibition = (path: string) => {
   navigateTo({path:'http://static.infomania.ru'+ path})
@@ -25,14 +29,13 @@ const fetchData = async (val?: number) => {
     navigateTo({path:'/exhibitions', query:{page:page.value} })
   }
 
-  const { data, meta } = await fileStore.getFiles({
+  await fileStore.getFiles({
     searchByField: 'type=EXHIBITION',
     orderBy: '-createdAt',
     pageSize: 9,
     page: page.value,
   });
-  totalPage.value = meta.pages;
-  exhibitions.value = data;
+  console.log(metaFile.value);
 };
 
 fetchData();
@@ -44,7 +47,7 @@ fetchData();
     <a
       :href='`http://static.infomania.ru${item.path}`'
       class='exhibition'
-      v-for='item in exhibitions'
+      v-for='item in files'
       :key='item.id'
       target='_blank'
     >
@@ -59,11 +62,12 @@ fetchData();
 
   <the-exhibitions-item :path='currentPath'/>
   <el-pagination
+    v-if='metaFile'
     :current-page='page'
     background
     class='pagination'
     layout='prev, pager, next'
-    :page-count='totalPage'
+    :page-count='metaFile.pages'
     :pager-count='9'
     @currentChange='fetchData' />
 </template>

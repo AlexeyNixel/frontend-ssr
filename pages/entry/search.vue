@@ -15,10 +15,12 @@ const entryStore = useEntryStore();
 const searchStore = useSearchStore();
 const departmentStore = useDepartmentStore();
 
-const entries = ref<EntryType[]>();
 const isFilters = ref<boolean>(false);
 const departments = ref<DepartmentType[]>();
 const { departmentFilter } = storeToRefs(searchStore);
+const { metaEntry } = storeToRefs(entryStore);
+const { entries } = storeToRefs(entryStore);
+
 const orderByFilters = {
   '': 'По умолчанию',
   '-publishedAt': 'Сначала новые',
@@ -28,11 +30,9 @@ const orderByFilter = ref<string>('-publishedAt');
 const searchText = ref<string>(route.query.search as string);
 
 const pages = ref<number>(1);
-const currentPage = ref<number>(1);
+const currentPage = ref<number>(Number(route.query.page) || 1);
 
-const { data } = await departmentStore.getDepartments();
-
-departments.value = data;
+departments.value = await departmentStore.getDepartments();
 
 const handleSearch = () => {
   navigateTo({
@@ -46,7 +46,9 @@ const handleSearch = () => {
 
 
 const fetchData = async (val?: number) => {
+  if (isFilters.value) isFilters.value = !isFilters.value
   if (val) {
+    currentPage.value = val
     navigateTo({ path: '/entry/search', query: { search: searchText.value, page: val } });
     window.scroll(0,0)
   }
@@ -61,13 +63,11 @@ const fetchData = async (val?: number) => {
   };
 
   if (!departmentFilter.value) {
-    const { data, meta } = await entryStore.getEntries(params);
-    entries.value = data;
-    pages.value = meta.pages;
+    await entryStore.getEntries(params);
+    pages.value = metaEntry.value?.pages || 1
   } else {
-    const { data, meta } = await entryStore.getEntriesByDepartment(departmentFilter.value, params);
-    entries.value = data;
-    pages.value = meta.pages;
+   await entryStore.getEntriesByDepartment(departmentFilter.value, params);
+    pages.value = metaEntry.value?.pages|| 1
   }
 };
 
@@ -144,6 +144,7 @@ fetchData();
         v-model='currentPage'
         class='pagination'
         background
+        :current-page='currentPage'
         @currentChange='fetchData'
         :page-size='10'
         :page-count='pages'

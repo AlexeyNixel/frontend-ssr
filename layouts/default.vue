@@ -14,7 +14,10 @@ if (process.client) {
 <template>
   <div class="common-layout">
     <TheHeader />
-    <slot />
+   <div class='content'>
+     <slot />
+   </div>
+    <client-only><TheFooter /></client-only>
   </div>
   <worktime-library />
 </template>
@@ -29,11 +32,17 @@ if (process.client) {
   .common-layout {
     max-width: 1920px;
   }
+  .content {
+    min-height: 70.3vh;
+  }
 }
 
 @media (min-width: 1364px) and (max-width: 1920px) {
   .common-layout {
     max-width: 1364px;
+  }
+  .content {
+    min-height: 70.3vh;
   }
 }
 
@@ -41,12 +50,17 @@ if (process.client) {
   .common-layout {
     max-width: 980px;
   }
+  .content {
+    min-height: 70.3vh;
+  }
 }
 
 @media (max-width: 980px)  {
   .common-layout {
     margin: 1vh;
-
+  }
+  .content {
+    min-height: 70.3vh;
   }
 }
 </style>
