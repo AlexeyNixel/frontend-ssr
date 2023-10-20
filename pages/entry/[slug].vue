@@ -42,7 +42,11 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
         </div>
       </div>
     </div>
-    <div class='entry__content ck-content' v-html='entry.content'></div>
+    <div
+      class='entry__content ck-content'
+      v-html='entry.content'
+      :class=' dayjs(entry.publishedAt).format("YYYY-MM-DD") > "2023-09-07" ? "" : "entry__content-no-image"'
+    ></div>
     <div class='entry__admin-btn' v-if='generalStore.token'>
       <el-button
         type='warning'
@@ -67,6 +71,16 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
   &__title {
     font-weight: bold;
     font-size: 1.4rem;
+  }
+
+  &__content {
+
+  }
+
+  &__content-no-image {
+    :deep(img) {
+      display: none;
+    }
   }
 
   &__info {

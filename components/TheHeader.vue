@@ -74,7 +74,7 @@ const buttons = [
   },
   {
     icon: 'fa-solid fa-wheelchair-move',
-    event: () => navigateTo('entry/dostupnaya-sreda-03-32-22-10-22'),
+    event: () => navigateTo('/entry/dostupnaya-sreda-03-32-22-10-22'),
     style: null,
   },
   {
