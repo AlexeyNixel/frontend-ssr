@@ -11,6 +11,10 @@ useHead({
       body: true,
     },
     {
+      src: '//code.jivo.ru/widget/yWouUDfRrz',
+      body: true,
+    },
+    {
       innerHTML: 'Widget(\'https://pos.gosuslugi.ru/form\', 348893)',
       body: true,
     },
