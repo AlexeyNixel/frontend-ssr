@@ -1,9 +1,11 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 import { useGeneralStore } from '~/stores/generalStore';
+import 'viewerjs/dist/viewer.css';
+import VueViewer from 'v-viewer';
 
 const generalStore = useGeneralStore();
 const route = useRoute();
@@ -20,46 +22,76 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
   include: 'department',
 });
 
+if (process.client) {
+  let images = document.getElementsByClassName('image');
+  for (let item of images) {
+    console.log(item.innerHTML);
+  }
+}
 </script>
 
 <template>
-  <div class='entry' v-if='entry'>
+  <div class="entry" v-if="entry">
     <Head>
-      <Title>{{entry.title}}</Title>
+      <Title>{{ entry.title }}</Title>
     </Head>
-    <div class='entry__header'>
-      <div class='entry__title'>
+    <el-breadcrumb separator="|" class="entry__breadcrumb">
+      <el-breadcrumb-item :to="{ path: '/' }">
+        Главная страница
+      </el-breadcrumb-item>
+      <el-breadcrumb-item
+        :to="{ path: `/department/${entry.department.slug}` }"
+      >
+        {{ entry.department.title }}
+      </el-breadcrumb-item>
+      <el-breadcrumb-item>{{ entry.title }}</el-breadcrumb-item>
+    </el-breadcrumb>
+
+    <div class="entry__header">
+      <div class="entry__title">
         {{ entry.title }}
       </div>
-      <div class='entry__info'>
+      <div class="entry__info">
         <NuxtLink
-          :to='`/department/${entry.department.slug}`'
-          class='entry__department'
-        >{{ entry.department.title }}
+          :to="`/department/${entry.department.slug}`"
+          class="entry__department"
+        >
+          {{ entry.department.title }}
         </NuxtLink>
-        <div class='entry__date'>
+        <div class="entry__date">
           {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
         </div>
       </div>
     </div>
-    <div
-      class='entry__content ck-content'
-      v-html='entry.content'
-      :class=' dayjs(entry.publishedAt).format("YYYY-MM-DD") > "2023-09-07" ? "" : "entry__content-no-image"'
-    ></div>
-    <div class='entry__admin-btn' v-if='generalStore.token'>
-      <el-button
-        type='warning'
-        @click='handleRouteAdmin(entry.slug)'>
+    <client-only>
+      <v-viewer>
+        <div
+          v-viewer
+          class="entry__content ck-content"
+          v-html="entry.content"
+          :class="
+            dayjs(entry.publishedAt).format('YYYY-MM-DD') > '2023-09-07'
+              ? ''
+              : 'entry__content-no-image'
+          "
+        />
+      </v-viewer>
+    </client-only>
+    <div class="entry__admin-btn" v-if="generalStore.token">
+      <el-button type="warning" @click="handleRouteAdmin(entry.slug)">
         Редактировать
       </el-button>
     </div>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .entry {
   margin-bottom: 50px;
+
+  &__breadcrumb {
+    margin: 1vh 0;
+  }
 
   &__header {
     width: 100%;
@@ -74,7 +106,6 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
   }
 
   &__content {
-
   }
 
   &__content-no-image {
