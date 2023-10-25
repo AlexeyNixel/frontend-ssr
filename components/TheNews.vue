@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
-import dayjs from 'dayjs';
 
-const NEWS_MENU_RUBRICS: {[key: string]: string} = {
+const NEWS_MENU_RUBRICS: { [key: string]: string } = {
   aktualnoe: 'Актуальное',
   anonsy: 'Анонсы',
   sobytiya: 'События',
@@ -18,10 +17,8 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     pageSize: 6,
     include: 'rubrics,preview',
     orderBy: '-publishedAt',
-    toDate: dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z',
   });
 }
-console.log(dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z');
 </script>
 
 <template>
@@ -32,12 +29,27 @@ console.log(dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z');
       </div>
       <el-scrollbar class="entries__main">
         <div class="flex">
-          <NuxtLink class="entry" v-for="item in menu" :key="item.id" :to="`entry/${item.slug}`">
+          <NuxtLink
+            class="entry"
+            v-for="item in menu"
+            :key="item.id"
+            :to="`entry/${item.slug}`"
+          >
             <div class="entry__preview">
-              <img v-if="item.preview" :src="`${staticUrl}${item.preview?.path}`" alt="" />
+              <img
+                v-if="item.preview"
+                :src="`${staticUrl}${item.preview.path}`"
+                alt=""
+              />
             </div>
             <div class="entry__title">
-              {{ `${item.title.length > 80 ? item.title.slice(0, 80).trim() + '...' : item.title.trim()}` }}
+              {{
+                `${
+                  item.title.length > 80
+                    ? item.title.slice(0, 80).trim() + '...'
+                    : item.title.trim()
+                }`
+              }}
             </div>
           </NuxtLink>
         </div>
