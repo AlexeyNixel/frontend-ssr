@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { navigateTo, setPageLayout } from '#app';
 import { auth } from '~/api/admin';
 import { useGeneralStore } from '~/stores/generalStore';
@@ -17,10 +17,11 @@ const user = ref({
 
 const handleAuth = async () => {
   authStatus.value = await auth(user.value);
+  console.log(authStatus.value);
 
-  if (authStatus.value.data && process.client) {
-    token.value = authStatus.value.data.access_token
-    useLocalStorage('token',authStatus.value.data.access_token )
+  if (authStatus.value && process.client) {
+    token.value = authStatus.value.data.access_token;
+    useLocalStorage('token', authStatus.value.access_token);
     navigateTo({ path: '/' });
   }
 };
@@ -29,32 +30,28 @@ setPageLayout('empty');
 </script>
 
 <template>
-  <div class='container'>
-    <el-form class='login' @keydown.enter='handleAuth()'>
-      <div class='login__header'>Авторизация</div>
-      <div class='login__item'>
-        <div class='login__icon'>
+  <div class="container">
+    <el-form class="login" @keydown.enter="handleAuth()">
+      <div class="login__header">Авторизация</div>
+      <div class="login__item">
+        <div class="login__icon">
           <font-awesome-icon :icon="['fas', 'envelope']" />
         </div>
-        <el-input class='login__name' v-model='user.username' />
+        <el-input class="login__name" v-model="user.username" />
       </div>
-      <div class='login__item'>
-        <div class='login__icon'>
+      <div class="login__item">
+        <div class="login__icon">
           <font-awesome-icon :icon="['fas', 'key']" />
         </div>
-        <el-input
-          type='password'
-          show-password
-          class='login__name'
-          v-model='user.password' />
+        <el-input type="password" show-password class="login__name" v-model="user.password" />
       </div>
-      <el-button class='login__btn' @click='handleAuth'>Войти</el-button>
-      <div v-if='!correctDate'>неправильный логин или пароль</div>
+      <el-button class="login__btn" @click="handleAuth">Войти</el-button>
+      <div v-if="!correctDate">неправильный логин или пароль</div>
     </el-form>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .container {
   height: 100vh;
   display: flex;
@@ -84,7 +81,7 @@ setPageLayout('empty');
 
   &__icon {
     margin-right: 10px;
-    color: #007BFF;
+    color: #007bff;
   }
 
   &__btn {

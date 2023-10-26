@@ -33,7 +33,7 @@ loading.value = slides.value.length > 0;
             <img class="slider__img" :src="staticUrl + item.image.path" alt="" />
           </a>
           <NuxtLink class="slider__link" v-else :to="`/entry/${item.entry.slug}`">
-            <img class="slider__img" :src="staticUrl + item.image.path" alt="" />
+            <img class="slider__img" :src="staticUrl + item.image?.path" alt="" />
           </NuxtLink>
           <client-only>
             <NuxtLink

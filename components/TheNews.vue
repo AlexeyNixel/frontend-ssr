@@ -1,11 +1,12 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
+import dayjs from 'dayjs';
 
-const NEWS_MENU_RUBRICS = {
-  'aktualnoe': 'Актуальное',
-  'anonsy': 'Анонсы',
-  'sobytiya': 'События',
+const NEWS_MENU_RUBRICS: {[key: string]: string} = {
+  aktualnoe: 'Актуальное',
+  anonsy: 'Анонсы',
+  sobytiya: 'События',
 };
 
 const entryStore = useEntryStore();
@@ -17,23 +18,25 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     pageSize: 6,
     include: 'rubrics,preview',
     orderBy: '-publishedAt',
+    toDate: dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z',
   });
 }
+console.log(dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z');
 </script>
 
 <template>
-  <div class='entries'>
-    <div class='entries__block' v-for='(menu, index) in news' :key='index'>
-      <div class='entries__header'>
+  <div class="entries">
+    <div class="entries__block" v-for="(menu, index) in news" :key="index">
+      <div class="entries__header">
         {{ NEWS_MENU_RUBRICS[index] }}
       </div>
-      <el-scrollbar class='entries__main'>
-        <div class='flex'>
-          <NuxtLink class='entry' v-for='item in menu' :key='item.id' :to='`entry/${item.slug}`'>
-            <div class='entry__preview'>
-              <img v-if='item.preview' :src='`${staticUrl}${item.preview.path}`' alt=''>
+      <el-scrollbar class="entries__main">
+        <div class="flex">
+          <NuxtLink class="entry" v-for="item in menu" :key="item.id" :to="`entry/${item.slug}`">
+            <div class="entry__preview">
+              <img v-if="item.preview" :src="`${staticUrl}${item.preview?.path}`" alt="" />
             </div>
-            <div class='entry__title'>
+            <div class="entry__title">
               {{ `${item.title.length > 80 ? item.title.slice(0, 80).trim() + '...' : item.title.trim()}` }}
             </div>
           </NuxtLink>
@@ -41,10 +44,9 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
       </el-scrollbar>
     </div>
   </div>
-
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .entries {
   display: flex;
   justify-content: space-between;
@@ -72,7 +74,7 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   border-radius: 10px;
   &:hover {
     background: #d8d8d8;
-    transition: .3s;
+    transition: 0.3s;
   }
 
   &__preview {
@@ -95,11 +97,11 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 
 @media (min-width: 980px) and (max-width: 1363px) {
   .entry__title {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
 }
 
-@media (max-width: 979px)  {
+@media (max-width: 979px) {
   .entry__title {
     font-size: 1.5vw;
   }
