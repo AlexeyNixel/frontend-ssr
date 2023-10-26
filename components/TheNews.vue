@@ -21,7 +21,6 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     toDate: dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z',
   });
 }
-console.log(dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z');
 </script>
 
 <template>
@@ -44,6 +43,7 @@ console.log(dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z');
       </el-scrollbar>
     </div>
   </div>
+
 </template>
 
 <style scoped lang="scss">

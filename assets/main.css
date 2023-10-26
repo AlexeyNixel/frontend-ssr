@@ -21,6 +21,7 @@ html.dark {
 }
 
 html {
+    scroll-behavior: smooth;
     --logo-color: black;
     --footer-bg: #007bff;
     --element-bg-color:#ffffff;

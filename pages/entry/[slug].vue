@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang='ts'>
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
@@ -19,12 +19,13 @@ const handleRouteAdmin = (slug: string) => {
 entry.value = await entryStore.getEntry(route.params.slug as string, {
   include: 'department',
 });
+
 </script>
 
 <template>
   <div class="entry" v-if="entry">
     <Head>
-      <Title>{{ entry.title }}</Title>
+      <Title>{{entry.title}}</Title>
     </Head>
 
     <el-breadcrumb separator="|">
@@ -76,6 +77,7 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
   }
 
   &__content {
+
   }
 
   &__content-no-image {
