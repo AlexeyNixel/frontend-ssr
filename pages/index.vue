@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { setPageLayout } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
 import TheTestBillboard from '~/components/TheTestBillboard.vue';
@@ -20,18 +20,16 @@ setPageLayout('default');
 </script>
 
 <template>
-  <TheSlider/>
-  <TheNavigation v-if='isDesktop'/>
-  <TheNavigationMobile v-else/>
-  <client-only v-if='isDesktop'><TheBillboard/></client-only>
-  <client-only v-else><TheBillboardMobile/></client-only>
-  <TheNews v-if='isDesktop'/>
-  <TheNewsMobile v-else/>
-  <client-only><TheGos/></client-only>
-  <TheDepartment/>
-  <TheExhibitions v-if='isDesktop'/>
+  <TheSlider />
+  <TheNavigation v-if="isDesktop" />
+  <TheNavigationMobile v-else />
+  <client-only v-if="isDesktop"><TheBillboard /></client-only>
+  <client-only v-else><TheBillboardMobile /></client-only>
+  <TheNews v-if="isDesktop" />
+  <TheNewsMobile v-else />
+  <client-only><TheGos /></client-only>
+  <TheDepartment />
+  <TheExhibitions v-if="isDesktop" />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
