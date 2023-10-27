@@ -20,7 +20,7 @@ const handleAuth = async () => {
   console.log(authStatus.value);
 
   if (authStatus.value && process.client) {
-    token.value = authStatus.value.data.access_token;
+    token.value = authStatus.value.access_token;
     useLocalStorage('token', authStatus.value.access_token);
     navigateTo({ path: '/' });
   }
