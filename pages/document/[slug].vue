@@ -24,6 +24,7 @@ document.value = await menuStore.getMenu(slug.value, {
   <div class='document' v-if='document'>
     <Head>
       <Title>{{document.document.title}}</Title>
+      <Meta name="description" :content="document.document.title" />
     </Head>
     <div class='document__title'>{{document.document.title}}</div>
     <div class='document__content ck-content' v-html='document.document.content'></div>

@@ -6,8 +6,6 @@ export const useSliderStore = defineStore('slider', () => {
   const slides = ref<SliderType[]>([])
   const getSlides = async (params?: object) => {
     slides.value = await findSlider(params)
-    console.log(slides.value);
-    
   }
 
   return {

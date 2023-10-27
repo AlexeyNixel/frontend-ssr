@@ -5,6 +5,10 @@ useHead({
   meta: [{ name: 'proculture-verification', content: '809fabd30403850765b290f8565b099d' }],
   script: [
     {
+      src: '//code.jivo.ru/widget/yWouUDfRrz',
+      body: true,
+    },
+    {
       src: 'https://pos.gosuslugi.ru/bin/script.min.js',
       body: true,
     },

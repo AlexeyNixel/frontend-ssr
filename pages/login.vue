@@ -17,7 +17,6 @@ const user = ref({
 
 const handleAuth = async () => {
   authStatus.value = await auth(user.value);
-  console.log(authStatus.value);
 
   if (authStatus.value && process.client) {
     token.value = authStatus.value.access_token;
