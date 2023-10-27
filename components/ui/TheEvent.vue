@@ -2,7 +2,9 @@
 import dayjs from 'dayjs';
 import { BillboardType } from '~/models/baseTypes';
 import { AffichePlaces } from '~/constants/billboardPlaces';
+import {useGeneralStore} from "~/stores/generalStore";
 
+const generalStore = useGeneralStore()
 type EventType = { event: BillboardType }
 defineProps<EventType>();
 const placeName = AffichePlaces;
@@ -13,6 +15,15 @@ const placeName = AffichePlaces;
     <div class='event__date'>
       <div class='day'>{{ dayjs(event.eventDate).format('D') }}</div>
       <div class='time'>{{ event.eventTime.slice(11, 16) }}</div>
+      <client-only>
+        <NuxtLink
+            :to="`http://admin.infomania.ru/billboard/update/${event.id}`"
+            class="slider__update"
+            v-if="generalStore.token"
+        >
+          <font-awesome-icon v-if="generalStore.token" icon="fa-solid fa-gear" />
+        </NuxtLink>
+      </client-only>
     </div>
     <div class='event__day'>
       <div class='month'>{{ dayjs(event.eventDate).format('MMM') }}</div>
