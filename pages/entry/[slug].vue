@@ -26,6 +26,7 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
   <div class="entry" v-if="entry">
     <Head>
       <Title>{{entry.title}}</Title>
+      <Meta name="description" :content="entry.desc" />
     </Head>
 
     <el-breadcrumb separator="|">
