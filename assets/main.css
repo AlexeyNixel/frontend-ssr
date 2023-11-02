@@ -1,43 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 * {
-    margin: 0;
-    padding: 0;
-    font-family: Montserrat, sans-serif;
+  margin: 0;
+  padding: 0;
+  font-family: Montserrat, sans-serif;
 }
 
 a {
-    color: #007bff;
-    text-decoration: none;
+  color: #007bff;
+  text-decoration: none;
 }
 
 body {
-    background: var(--el-bg-color-page);
-    transition: background-color 0.2s !important;
+  background: var(--el-bg-color-page);
+  transition: background-color 0.2s !important;
 }
 
 html.dark {
-    --logo-color: white;
-    --footer-bg: var(--el-bg-color);
-    --element-bg-color:#222222;
+  --logo-color: white;
+  --footer-bg: var(--el-bg-color);
+  --element-bg-color: #222222;
 }
 
 html {
-    scroll-behavior: smooth;
-    --logo-color: black;
-    --footer-bg: #007bff;
-    --element-bg-color:#ffffff;
+  scroll-behavior: smooth;
+  --logo-color: black;
+  --footer-bg: #007bff;
+  --element-bg-color: #ffffff;
 }
 
 .el-overlay-dialog {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-
 .el-dialog__body {
-    margin: 0;
+  margin: 0;
 }
 
 .el-message-box {
-    border-radius: 10px;
+  border-radius: 10px;
 }

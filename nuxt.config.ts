@@ -3,12 +3,16 @@ export default defineNuxtConfig({
   //@ts-ignore
   app: {
     head: {
-      title:"НОМБ",
-    }
+      title: 'НОМБ',
+    },
   },
-  buildModules: [
-    '@nuxtjs/moment', ['ru'],
-  ],
+  buildModules: ['@nuxtjs/moment', ['ru']],
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    },
+  },
   modules: [
     '@element-plus/nuxt',
     '@vueuse/nuxt',
@@ -18,20 +22,23 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     '@nuxtjs/device',
     'dayjs-nuxt',
-    ['@nuxtjs/google-fonts', {
-      families: {
-        Montserrat: true,
-        Inter: [400],
-        Raleway: {
-          wght: [100, 700],
-          ital: [100]
+    [
+      '@nuxtjs/google-fonts',
+      {
+        families: {
+          Montserrat: true,
+          Inter: [400],
+          Raleway: {
+            wght: [100, 700],
+            ital: [100],
+          },
         },
-      }
-    }],
+      },
+    ],
   ],
 
   dayjs: {
-    locales:['ru'],
+    locales: ['ru'],
     defaultLocale: 'ru',
   },
 
@@ -54,7 +61,7 @@ export default defineNuxtConfig({
           rewrite: (path) => path.replace(/^\/entry/, ''),
         },
       },
-    }
+    },
   },
 
   //@ts-ignore
