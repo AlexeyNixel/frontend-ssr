@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useGeneralStore } from '~/stores/generalStore';
 import { storeToRefs } from 'pinia';
 
@@ -7,57 +7,26 @@ const { isWorkTime } = storeToRefs(generalStore);
 </script>
 
 <template>
-  <div>
-    <el-dialog v-if='isWorkTime'>
-      <template #header>
-        Режим работы библиотеки
-      </template>
-
-      <div class='dialog'>
-        <div class='dialog-content'>
-          <div class='dialog-content__title'>
-            C 1 сентября по 31 мая:
-          </div>
-          вторник – пятница с 10.00 до 20.00, <br>
-          суббота – воскресенье с 10.00 до 19.00,<br>
-          понедельник – выходной день.<br>
-          <br>
-          <div class='dialog-content__title'>
-            C 1 июня по 31 августа:
-          </div>
-          понедельник – суббота с 10.00 до 19.00,<br>
-          воскресенье – выходной день.<br>
-          <br>
-          Последний день месяца - технический день.<br>
-          <br>
-          Условия посещения: бесплатно. Запись по предъявлению паспорта.<br>
-        </div>
-      </div>
-    </el-dialog>
-  </div>
+  <UModal v-model="isWorkTime">
+    <div class="p-4">
+      <div class="text-xl">Время работы библиотеки</div>
+      <p class="my-3">
+        C 1 сентября по 31 мая: <br />
+        вторник – пятница с 10.00 до 20.00,<br />
+        суббота – воскресенье с 10.00 до 19.00,<br />
+        понедельник – выходной день.<br />
+      </p>
+      <p class="my-3">
+        C 1 июня по 31 августа:<br />
+        понедельник – суббота с 10.00 до 19.00,<br />
+        воскресенье – выходной день.<br />
+      </p>
+      <p>Последний день месяца - технический день.<br /></p>
+      <p class="my-3">
+        Условия посещения: бесплатно. Запись по предъявлению паспорта.<br />
+      </p>
+    </div>
+  </UModal>
 </template>
 
-<style scoped lang='scss'>
-.dialog-content__title {
-  font-size: 1.1rem;
-}
-
-:deep(.el-dialog) {
-  width: max-content;
-  background-color: var(--element-bg-color);
-  color: var(--font-color);
-}
-
-:deep(.el-dialog__header) {
-  padding: 10px;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-:deep(.el-dialog__body) {
-  padding: 10px;
-  color: var(--font-color);
-}
-</style>
+<style scoped lang="scss"></style>
