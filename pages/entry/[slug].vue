@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
@@ -19,98 +19,34 @@ const handleRouteAdmin = (slug: string) => {
 entry.value = await entryStore.getEntry(route.params.slug as string, {
   include: 'department',
 });
-
 </script>
 
 <template>
-  <div class="entry" v-if="entry">
+  <div class="my-[1vh]" v-if="entry">
     <Head>
-      <Title>{{entry.title}}</Title>
+      <Title>{{ entry.title }}</Title>
       <Meta name="description" :content="entry.desc" />
     </Head>
-
-    <el-breadcrumb separator="|">
-      <el-breadcrumb-item :to="{ path: '/' }">Главная страница</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: `/department/${entry.department.slug}` }">{{
-        entry.department.title
-      }}</el-breadcrumb-item>
-      <el-breadcrumb-item>{{ entry.title }}</el-breadcrumb-item>
-    </el-breadcrumb>
-
-    <div class="entry__header">
-      <div class="entry__title">
+    <div class="flex my-3 justify-between">
+      <div class="text-2xl font-bold">
         {{ entry.title }}
       </div>
-      <div class="entry__info">
-        <NuxtLink :to="`/department/${entry.department.slug}`" class="entry__department"
+      <div class="text-right">
+        <NuxtLink :to="`/department/${entry.department.slug}`" class="font-bold"
           >{{ entry.department.title }}
         </NuxtLink>
-        <div class="entry__date">
+        <div class="italic">
           {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
         </div>
       </div>
     </div>
-    <div
-      class="entry__content ck-content"
-      v-html="entry.content"
-      :class="dayjs(entry.publishedAt).format('YYYY-MM-DD') > '2023-09-07' ? '' : 'entry__content-no-image'"
-    ></div>
-    <div class="entry__admin-btn" v-if="generalStore.token">
-      <el-button type="warning" @click="handleRouteAdmin(entry.slug)"> Редактировать </el-button>
-    </div>
+    <div class="ck-content" v-html="entry.content" v-viewer></div>
+    <NuxtLink>
+      <UButton color="blue" class="font-bold text-white text-sm">
+        Редактировать
+      </UButton>
+    </NuxtLink>
   </div>
 </template>
 
-<style scoped lang="scss">
-.entry {
-  margin-bottom: 50px;
-
-  &__header {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  &__title {
-    font-weight: bold;
-    font-size: 1.4rem;
-  }
-
-  &__content {
-
-  }
-
-  &__content-no-image {
-    :deep(img) {
-      display: none;
-    }
-  }
-
-  &__info {
-    text-align: right;
-  }
-
-  &__department {
-    color: #007bff;
-    font-weight: bold;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-
-  &__date {
-    font-style: italic;
-  }
-
-  &__admin-btn {
-    margin-top: 10px;
-  }
-}
-
-:deep(.el-button) {
-  border-radius: 10px;
-}
-</style>
+<style scoped lang="scss"></style>

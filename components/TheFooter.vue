@@ -1,141 +1,74 @@
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { useGeneralStore } from '~/stores/generalStore';
 
-const generalStore = useGeneralStore()
+const generalStore = useGeneralStore();
 
+const infoIcon = [
+  {
+    icon: 'mdi:map-marker',
+    title: 'г. Новосибирск, Красный проспект, 26',
+  },
+  {
+    icon: 'mingcute:phone-fill',
+    title: '(383) 210-10-53',
+  },
+  {
+    icon: 'material-symbols:mail',
+    title: 'noub@nso.ru',
+  },
+];
+
+const socialIcon = [
+  {
+    icon: 'uil:vk',
+    link: 'https://vk.com/oub_nsk',
+  },
+  {
+    icon: 'mdi:youtube',
+    link: 'https://www.youtube.com/user/noub77nsk',
+  },
+  {
+    icon: 'tabler:brand-ok-ru',
+    link: 'https://ok.ru/group/70000001168881',
+  },
+];
 </script>
 
 <template>
-  <footer class='footer'>
-    <div class='footer-container'>
-      <div class='footer__left'>
-        <div class='footer__left-item'>
-          <font-awesome-icon class='footer__left-item-icon' :icon="['fass', 'location-dot']" />
-          <span>г. Новосибирск, Красный проспект, 26</span>
+  <footer class="dark:bg-neutral-900 bg-blue-600 p-4 rounded-t-[10px]">
+    <div class="flex">
+      <div class="w-6/12">
+        <div class="flex items-center" v-for="(item, index) in infoIcon">
+          <Icon class="text-3xl my-3 mr-3" :name="item.icon" />
+          <div>{{ item.title }}</div>
         </div>
-        <div class='footer__left-item'>
-          <font-awesome-icon class='footer__left-item-icon' :icon="['fas', 'phone']" />
-          <span>(383) 210-10-53</span>
-        </div>
-        <div class='footer__left-item'>
-          <font-awesome-icon class='footer__left-item-icon' :icon="['fas', 'envelope']" />
-          <span>noub@nso.ru</span>
-        </div>
-        <NuxtLink to='http://admin.infomania.ru' class='footer__left-item' v-if='generalStore.token'>
-          <font-awesome-icon class='footer__left-item-icon' :icon="['fas', 'envelope']" />
-          <span>Админ панель</span>
-        </NuxtLink>
       </div>
-      <div class='footer__right'>
-        <div class='footer__right_item'>
-          <div class='footer__right_item-title'>О нас</div>
-          <div class='footer__right_item-content'>
-            Новосибирская областная молодежная библиотека (НОМБ) работает с 1976 г.
-            У нас можно посмотреть фильмы, послушать музыку, выйти в Интернет, встретиться с интересными людьми и,
-            разумеется, почитать книги. А еще — пообщаться с ровесниками и познакомиться с нашими молодежными клубами!
+      <div class="w-6/12">
+        <div class="">
+          <div class="font-bold">О нас</div>
+          <div>
+            Новосибирская областная молодежная библиотека (НОМБ) работает с 1976
+            г. У нас можно посмотреть фильмы, послушать музыку, выйти в
+            Интернет, встретиться с интересными людьми и, разумеется, почитать
+            книги. А еще — пообщаться с ровесниками и познакомиться с нашими
+            молодежными клубами!
           </div>
         </div>
-        <div class='footer__right_group'>
-          <a target='_blank' class='footer__right_group-item' href='https://www.youtube.com/user/noub77nsk'>
-            <font-awesome-icon class='footer__right_group-item-icon' icon='fa-brands fa-youtube' />
-          </a>
-          <a target='_blank' class='footer__right_group-item' href='https://vk.com/oub_nsk'>
-            <font-awesome-icon class='footer__right_group-item-icon' icon='fa-brands fa-vk' />
-          </a>
-          <a target='_blank' class='footer__right_group-item' href='https://ok.ru/group/70000001168881'>
-            <font-awesome-icon class='footer__right_group-item-icon' icon='fa-brands fa-odnoklassniki' />
-          </a>
+        <div class="flex">
+          <NuxtLink
+            class="mr-4"
+            :to="item.link"
+            external
+            target="_blank"
+            v-for="(item, index) in socialIcon"
+            :key="index"
+          >
+            <Icon class="text-4xl text-white" :name="item.icon" />
+          </NuxtLink>
         </div>
       </div>
     </div>
-    <div class='footer-bottom'>© Новосибирская областная молодежная библиотека 2009-{{ new Date().getFullYear() }}</div>
   </footer>
 </template>
 
-<style lang='scss' scoped>
-.footer {
-  padding: 10px;
-  background: var(--footer-bg);
-  border-radius: 10px 10px 0 0;
-
-  &-container {
-    display: flex;
-  }
-
-  &-bottom {
-    padding: 15px 0 0 0;
-    text-align: center;
-    color: white;
-  }
-
-  &__left {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    align-items: stretch;
-    width: 50%;
-
-    &-item {
-      margin: 17px 0;
-      display: flex;
-      align-items: center;
-      color: white;
-
-      &-icon {
-        margin-right: 5px;
-        font-size: 1.4rem;
-        color: white;
-        padding: 0 10px;
-        border-radius: 50px;
-      }
-    }
-
-    .button {
-      cursor: pointer;
-
-    }
-  }
-
-  &__right {
-    color: white;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-
-    &_item {
-      &-title {
-        font-weight: bold;
-        font-size: 1.1rem;
-      }
-
-      &-archive {
-        color: white;
-
-        &:hover {
-          color: #0d4cd3;
-          transition: .3s;
-        }
-      }
-    }
-
-    &_group {
-      height: 100%;
-      display: flex;
-      align-items: end;
-      flex-wrap: wrap;
-    }
-
-    &_group-item {
-      align-self: end;
-      margin: 10px 10px 0 0;
-
-      &-icon {
-        font-size: 2rem;
-        width: 2rem;
-        color: white;
-      }
-    }
-  }
-}
-
-</style>
+<style lang="scss" scoped></style>

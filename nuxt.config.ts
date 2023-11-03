@@ -22,6 +22,8 @@ export default defineNuxtConfig({
     'nuxt-swiper',
     '@nuxtjs/device',
     'dayjs-nuxt',
+    '@nuxt/ui',
+    'nuxt-icon',
     [
       '@nuxtjs/google-fonts',
       {
@@ -72,5 +74,6 @@ export default defineNuxtConfig({
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'element-plus/theme-chalk/dark/css-vars.css',
+    'viewerjs/dist/viewer.css',
   ],
 });

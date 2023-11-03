@@ -1,29 +1,34 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useDepartmentStore } from '~/stores/departmentStore';
 import { DepartmentType } from '~/models/baseTypes';
 import { useGeneralStore } from '~/stores/generalStore';
 
-const departmentStore = useDepartmentStore()
+const departmentStore = useDepartmentStore();
 
-const departments = ref<DepartmentType[]>()
+const departments = ref<DepartmentType[]>();
 
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 departments.value = await departmentStore.getDepartments({
-  include:'preview'
-})
+  include: 'preview',
+});
 </script>
 
 <template>
-  <div class='departments'>
-   <NuxtLink :to='`department/${item.slug}`' class='departments__item' v-for='item in departments' :key='item.title'>
-     <img :src='staticUrl+item.preview.path' alt='' class='departments__img'>
-     <div class='departments__title'>{{item.title}}</div>
-   </NuxtLink>
+  <div class="flex justify-between">
+    <UCard
+      class="w-[19%] shadow-none border-0 dark:bg-neutral-900 bg-cyan-500 p-0"
+      v-for="item in departments"
+    >
+      <template class="border-0" #header>
+        <img :src="staticUrl + item.preview?.path" alt="" />
+      </template>
+      <div>{{ item.title }}</div>
+    </UCard>
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 .departments {
   display: flex;
   justify-content: space-between;
@@ -40,7 +45,7 @@ departments.value = await departmentStore.getDepartments({
 
   &__img {
     width: 100%;
-    border-radius: 10px 10px 0 0 ;
+    border-radius: 10px 10px 0 0;
     height: 65%;
     display: inline-block;
     object-fit: cover;
@@ -74,7 +79,7 @@ departments.value = await departmentStore.getDepartments({
   }
 }
 
-@media (max-width: 980px)  {
+@media (max-width: 980px) {
   .departments {
     display: none;
   }
