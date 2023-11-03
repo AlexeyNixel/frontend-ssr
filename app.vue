@@ -1,8 +1,14 @@
 <script setup lang="ts">
 import elementRu from 'element-plus/es/locale/lang/ru';
 import { useGeneralStore } from '~/stores/generalStore';
+const appConfig = useAppConfig();
 useHead({
-  meta: [{ name: 'proculture-verification', content: '809fabd30403850765b290f8565b099d' }],
+  meta: [
+    {
+      name: 'proculture-verification',
+      content: '809fabd30403850765b290f8565b099d',
+    },
+  ],
   script: [
     {
       src: '//code.jivo.ru/widget/yWouUDfRrz',
@@ -44,7 +50,7 @@ useHead({
 <template>
   <ElConfigProvider :locale="elementRu">
     <NuxtLayout name="default">
-      <NuxtPage />
+      <NuxtPage class="min-h-[67vh]" />
     </NuxtLayout>
   </ElConfigProvider>
 </template>
