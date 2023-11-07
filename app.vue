@@ -1,7 +1,4 @@
 <script setup lang="ts">
-import elementRu from 'element-plus/es/locale/lang/ru';
-import { useGeneralStore } from '~/stores/generalStore';
-const appConfig = useAppConfig();
 useHead({
   meta: [
     {
@@ -48,9 +45,7 @@ useHead({
 </script>
 
 <template>
-  <ElConfigProvider :locale="elementRu">
-    <NuxtLayout name="default">
-      <NuxtPage class="min-h-[67vh]" />
-    </NuxtLayout>
-  </ElConfigProvider>
+  <NuxtLayout>
+    <NuxtPage />
+  </NuxtLayout>
 </template>

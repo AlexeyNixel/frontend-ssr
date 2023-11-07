@@ -68,20 +68,28 @@ const buttons = [
   <header class="flex justify-between my-4 items-center">
     <div class="">
       <NuxtLink to="/">
-        <img class="w-64" src="/logo.png" alt="" />
+        <img class="w-40 lg:w-64" src="/logo.png" alt="" />
       </NuxtLink>
     </div>
     <div class="grid md:grid-cols-8 grid-cols-4">
       <UTooltip v-for="(item, index) in buttons" :key="index" :text="item.desc">
         <UButton color="blue" variant="link" @click="item.event">
-          <Icon class="text-4xl" :name="item.icon" />
+          <Icon class="text-2xl lg:text-4xl" :name="item.icon" />
         </UButton>
       </UTooltip>
       <client-only>
         <UTooltip text="Темная тема">
           <UButton color="orange" variant="link" @click="toggleDark()">
-            <Icon class="text-4xl" name="mdi:weather-night" v-if="darkMode" />
-            <Icon class="text-4xl" name="mdi:white-balance-sunny" v-else />
+            <Icon
+              class="text-2xl lg:text-4xl"
+              name="mdi:weather-night"
+              v-if="darkMode"
+            />
+            <Icon
+              class="text-2xl lg:text-4xl"
+              name="mdi:white-balance-sunny"
+              v-else
+            />
           </UButton>
         </UTooltip>
       </client-only>

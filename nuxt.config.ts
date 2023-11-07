@@ -6,7 +6,7 @@ export default defineNuxtConfig({
       title: 'НОМБ',
     },
   },
-  buildModules: ['@nuxtjs/moment', ['ru']],
+
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -14,10 +14,8 @@ export default defineNuxtConfig({
     },
   },
   modules: [
-    '@element-plus/nuxt',
     '@vueuse/nuxt',
     '@pinia/nuxt',
-    '@/modules/moment-reset',
     '@samk-dev/nuxt-vcalendar',
     'nuxt-swiper',
     '@nuxtjs/device',
@@ -46,7 +44,6 @@ export default defineNuxtConfig({
 
   vite: {
     server: {
-      port: 3001,
       proxy: {
         '/site': {
           target: 'http://static.infomania.ru/',
@@ -68,12 +65,10 @@ export default defineNuxtConfig({
 
   //@ts-ignore
   css: [
-    '@fortawesome/fontawesome-svg-core/styles.css',
     '/assets/main.css',
     '/assets/ckStyle.css',
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
-    'element-plus/theme-chalk/dark/css-vars.css',
     'viewerjs/dist/viewer.css',
   ],
 });

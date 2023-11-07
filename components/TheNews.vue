@@ -12,6 +12,12 @@ const NEWS_MENU_RUBRICS: { [key: string]: string } = {
 const entryStore = useEntryStore();
 const news = ref<{ [key: string]: EntryType[] }>({});
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
+const isLoading = ref<boolean>(false);
+
+const ui = {
+  base: 'animate-pulse',
+  background: 'bg-gray-300 dark:bg-gray-800',
+};
 
 for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   news.value[rubric] = await entryStore.getEntriesByRubric(rubric, {
@@ -21,35 +27,50 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     toDate: dayjs(new Date()).format('YYYY-MM-DD') + 'T00:00:00.000Z',
   });
 }
+
+watch(news, () => {
+  isLoading.value = news.value.length > 0;
+});
 </script>
 
 <template>
-  <div class="entries">
-    <div class="entries__block" v-for="(menu, index) in news" :key="index">
-      <div class="entries__header">
-        {{ NEWS_MENU_RUBRICS[index] }}
-      </div>
-
+  <div v-if="isLoading" class="flex justify-between my-4">
+    <USkeleton
+      v-for="item in 3"
+      :key="item"
+      :ui="ui"
+      class="h-[952px] lg:w-[32.8%]"
+    />
+  </div>
+  <div class="flex flex-col lg:flex-row justify-between" v-else>
+    <div
+      class="lg:w-[32.8%] bg-white dark:bg-neutral-900 p-4 rounded-[10px]"
+      v-for="(item, index) in news"
+      :key="index"
+    >
       <NuxtLink
-        class="entry"
-        v-for="item in menu"
-        :key="item.id"
-        :to="`entry/${item.slug}`"
+        :to="`/entry/rubric/${index}`"
+        class="mx-3 text-xl font-bold hover:underline"
+        >{{ NEWS_MENU_RUBRICS[index] }}</NuxtLink
       >
-        <div class="entry__preview">
+      <NuxtLink
+        :to="`/entry/${entry.slug}`"
+        class="flex my-4 items-center lg:h-[130px] hover:bg-slate-300 dark:hover:bg-neutral-800 transition rounded-[10px] p-3"
+        v-for="entry in item"
+        :key="entry.id"
+      >
+        <div class="w-[40%] lg:h-[77px] xl:h-[101px]">
           <img
-            v-if="item.preview"
-            :src="`${staticUrl}${item.preview?.path}`"
+            :src="entry.preview?.path"
+            class="w-full h-full object-cover"
             alt=""
           />
         </div>
-        <div class="entry__title">
+        <div class="w-[65%] ml-3 text-black dark:text-white">
           {{
-            `${
-              item.title.length > 80
-                ? item.title.slice(0, 80).trim() + '...'
-                : item.title.trim()
-            }`
+            entry.title.length > 50
+              ? entry.title.slice(0, 50).trim() + '...'
+              : entry.title.trim()
           }}
         </div>
       </NuxtLink>
@@ -57,64 +78,4 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
   </div>
 </template>
 
-<style scoped lang="scss">
-.entries {
-  display: flex;
-  justify-content: space-between;
-  margin: 1vh 0;
-
-  &__block {
-    width: calc(100% / 3 - 10px);
-    background: var(--el-bg-color);
-    padding: 20px;
-    border-radius: 10px;
-  }
-  &__header {
-    font-size: 1.3rem;
-    font-weight: bold;
-    padding: 0 10px;
-  }
-}
-
-.entry {
-  display: flex;
-  height: max-content;
-  margin: 10px 0;
-  justify-content: space-between;
-  padding: 10px 10px;
-  border-radius: 10px;
-  &:hover {
-    background: #d8d8d8;
-    transition: 0.3s;
-  }
-
-  &__preview {
-    width: 160px;
-    height: 120px;
-    margin-right: 10px;
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__title {
-    width: 65%;
-    display: flex;
-    align-items: center;
-  }
-}
-
-@media (min-width: 980px) and (max-width: 1363px) {
-  .entry__title {
-    font-size: 0.9rem;
-  }
-}
-
-@media (max-width: 979px) {
-  .entry__title {
-    font-size: 1.5vw;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

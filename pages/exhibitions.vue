@@ -7,7 +7,6 @@ import TheExhibitionsItem from '~/components/modals/TheExhibitionsItem.vue';
 
 const route = useRoute();
 const fileStore = useFileStore();
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const page = ref<number>(Number(route.query.page) || 1);
 
 const currentPath = ref<string>('');
@@ -18,15 +17,9 @@ const handleChangeExhibition = (path: string) => {
   navigateTo({ path: 'http://static.infomania.ru' + path });
 };
 
-const fetchData = async (val?: number) => {
-  if (val) {
-    page.value = val;
-    navigateTo({ path: '/exhibitions', query: { page: page.value } });
-    if (process.client) {
-      window.scrollTo(pageYOffset, 0);
-    }
-  }
-
+const swapPage = async () => {
+  navigateTo({ path: '/exhibitions', query: { page: page.value } });
+  if (process.client) window.scrollTo(0, 0);
   await fileStore.getFiles({
     searchByField: 'type=EXHIBITION',
     orderBy: '-createdAt',
@@ -35,12 +28,17 @@ const fetchData = async (val?: number) => {
   });
 };
 
-fetchData();
+await fileStore.getFiles({
+  searchByField: 'type=EXHIBITION',
+  orderBy: '-createdAt',
+  pageSize: 9,
+  page: page.value,
+});
 </script>
 
 <template>
-  <div class="exhibition__title">Викторины и выставки</div>
-  <div class="container">
+  <div class="text-2xl my-2 font-bold">Викторины и выставки</div>
+  <div class="grid grid-cols-3 gap-2">
     <a
       :href="`http://static.infomania.ru${item.path}`"
       class="exhibition"
@@ -48,23 +46,19 @@ fetchData();
       :key="item.id"
     >
       <img
-        class="exhibition__img"
-        :src="staticUrl + item.preview"
+        class="w-full h-full object-cover"
+        :src="item.preview"
         alt=""
         @click="handleChangeExhibition(item.path)"
       />
     </a>
   </div>
   <the-exhibitions-item :path="currentPath" />
-  <el-pagination
-    v-if="metaFile"
-    :current-page="page"
-    background
-    class="pagination"
-    layout="prev, pager, next"
-    :page-count="metaFile.pages"
-    :pager-count="9"
-    @currentChange="fetchData"
+  <UPagination
+    class="my-2 flex justify-center items-center"
+    v-model="page"
+    :total="metaFile.pages * 10"
+    @update:model-value="swapPage()"
   />
 </template>
 

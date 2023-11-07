@@ -16,72 +16,33 @@ departments.value = await departmentStore.getDepartments({
 
 <template>
   <div class="flex justify-between">
-    <UCard
-      class="w-[19%] shadow-none border-0 dark:bg-neutral-900 bg-cyan-500 p-0"
+    <nuxt-link
+      :to="`/department/${item.slug}`"
       v-for="item in departments"
+      :key="item.id"
+      class="w-[19%] flex"
     >
-      <template class="border-0" #header>
-        <img :src="staticUrl + item.preview?.path" alt="" />
-      </template>
-      <div>{{ item.title }}</div>
-    </UCard>
+      <UCard
+        :ui="{
+          header: {
+            padding: 'p-0 sm:p-0',
+          },
+        }"
+        class="shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
+      >
+        <template class="border-0" #header>
+          <img
+            class="w-full object-cover"
+            :src="staticUrl + item.preview?.path"
+            alt=""
+          />
+        </template>
+        <div>{{ item.title }}</div>
+      </UCard>
+    </nuxt-link>
   </div>
 </template>
 
 <style scoped lang="scss">
-.departments {
-  display: flex;
-  justify-content: space-between;
-  margin: 1vh 0;
 
-  &__item {
-    width: calc(100% / 5 - 10px);
-    background: var(--el-bg-color);
-    border-radius: 10px;
-    height: 300px;
-    text-decoration: none;
-    color: var(--el-text-color);
-  }
-
-  &__img {
-    width: 100%;
-    border-radius: 10px 10px 0 0;
-    height: 65%;
-    display: inline-block;
-    object-fit: cover;
-  }
-
-  &__title {
-    display: flex;
-    height: 35%;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    text-decoration: none;
-  }
-}
-
-@media (min-width: 1921px) {
-  .departments__item {
-    height: 350px;
-  }
-}
-
-@media (min-width: 1364px) and (max-width: 1920px) {
-  .departments__item {
-    height: 300px;
-  }
-}
-
-@media (min-width: 980px) and (max-width: 1363px) {
-  .departments__item {
-    height: 200px;
-  }
-}
-
-@media (max-width: 980px) {
-  .departments {
-    display: none;
-  }
-}
 </style>

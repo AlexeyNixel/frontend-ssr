@@ -5,9 +5,13 @@ export const axiosApi = axios.create({
   timeout: 1000,
 });
 
-axiosApi.interceptors.response.use(
-  (response) => {
-    const { data } = response;
-    return data;
-  },
-);
+if (process.client) {
+  axiosApi.defaults.headers.common[
+    'Authorization'
+  ] = `Bearer ${localStorage.getItem('token')!}`;
+}
+
+axiosApi.interceptors.response.use((response) => {
+  const { data } = response;
+  return data;
+});

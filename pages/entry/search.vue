@@ -7,11 +7,15 @@ import { useSearchStore } from '~/stores/searchStore';
 import { navigateTo } from '#app';
 import { storeToRefs } from 'pinia';
 
-const paginationUi = {
-  default: {
-    activeButton: {
-      color: 'blue',
+const ui = {
+  icon: {
+    trailing: {
+      pointer: '',
     },
+  },
+  rounded: 'rounded-[10px]',
+  variant: {
+    none: 'bg-white dark:bg-neutral-900 border-0 shadow-0 focus:ring-{color}-500 dark:focus:ring-{color}-400',
   },
 };
 
@@ -64,10 +68,7 @@ const handleNavigate = () => {
 };
 
 const filters = ref({
-  orderFilter:
-    (route.query.order as string) !== ''
-      ? (route.query.order as string)
-      : '-publisheAt',
+  orderFilter: (route.query.order as string) || '-publishedAt',
   year: (route.query.year as string) || '',
   departmentFilter: (route.query.department as string) || '',
 });
@@ -115,9 +116,10 @@ watch(filters.value, () => {
 <template>
   <div>
     <UInput
+      variant="none"
       icon="i-heroicons-magnifying-glass-20-solid"
       size="sm"
-      :ui="{ icon: { trailing: { pointer: '' } } }"
+      :ui="ui"
       color="white"
       :trailing="false"
       placeholder="Search..."
@@ -168,9 +170,8 @@ watch(filters.value, () => {
     <UPagination
       class="flex justify-center my-4"
       v-model="page"
-      :total="pages"
+      :total="pages * 10"
       @update:model-value="fetchData()"
-      :ui="paginationUi"
     />
   </div>
 </template>
