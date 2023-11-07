@@ -21,6 +21,6 @@ const component = {
 
 <style scoped lang="scss">
 .billboard {
-  height: 445px;
+  height: 380px;
 }
 </style>

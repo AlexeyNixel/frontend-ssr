@@ -3,114 +3,63 @@ import { useSliderStore } from '~/stores/sliderStore';
 import { storeToRefs } from 'pinia';
 import { useGeneralStore } from '~/stores/generalStore';
 
-const generalStore = useGeneralStore();
+const ui = {
+  base: 'animate-pulse',
+  background: 'bg-gray-300 dark:bg-gray-800',
+};
 
+const generalStore = useGeneralStore();
 const sliderStore = useSliderStore();
 const { slides } = storeToRefs(sliderStore);
+
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
-const loading = ref<boolean>(true);
+const isLoading = ref<boolean>(false);
 
-await sliderStore.getSlides({ include: 'image,entry' });
+sliderStore.getSlides({ include: 'image,entry' });
 
-loading.value = slides.value.length > 0;
+watch(slides, () => {
+  isLoading.value = slides.value.length > 0;
+});
 </script>
 
 <template>
-  <el-skeleton :loading="!loading" animated>
-    <template #template>
-      <el-skeleton-item variant="image" class="slider" style="width: 100%" />
-    </template>
-    <template #default>
-      <Swiper
-        :modules="[SwiperAutoplay, SwiperPagination]"
-        :loop="true"
-        :pagination="true"
-        :autoplay="{ delay: 6000, disableOnInteraction: true }"
-        class="sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[400px] 2xl:h-[400px] rounded-[10px]"
+  <USkeleton :ui="ui" v-if="!isLoading" class="slider" />
+  <Swiper
+    :modules="[SwiperAutoplay, SwiperPagination]"
+    :loop="true"
+    v-else
+    :pagination="true"
+    :autoplay="{ delay: 6000, disableOnInteraction: true }"
+    class="slider"
+  >
+    <SwiperSlide class="rounded-[10px]" v-for="item in slides" :key="item.id">
+      <a v-if="item.url" :href="item.url" target="_blank">
+        <img
+          class="w-full h-full rounded-[10px]"
+          :src="staticUrl + item.image.path"
+          alt=""
+        />
+      </a>
+      <NuxtLink v-else :to="`/entry/${item.entry.slug}`">
+        <img
+          class="w-full h-full rounded-[10px]"
+          :src="staticUrl + item.image?.path"
+          alt=""
+        />
+      </NuxtLink>
+      <NuxtLink
+        :to="`http://admin.infomania.ru/slides/update/${item.id}`"
+        class="absolute top-3 right-3"
+        v-if="generalStore.token"
       >
-        <SwiperSlide
-          class="slider__item rounded-[10px]"
-          v-for="item in slides"
-          :key="item.id"
-        >
-          <a
-            class="slider__link"
-            v-if="item.url"
-            :href="item.url"
-            target="_blank"
-          >
-            <img
-              class="w-full h-full rounded-[10px]"
-              :src="staticUrl + item.image.path"
-              alt=""
-            />
-          </a>
-          <NuxtLink
-            class="slider__link"
-            v-else
-            :to="`/entry/${item.entry.slug}`"
-          >
-            <img
-              class="w-full h-full rounded-[10px]"
-              :src="staticUrl + item.image?.path"
-              alt=""
-            />
-          </NuxtLink>
-          <client-only>
-            <NuxtLink
-              :to="`http://admin.infomania.ru/slides/update/${item.id}`"
-              class="slider__update"
-              v-if="generalStore.token"
-            >
-              <font-awesome-icon
-                v-if="generalStore.token"
-                icon="fa-solid fa-gear"
-              />
-            </NuxtLink>
-          </client-only>
-        </SwiperSlide>
-      </Swiper>
-    </template>
-  </el-skeleton>
+        <Icon class="text-2xl hover:rotate-180 transition" name="mdi:cog" />
+      </NuxtLink>
+    </SwiperSlide>
+  </Swiper>
 </template>
 
 <style scoped lang="scss">
-// .slider {
-//   margin: 1vh 0;
-//   border-radius: 10px;
-//   height: 600px;
-
-//   &__img {
-//     width: 100%;
-//     height: 100%;
-//     border-radius: 10px;
-//   }
-
-//   &__update {
-//     position: absolute;
-//     top: 0;
-//     right: 0;
-//     font-size: 1.4rem;
-//     color: red;
-//     margin: 0.5vw;
-//   }
-// }
-
-// @media (min-width: 1364px) and (max-width: 1921px) {
-//   .slider {
-//     height: 426px;
-//   }
-// }
-
-// @media (min-width: 980px) and (max-width: 1363px) {
-//   .slider {
-//     height: 306px;
-//   }
-// }
-
-// @media (max-width: 979px) {
-//   .slider {
-//     height: 31.4vw;
-//   }
-// }
+.slider {
+  @apply sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[400px] 2xl:h-[400px] w-full;
+}
 </style>

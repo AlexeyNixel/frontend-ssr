@@ -1,16 +1,15 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
 
 const NEWS_MENU_RUBRICS = {
-  'aktualnoe': 'Актуальное',
-  'anonsy': 'Анонсы',
-  'sobytiya': 'События',
+  aktualnoe: 'Актуальное',
+  anonsy: 'Анонсы',
+  sobytiya: 'События',
 };
 
 const entryStore = useEntryStore();
 const news = ref<{ [key: string]: EntryType[] }>({});
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const rubricsTranslate: { [key: string]: string } = {
   aktualnoe: 'Актуальное',
@@ -29,88 +28,41 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 
 <template>
   <div>
-    <div class="entry-list" v-for="(items, rubric) in news" :key="rubric">
-      <el-scrollbar>
-        <div class="entry-list__flex">
-          <NuxtLink
-            :to='`entry/${item.slug}`'
-            class="entry-item__link"
-            v-for="item in items"
-            :key="item.id"
-          >
-            <div class="entry-item__img">
-              <img :src="staticUrl + item?.preview.path" alt="" />
-            </div>
-            <div class="entry-item__content">
-              <div class="entry-item__title">
-                {{ item.title.slice(0, 50) + '...' }}
-              </div>
-              <div class="entry-item__rubric">{{ rubricsTranslate[rubric] }}</div>
-            </div>
-          </NuxtLink>
-        </div>
-      </el-scrollbar>
+    <div class="my-3" v-for="(items, rubric) in news" :key="rubric">
+      <div class="flex overflow-x-scroll">
+        <UCard
+          class="w-52 mx-3 shrink-0 shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
+          v-for="item in items"
+          :key="item.id"
+          @click="
+            navigateTo({
+              path: `/entry/${item?.slug}`,
+            })
+          "
+          :ui="{
+            header: {
+              padding: 'p-0 sm:p-0',
+            },
+          }"
+        >
+          <template class="border-0" #header>
+            <img
+              class="h-[156px] w-full object-cover"
+              :src="item.preview?.path"
+              alt=""
+            />
+          </template>
+          <div>
+            {{
+              item.title.length > 50
+                ? item.title.slice(0, 50).trim() + '...'
+                : item.title.trim()
+            }}
+          </div>
+        </UCard>
+      </div>
     </div>
   </div>
 </template>
 
-<style scoped lang='scss'>
-.entry-list {
-  &__rubric {
-    width: 100%;
-    margin: 1vh 0;
-    border-bottom: 1px solid #ededed;
-    border-radius: 1px;
-  }
-  &__flex {
-    display: flex;
-  }
-}
-
-.entry-item {
-
-  &__link {
-    margin: 1vh 0;
-    height: 250px;
-    width: 200px;
-    flex-shrink: 0;
-    margin-right: 10px;
-    background: var(--el-bg-color);
-    border-radius: 10px;
-    text-decoration: none;
-    color: var(--font-color);
-  }
-  &__img {
-    height: 150px;
-    img {
-      object-fit: cover;
-      height: 100%;
-      width: 100%;
-      border-radius: 10px 10px 0 0;
-    }
-  }
-  &__content {
-    height: 35%;
-    display: flex;
-    flex-direction: column;
-  }
-
-  &__title {
-    text-align: center;
-    font-size: .8rem;
-    height: 75%;
-  }
-
-  &__rubric {
-    border: 1px solid gray;
-    width: max-content;
-    border-radius: 20px;
-    padding: 4px 10px;
-    align-self: end;
-    font-size: .8rem;
-  }
-}
-:deep(.el-scrollbar__bar.is-horizontal) {
-  display: none;
-}
-</style>
+<style scoped lang="scss"></style>

@@ -9,38 +9,18 @@
 }
 
 a {
-  color: #007bff;
-  text-decoration: none;
+  @apply text-blue-600 hover:text-blue-400 transition;
 }
 
 body {
-  background: var(--el-bg-color-page);
-  transition: background-color 0.2s !important;
+  @apply bg-gray-200 dark:bg-black;
 }
 
 html.dark {
   --logo-color: white;
-  --footer-bg: var(--el-bg-color);
-  --element-bg-color: #222222;
 }
 
 html {
   scroll-behavior: smooth;
   --logo-color: black;
-  --footer-bg: #007bff;
-  --element-bg-color: #ffffff;
-}
-
-.el-overlay-dialog {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.el-dialog__body {
-  margin: 0;
-}
-
-.el-message-box {
-  border-radius: 10px;
 }

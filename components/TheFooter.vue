@@ -39,14 +39,14 @@ const socialIcon = [
     <div class="flex">
       <div class="w-6/12">
         <div class="flex items-center" v-for="(item, index) in infoIcon">
-          <Icon class="text-3xl my-3 mr-3" :name="item.icon" />
-          <div>{{ item.title }}</div>
+          <Icon class="text-3xl text-white my-3 mr-3" :name="item.icon" />
+          <div class="text-white">{{ item.title }}</div>
         </div>
       </div>
       <div class="w-6/12">
         <div class="">
-          <div class="font-bold">О нас</div>
-          <div>
+          <div class="font-bold text-white">О нас</div>
+          <div class="text-white">
             Новосибирская областная молодежная библиотека (НОМБ) работает с 1976
             г. У нас можно посмотреть фильмы, послушать музыку, выйти в
             Интернет, встретиться с интересными людьми и, разумеется, почитать

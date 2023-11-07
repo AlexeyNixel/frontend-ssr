@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { Calendar } from 'v-calendar';
 import { storeToRefs } from 'pinia';
 import { useBillboardStore } from '~/stores/billboardStore';
@@ -18,7 +18,11 @@ const handleSelectDay = async (val: any) => {
   }
 };
 
-const fetchData = async (fromDate: string, toDate: string, params?: ParamsType) => {
+const fetchData = async (
+  fromDate: string,
+  toDate: string,
+  params?: ParamsType
+) => {
   billboards.value = await billboardStore.getBillboards({
     fromDate: fromDate + 'T00:00:00.000Z',
     toDate: toDate + 'T00:00:00.000Z',
@@ -28,9 +32,13 @@ const fetchData = async (fromDate: string, toDate: string, params?: ParamsType) 
 };
 
 const calendarMove = async (val: any) => {
-  const startDay = dayjs(val[0].monthComps.firstDayOfMonth).format('YYYY-MM-DD');
-  const endDay = dayjs(val[0].monthComps.firstDayOfMonth).endOf('month').format('YYYY-MM-DD');
-  await fetchData(startDay, endDay, {pageSize: 50} );
+  const startDay = dayjs(val[0].monthComps.firstDayOfMonth).format(
+    'YYYY-MM-DD'
+  );
+  const endDay = dayjs(val[0].monthComps.firstDayOfMonth)
+    .endOf('month')
+    .format('YYYY-MM-DD');
+  await fetchData(startDay, endDay, { pageSize: 50 });
   billboards.value?.forEach((item) => {
     attrs.value.push({
       key: item.id,
@@ -45,7 +53,7 @@ await fetchData(
   dayjs(new Date()).endOf('month').format('YYYY-MM-DD'),
   {
     pageSize: 50,
-  },
+  }
 );
 
 billboards.value?.forEach((item) => {
@@ -60,10 +68,10 @@ billboards.value?.forEach((item) => {
 <template>
   <div>
     <Calendar
-      :attributes='attrs'
+      :attributes="attrs"
       :is-dark="{ selector: 'html', darkClass: 'dark' }"
-      @dayclick='handleSelectDay'
-      @did-move='calendarMove'
+      @dayclick="handleSelectDay"
+      @did-move="calendarMove"
       transparent
       borderless
       expanded
@@ -71,15 +79,14 @@ billboards.value?.forEach((item) => {
   </div>
 </template>
 
-<style scoped lang='scss'>
+<style scoped lang="scss">
 :deep(.vc-header.is-lg) {
   //display: none;
 }
 
 :deep(.vc-container) {
   --vc-text-sm: 18px;
-  height: 320px;
-
+  // height: 320px;
 }
 
 :deep(.vc-highlight) {
@@ -88,6 +95,10 @@ billboards.value?.forEach((item) => {
 }
 
 :deep(.vc-day) {
-  min-height: 55px;
+  min-height: 50px;
+}
+
+:deep(.vc-monthly .is-not-in-month *) {
+  opacity: 0.2;
 }
 </style>

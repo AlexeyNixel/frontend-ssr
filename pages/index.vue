@@ -15,15 +15,13 @@ if (process.client) {
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
 }
-
-setPageLayout('default');
 </script>
 
 <template>
   <TheSlider />
   <TheNavigation v-if="isDesktop" />
   <TheNavigationMobile v-else />
-  <client-only v-if="isDesktop"><TheBillboard /></client-only>
+  <TheBillboard v-if="isDesktop" />
   <client-only v-else><TheBillboardMobile /></client-only>
   <TheNews v-if="isDesktop" />
   <TheNewsMobile v-else />

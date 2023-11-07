@@ -1,4 +1,4 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { useMenuStore } from '~/stores/menuStore';
 import { MenuType } from '~/models/baseTypes';
 
@@ -11,62 +11,44 @@ about.value = await menuStore.getMenus({
 });
 
 about.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
-
 </script>
 
 <template>
   <div>
-    <el-row class='navigation-content' justify='space-between'>
-      <el-col :span='7' class='navigation-content__block' v-for='item in about' :key='item.id'>
-        <div class='navigation-content__title'>{{item.title}}</div>
-        <div class='navigation-content__container' v-for='links in item.menuItems'>
+    <div
+      class="grid grid-cols-3 bg-white dark:bg-neutral-900 py-3 px-5 rounded-[10px]"
+    >
+      <div class="" v-for="item in about" :key="item.id">
+        <div class="text-xl">{{ item.title }}</div>
+        <div
+          class="my-1 text-black odd:text-neutral-200"
+          v-for="links in item.menuItems"
+          :key="links.id"
+        >
           <NuxtLink
-            class='navigation-content__link'
-            v-if='!links.link'
-            :to='`document/${links.slug}`'
+            class="link"
+            v-if="!links.link"
+            :to="`document/${links.slug}`"
           >
-            {{links.title}}
+            {{ links.title }}
           </NuxtLink>
-          <a
+          <NuxtLink
+            class="link"
             v-else
-            :href='links.link'
-            target='_blank'
-            class='navigation-content__link'
+            :to="links.link"
+            external
+            target="_blank"
           >
-            {{links.title}}
-          </a>
+            {{ links.title }}
+          </NuxtLink>
         </div>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
   </div>
 </template>
 
-<style scoped lang='scss'>
-.navigation-content {
-  background: var(--el-bg-color);
-  padding: 10px 20px;
-  border-radius: 10px;
-  //height: 300px;
-
-  &__title {
-    font-size: 1.3rem;
-    margin-bottom: 10px;
-  }
-
-  &__container {
-    margin: .5vh 0;
-    &:nth-child(odd) {
-      color: var(--el-text-color-secondary);
-    }
-  }
-
-  &__link {
-    text-decoration: none;
-    color: var(--el-text-color);
-    &:hover {
-      text-decoration: underline;
-    }
-
-  }
+<style scoped lang="scss">
+.link {
+  @apply text-black dark:text-white hover:text-neutral-500 hover:underline;
 }
 </style>

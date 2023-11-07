@@ -10,14 +10,18 @@ const route = useRoute();
 const entryStore = useEntryStore();
 const entry = ref<EntryType>();
 
-const handleRouteAdmin = (slug: string) => {
-  navigateTo('http://admin.infomania.ru/entry/update/' + slug, {
-    external: true,
-  });
-};
-
 entry.value = await entryStore.getEntry(route.params.slug as string, {
   include: 'department',
+});
+
+onMounted(() => {
+  const table = document.querySelector('.table');
+  const wrapper = document.createElement('div');
+  if (table) {
+    wrapper.setAttribute('class', 'w-full overflow-x-scroll');
+    table.parentNode?.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  }
 });
 </script>
 
@@ -41,7 +45,10 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
       </div>
     </div>
     <div class="ck-content" v-html="entry.content" v-viewer></div>
-    <NuxtLink>
+    <NuxtLink
+      :to="`http://admin.infomania.ru/entry/update/${entry.slug}`"
+      external
+    >
       <UButton color="blue" class="font-bold text-white text-sm">
         Редактировать
       </UButton>

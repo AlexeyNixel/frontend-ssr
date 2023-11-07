@@ -1,69 +1,50 @@
-<script setup lang='ts'>
+<script setup lang="ts">
 import { EntryType } from '~/models/baseTypes';
 import dayjs from 'dayjs';
 
-type PropsType = {
-  entry: EntryType
+interface Props {
+  entry: EntryType;
+  isDate?: boolean;
 }
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
-defineProps<PropsType>();
+
+defineProps<Props>();
 </script>
 
 <template>
-  <NuxtLink :to='`/entry/${entry.slug}`' class='entry'>
-    <div class='entry__preview'>
+  <NuxtLink
+    :to="`/entry/${entry.slug}`"
+    class="flex my-4 text-black dark:text-white bg-white p-4 dark:bg-neutral-900 hover:bg-slate-300 dark:hover:bg-neutral-800 rounded-[10px] transition"
+  >
+    <div class="w-4/12 lg:w-[20%]">
       <img
-        v-if='entry.preview?.path &&
-       dayjs(entry.publishedAt).format("YYYY-MM-DD") > "2023-09-07"'
-        :src='staticUrl+entry.preview?.path' alt='' class='entry__img'
-      >
-      <TheBase v-else class='entry__img-empty' />
+        :onerror="
+          (event: any) => {
+            event.target.src =
+              'https://cdn1.flamp.ru/b1aea1d7e4be8c57b1e414678d5756f0.png';
+          }
+        "
+        class="image-placeholder f-full"
+        v-if="entry.preview?.path"
+        :src="entry.preview?.path"
+      />
+      <TheBase v-else class="w-full" />
     </div>
-    <div class='entry__content'>
-      <div class='entry__title'>{{ entry.title }}</div>
-      <div class='entry__desc' v-html='entry.desc'></div>
+    <div class="ml-[10px] flex flex-col justify-between w-8/12 lg:w-[80%]">
+      <div class="font-bold lg:text-xl lg:mb-2">{{ entry.title }}</div>
+      <div class="hidden lg:block" v-html="entry.desc"></div>
+      <div class="self-end" v-if="isDate">
+        {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
+      </div>
     </div>
   </NuxtLink>
 </template>
 
-<style scoped lang='scss'>
-.entry {
-  display: flex;
-  text-decoration: none;
-  color: var(--el-text-color);
-  margin: 1vh 0;
-  padding: 10px;
-  border-radius: 10px;
-  background: var(--el-bg-color);
-
-  &:hover {
-    color: #1d5deb;
-    transition: .3s;
-  }
-
-  &__preview {
-    width: 20%;
-    display: flex;
-    align-items: center;
-
-    img {
-      width: 100%;
-      border-radius: 10px 0 0 10px;
-    }
-  }
-
-  &__img-empty {
-    width: 100%;
-  }
-
-  &__content {
-    width: 80%;
-    margin-left: 10px;
-  }
-
-  &__title {
-    font-weight: bold;
-    font-size: 1.3rem;
-  }
-}
+<style scoped lang="scss">
+// .image-placeholder {
+//   background-image: url('../../public/favicon.ico');
+//   background-repeat: no-repeat;
+//   background-size: contain;
+//   background-position: center;
+//   color: transparent;
+// }
 </style>
