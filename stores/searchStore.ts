@@ -1,31 +1,59 @@
 import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
+import { ParamsType } from '~/models/baseTypes';
 
 export const useSearchStore = defineStore('search', () => {
-  const orderByFilter = ref<string>('-publishedAt')
-  const yearFilter = ref<string>('')
-  const departmentFilter = ref<string>()
+  const orderFilters = ref([
+    {
+      name: 'По умолчанию',
+      value: '',
+    },
+    {
+      name: 'Сначала новые',
+      value: '-publishedAt',
+    },
+    {
+      name: 'Сначала старые',
+      value: 'publishedAt',
+    },
+  ]);
+
+  const filters = ref({
+    orderFilter: '-publishedAt',
+    year: '',
+    departmentFilter: '',
+  });
 
   const clearFilter = () => {
-    orderByFilter.value = ''
-    yearFilter.value = ''
-    departmentFilter.value = ''
-  }
+    filters.value.orderFilter = '-publishedAt';
+    filters.value.departmentFilter = '';
+    filters.value.year = '';
+  };
+
+  const params = ref<ParamsType>({
+    toDate: filters.value.year
+      ? filters.value.year + '-12-31T00:00:00.000Z'
+      : '',
+    fromDate: filters.value.year
+      ? filters.value.year + '-01-01T00:00:00.000Z'
+      : '',
+    orderBy: filters.value.orderFilter,
+    include: 'preview',
+  });
 
   const generateDate = () => {
-    let years = []
-    for(let i=2010; i<=Number(dayjs(new Date).format('YYYY')); i++) {
-      years.push(i)
+    let years = [];
+    for (let i = 2010; i <= Number(dayjs(new Date()).format('YYYY')); i++) {
+      years.push(i);
     }
-    return years
-  }
+    return years;
+  };
 
   return {
-    orderByFilter,
-    yearFilter,
-    departmentFilter,
-    clearFilter,
     generateDate,
-
-  }
-})
+    clearFilter,
+    orderFilters,
+    filters,
+    params,
+  };
+});

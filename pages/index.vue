@@ -1,8 +1,5 @@
 <script setup lang="ts">
-import { setPageLayout } from '#app';
 import { useGeneralStore } from '~/stores/generalStore';
-import TheTestBillboard from '~/components/TheTestBillboard.vue';
-import { storeToRefs } from 'pinia';
 import TheNavigationMobile from '~/components/TheNavigationMobile.vue';
 import TheNewsMobile from '~/components/TheNewsMobile.vue';
 import TheBillboardMobile from '~/components/TheBillboardMobile.vue';
