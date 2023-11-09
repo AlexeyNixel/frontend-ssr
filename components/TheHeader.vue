@@ -17,7 +17,7 @@ const buttons = [
   {
     icon: 'mdi:magnify',
     event: () => router.push('/entry/search/'),
-    style: null,
+    style: '',
     desc: 'Поиск',
   },
   {
@@ -30,6 +30,15 @@ const buttons = [
     style: null,
     desc: 'Электронный каталог',
   },
+  // {
+  //   icon: 'fluent:board-games-20-filled',
+  //   event: () =>
+  //     navigateTo('/games/', {
+  //       external: true,
+  //     }),
+  //   style: null,
+  //   desc: 'Каталог настольных игр',
+  // },
   {
     icon: 'mdi:map-marker',
     event: () => (isMap.value = !isMap.value),
@@ -65,14 +74,19 @@ const buttons = [
 </script>
 
 <template>
-  <header class="flex justify-between my-4 items-center">
+  <header class="flex justify-between my-5 items-center">
     <div class="">
       <NuxtLink to="/">
         <img class="w-40 lg:w-64" src="/logo.png" alt="" />
       </NuxtLink>
     </div>
     <div class="grid md:grid-cols-8 grid-cols-4">
-      <UTooltip v-for="(item, index) in buttons" :key="index" :text="item.desc">
+      <UTooltip
+        v-for="(item, index) in buttons"
+        :key="index"
+        :text="item.desc"
+        :class="item.style"
+      >
         <UButton color="blue" variant="link" @click="item.event">
           <Icon class="text-2xl lg:text-4xl" :name="item.icon" />
         </UButton>

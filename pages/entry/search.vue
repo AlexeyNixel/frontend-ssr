@@ -6,6 +6,7 @@ import { useDepartmentStore } from '~/stores/departmentStore';
 import { useSearchStore } from '~/stores/searchStore';
 import { navigateTo } from '#app';
 import { storeToRefs } from 'pinia';
+import TheFilter from '~/components/TheFilter.vue';
 
 const ui = {
   icon: {
@@ -22,65 +23,34 @@ const ui = {
 const route = useRoute();
 const entryStore = useEntryStore();
 const searchStore = useSearchStore();
-const departmentStore = useDepartmentStore();
-
-const isFirstLoad = ref<boolean>(false);
 
 const { entries } = storeToRefs(entryStore);
 const { metaEntry } = storeToRefs(entryStore);
+const { filters } = storeToRefs(searchStore);
 
-const search = ref<string>();
+const search = ref<string>(route.query.search as string);
 const pages = ref<number>(1);
 const page = ref<number>(Number(route.query.page) || 1);
 
-const orderFilters = [
-  {
-    name: 'По умолчанию',
-    value: '',
-  },
-  {
-    name: 'Сначала новые',
-    value: '-publishedAt',
-  },
-  {
-    name: 'Сначала старые',
-    value: 'publishedAt',
-  },
-];
-
-const handleClearFilter = () => {
-  filters.value.departmentFilter = '';
-  filters.value.orderFilter = '-publishedAt';
-  filters.value.year = '';
-  handleNavigate();
-};
-
-const handleNavigate = () => {
+const handleNavigate = (val?: number) => {
+  if (val) page.value = val;
   navigateTo({
     path: '/entry/search',
     query: {
       order: filters.value.orderFilter,
       year: filters.value.year,
       departments: filters.value.departmentFilter,
-      page: page.value,
+      page: val || page.value,
+      search: search.value,
     },
   });
+  fetchData();
 };
 
-const filters = ref({
-  orderFilter: (route.query.order as string) || '-publishedAt',
-  year: (route.query.year as string) || '',
-  departmentFilter: (route.query.department as string) || '',
-});
-
-const departments = ref<DepartmentType[]>();
-departments.value = await departmentStore.getDepartments();
-
 const fetchData = async () => {
-  if (isFirstLoad.value) handleNavigate();
   if (process.client) window.scroll(0, 0);
-  isFirstLoad.value = true;
-  const params: ParamsType = {
+
+  const params = ref<ParamsType>({
     toDate: filters.value.year
       ? filters.value.year + '-12-31T00:00:00.000Z'
       : '',
@@ -88,19 +58,22 @@ const fetchData = async () => {
       ? filters.value.year + '-01-01T00:00:00.000Z'
       : '',
     orderBy: filters.value.orderFilter,
-    search: search.value,
     include: 'preview',
-    page: page.value,
-  };
+  });
 
   if (filters.value.departmentFilter === '') {
-    await entryStore.getEntries(params);
+    await entryStore.getEntries({
+      page: page.value,
+      search: search.value,
+      ...params.value,
+    });
     pages.value = Number(metaEntry.value?.pages);
   } else {
-    await entryStore.getEntriesByDepartment(
-      filters.value.departmentFilter,
-      params
-    );
+    await entryStore.getEntriesByDepartment(filters.value.departmentFilter, {
+      page: page.value,
+      search: search.value,
+      ...params.value,
+    });
     pages.value = Number(metaEntry.value?.pages);
   }
 };
@@ -116,52 +89,18 @@ watch(filters.value, () => {
 <template>
   <div>
     <UInput
+      @keydown.enter="handleNavigate(1)"
       variant="none"
       icon="i-heroicons-magnifying-glass-20-solid"
       size="sm"
       :ui="ui"
       color="white"
       :trailing="false"
-      placeholder="Search..."
+      placeholder="Поиск..."
+      v-model="search"
     >
       <template #trailing>
-        <UPopover>
-          <UButton variant="link">
-            <Icon class="text-xl text-current" name="mdi:filter" />
-          </UButton>
-          <template #panel>
-            <div class="p-4 w-96">
-              <div class="flex justify-between items-center my-3">
-                <div class="text-2xl font-bold">Фильтры</div>
-                <UButton @click="handleClearFilter()">очистить</UButton>
-              </div>
-              <div class="">
-                <div>Сортировка</div>
-                <USelect
-                  v-model="filters.orderFilter"
-                  :options="orderFilters"
-                  option-attribute="name"
-                />
-              </div>
-              <div class="">
-                <div>Год</div>
-                <USelect
-                  v-model="filters.year"
-                  :options="searchStore.generateDate()"
-                />
-              </div>
-              <div class="">
-                <div>Отдел</div>
-                <USelect
-                  v-model="filters.departmentFilter"
-                  :options="departments"
-                  value-attribute="slug"
-                  option-attribute="title"
-                />
-              </div>
-            </div>
-          </template>
-        </UPopover>
+        <TheFilter />
       </template>
     </UInput>
     <div class="entry-list">
@@ -171,7 +110,7 @@ watch(filters.value, () => {
       class="flex justify-center my-4"
       v-model="page"
       :total="pages * 10"
-      @update:model-value="fetchData()"
+      @update:model-value="handleNavigate()"
     />
   </div>
 </template>

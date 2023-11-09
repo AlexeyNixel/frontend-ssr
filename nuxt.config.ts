@@ -63,12 +63,14 @@ export default defineNuxtConfig({
     },
   },
 
-  //@ts-ignore
   css: [
-    '/assets/main.css',
     '/assets/ckStyle.css',
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'viewerjs/dist/viewer.css',
   ],
+
+  tailwindcss: {
+    cssPath: '~/assets/main.css',
+  },
 });

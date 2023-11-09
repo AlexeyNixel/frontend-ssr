@@ -26,27 +26,29 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-[1vh]" v-if="entry">
+  <div class="my-[1vh]">
     <Head>
-      <Title>{{ entry.title }}</Title>
-      <Meta name="description" :content="entry.desc" />
+      <Title>{{ entry?.title }}</Title>
+      <Meta name="description" :content="entry?.desc" />
     </Head>
     <div class="flex my-3 justify-between">
       <div class="text-2xl font-bold">
-        {{ entry.title }}
+        {{ entry?.title }}
       </div>
       <div class="text-right">
-        <NuxtLink :to="`/department/${entry.department.slug}`" class="font-bold"
-          >{{ entry.department.title }}
+        <NuxtLink
+          :to="`/department/${entry?.department.slug}`"
+          class="font-bold"
+          >{{ entry?.department.title }}
         </NuxtLink>
         <div class="italic">
-          {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
+          {{ dayjs(entry?.publishedAt).format('DD.MM.YYYY') }}
         </div>
       </div>
     </div>
-    <div class="ck-content" v-html="entry.content" v-viewer></div>
+    <div class="ck-content" v-html="entry?.content" v-viewer></div>
     <NuxtLink
-      :to="`http://admin.infomania.ru/entry/update/${entry.slug}`"
+      :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
       external
     >
       <UButton color="blue" class="font-bold text-white text-sm">
