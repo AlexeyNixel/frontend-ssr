@@ -49,7 +49,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="ck-content" v-html="entry?.content"></div>
+    <div class="ck-content" v-viewer v-html="entry?.content"></div>
     <NuxtLink
       :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
       external
