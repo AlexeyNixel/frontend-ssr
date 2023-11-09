@@ -1,14 +1,17 @@
 import { defineStore } from 'pinia';
-import { ParamsType } from '~/models/baseTypes';
+import { DepartmentType, ParamsType } from '~/models/baseTypes';
 import { findDepartments } from '~/api/departmentApi';
 
 export const useDepartmentStore = defineStore('department', () => {
+  const departments = ref<DepartmentType[]>();
   const getDepartments = async (params?: ParamsType) => {
-    const { data } = await findDepartments(params)
-    return data
-  }
+    const { data } = await findDepartments(params);
+    departments.value = data;
+    return data;
+  };
 
   return {
-    getDepartments
-  }
-})
+    departments,
+    getDepartments,
+  };
+});

@@ -15,4 +15,6 @@ export enum Routes {
   MAIN_SLIDER_ROUTE = '/api/main-slider/',
   FILE_ROUTE = '/api/file/',
   DOCUMENT_ROUTE = '/api/document/',
+  GAMES_ROUTE = '/api/games/',
+  GENRE_ROUTE = '/api/genre/',
 }

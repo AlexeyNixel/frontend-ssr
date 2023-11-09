@@ -41,7 +41,16 @@ export default defineNuxtConfig({
     locales: ['ru'],
     defaultLocale: 'ru',
   },
-
+  nitro: {
+    routeRules: {
+      '/site': {
+        proxy:'http://static.infomania.ru/'
+      },
+      '/media': {
+        proxy: 'http://static.infomania.ru/site',
+      },
+    }
+  },
   vite: {
     server: {
       proxy: {
@@ -63,12 +72,14 @@ export default defineNuxtConfig({
     },
   },
 
-  //@ts-ignore
   css: [
-    '/assets/main.css',
     '/assets/ckStyle.css',
     '/assets/imageResize.css',
     '/assets/gosUslugi.css',
     'viewerjs/dist/viewer.css',
   ],
+
+  tailwindcss: {
+    cssPath: '~/assets/main.css',
+  },
 });

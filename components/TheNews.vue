@@ -54,7 +54,7 @@ watch(news, () => {
         >{{ NEWS_MENU_RUBRICS[index] }}</NuxtLink
       >
       <NuxtLink
-        :to="`/entry/${entry.slug}`"
+        :to="`/entry/${entry.id}`"
         class="flex my-4 items-center lg:h-[130px] hover:bg-slate-300 dark:hover:bg-neutral-800 transition rounded-[10px] p-3"
         v-for="entry in item"
         :key="entry.id"
