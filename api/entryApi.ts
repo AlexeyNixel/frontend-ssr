@@ -17,7 +17,10 @@ export const findEntry = async (
   slug: string,
   params?: ParamsType
 ): Promise<EntryType> => {
-  return await axiosApi.get(`${ENTRY_ROUTE}${slug}`, { params });
+  // axiosApi.get(`${ENTRY_ROUTE}${slug}`, { params });
+  return await $fetch(`http://api.infomania.ru${ENTRY_ROUTE}${slug}`, {
+    params,
+  });
 };
 
 export const findEntriesByDepartment = async (

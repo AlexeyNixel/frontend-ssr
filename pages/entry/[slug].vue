@@ -10,6 +10,8 @@ const route = useRoute();
 const entryStore = useEntryStore();
 const entry = ref<EntryType>();
 
+// entry.value = await $fetch('')
+
 entry.value = await entryStore.getEntry(route.params.slug as string, {
   include: 'department',
 });
