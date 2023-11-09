@@ -55,14 +55,16 @@ onMounted(() => {
     >
       <div class="ck-content" v-html="entry?.content"></div>
     </viewer>
-    <NuxtLink
-      :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
-      external
-    >
-      <UButton color="blue" class="font-bold text-white text-sm">
-        Редактировать
-      </UButton>
-    </NuxtLink>
+    <client-only>
+      <NuxtLink
+          :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
+          external
+      >
+        <UButton color="blue" class="font-bold text-white text-sm">
+          Редактировать
+        </UButton>
+      </NuxtLink>
+    </client-only>
   </div>
 </template>
 

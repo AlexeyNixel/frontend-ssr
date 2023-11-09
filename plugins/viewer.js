@@ -5,7 +5,6 @@ export default defineNuxtPlugin((nuxtApp) => {
     getSSRProps: {
       nuxtApp,
       $fetch,
-      Image,
     },
   });
   nuxtApp.vueApp.use(VueViewer);
