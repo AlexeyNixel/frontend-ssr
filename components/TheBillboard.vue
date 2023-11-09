@@ -7,6 +7,7 @@ import { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
 import { CalendarDay } from 'v-calendar/src/utils/page';
 import TheEvent from '~/components/ui/TheEvent.vue';
+import { is } from 'date-fns/locale';
 
 const billboardStore = useBillboardStore();
 
@@ -76,16 +77,17 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
   });
 };
 
-watch(events, () => {
-  isLoading.value = events?.value?.length > 0;
-});
-
 await handleFetchData(fromDate, toDate);
 await handleSelectDay();
+
+onMounted(() => {
+  isLoading.value = true;
+});
 </script>
 
 <template>
-  <client-only>
+  <USkeleton :ui="ui" v-if="!isLoading" class="h-[370px]" />
+  <client-only v-else>
     <div class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]">
       <div class="text-xl font-bold mx-4 py-3">Афиша</div>
       <div class="flex">

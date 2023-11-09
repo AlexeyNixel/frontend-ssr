@@ -49,16 +49,13 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <viewer
-        rebuild
-        @inited="inited"
-    >
+    <viewer rebuild @inited="inited">
       <div class="ck-content" v-html="entry?.content"></div>
     </viewer>
-    <client-only>
+    <client-only v-if="generalStore.token">
       <NuxtLink
-          :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
-          external
+        :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
+        external
       >
         <UButton color="blue" class="font-bold text-white text-sm">
           Редактировать
