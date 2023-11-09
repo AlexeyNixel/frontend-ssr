@@ -18,8 +18,9 @@ entry.value = await entryStore.getEntry(route.params.slug as string, {
 
 onMounted(() => {
   const table = document.querySelector('.table');
-  const wrapper = document.createElement('div');
+
   if (table) {
+    const wrapper = document.createElement('div');
     wrapper.setAttribute('class', 'w-full overflow-x-scroll');
     table.parentNode?.insertBefore(wrapper, table);
     wrapper.appendChild(table);
