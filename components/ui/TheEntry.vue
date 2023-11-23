@@ -32,7 +32,7 @@ defineProps<Props>();
     <div class="ml-[10px] flex flex-col justify-between w-8/12 lg:w-[80%]">
       <div class="font-bold lg:text-xl lg:mb-2">{{ entry.title }}</div>
       <div class="hidden lg:block" v-html="entry.desc"></div>
-      <div class="self-end" v-if="isDate">
+      <div class="self-end">
         {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
       </div>
     </div>
