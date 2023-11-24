@@ -14,9 +14,11 @@ const component = {
 </script>
 
 <template>
-  <div class="billboard">
-    <component :is="component[activeComp]" />
-  </div>
+  <client-only>
+    <div class="billboard">
+      <component :is="component[activeComp]" />
+    </div>
+  </client-only>
 </template>
 
 <style scoped lang="scss">

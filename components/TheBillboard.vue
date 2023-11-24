@@ -7,11 +7,9 @@ import { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
 import { CalendarDay } from 'v-calendar/src/utils/page';
 import TheEvent from '~/components/ui/TheEvent.vue';
-import { is } from 'date-fns/locale';
 
 const billboardStore = useBillboardStore();
 
-const calendar = ref(null);
 const selectEvent = ref<BillboardType[]>([]);
 const events = ref<BillboardType[]>([]);
 const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
@@ -93,7 +91,6 @@ onMounted(() => {
       <div class="flex">
         <div class="lg:w-[35%] xl:w-[30%] w-full">
           <Calendar
-            :ref="calendar"
             :is-dark="{ selector: 'html', darkClass: 'dark' }"
             transparent
             borderless
