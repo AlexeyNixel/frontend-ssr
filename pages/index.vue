@@ -20,8 +20,9 @@ if (process.client) {
   <TheNavigationMobile v-else />
   <TheBillboard v-if="isDesktop" />
   <client-only v-else><TheBillboardMobile /></client-only>
-  <TheNews v-if="isDesktop" />
-  <TheNewsMobile v-else />
+  <TheNewsList />
+  <!-- <TheNews v-if="isDesktop" />
+  <TheNewsMobile v-else /> -->
   <client-only><TheGos /></client-only>
   <TheDepartment />
   <TheExhibitions v-if="isDesktop" />
