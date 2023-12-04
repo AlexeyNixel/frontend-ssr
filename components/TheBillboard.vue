@@ -55,7 +55,6 @@ const handleSelectDay = async (date?: CalendarDay) => {
     toDate: day + 'T00:00:00.000Z',
     orderBy: 'eventTime',
   });
-  console.log(selectEvent.value);
 };
 
 const handleFetchData = async (fromDate: string, toDate: string) => {
