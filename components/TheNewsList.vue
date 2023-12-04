@@ -19,7 +19,7 @@ entry.value = await entryStore.getEntriesByRubric('anonsy', {
 <template>
   <div class="news">
     <div class="news__content">
-      <div class="main-entry">
+      <NuxtLink :to="`/entry/${entry[0].slug}`" class="main-entry">
         <img
           :src="staticUrl + entry[0].preview.path"
           alt=""
@@ -29,14 +29,14 @@ entry.value = await entryStore.getEntriesByRubric('anonsy', {
           <div class="main-entry__title">{{ entry[0].title }}</div>
           <div class="main-entry__desc" v-html="entry[0].desc"></div>
         </div>
-      </div>
+      </NuxtLink>
       <div class="grid grid-cols-4 gap-3 mt-3">
         <TheEntryCard v-for="item in entry" :key="item.id" :entry="item" />
       </div>
     </div>
     <div class="news__content short">
       <TheEntryCarousel rubric="sobytiya" />
-      <TheEntryCarousel rubric="aktualnoe" />
+      <TheEntryCarousel class="mt-3" rubric="aktualnoe" />
     </div>
   </div>
 </template>
@@ -52,10 +52,10 @@ entry.value = await entryStore.getEntriesByRubric('anonsy', {
   }
 }
 .main-entry {
-  @apply flex;
+  @apply flex hover:bg-neutral-100 rounded-[10px] transition h-1/2;
 
   &__preview {
-    @apply w-[45%] rounded-l-[10px];
+    @apply lg:h-[70%] xl:h-full rounded-l-[10px];
   }
 
   &__content {
@@ -63,7 +63,7 @@ entry.value = await entryStore.getEntriesByRubric('anonsy', {
   }
 
   &__title {
-    @apply text-2xl font-bold;
+    @apply  xl:text-2xl font-bold;
   }
 }
 </style>
