@@ -20,10 +20,12 @@ const swapPage = async () => {
   });
 };
 
-entries.value = await entryStore.getEntriesByRubric('konkursy', {
-  include: 'preview',
-  orderBy: '-publishedAt',
-  page: page.value,
+onMounted(async () => {
+  entries.value = await entryStore.getEntriesByRubric('konkursy', {
+    include: 'preview',
+    orderBy: '-publishedAt',
+    page: page.value,
+  });
 });
 </script>
 
