@@ -51,6 +51,7 @@ const handleSelectDay = async (date?: CalendarDay) => {
   selectEvent.value = await billboardStore.getBillboards({
     fromDate: day + 'T00:00:00.000Z',
     toDate: day + 'T00:00:00.000Z',
+    orderBy: 'eventTime',
   });
 };
 
@@ -59,7 +60,7 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
     fromDate: fromDate + 'T00:00:00.000Z',
     toDate: toDate + 'T00:00:00.000Z',
     pageSize: 50,
-    orderBy: '-eventDate',
+    orderBy: '-eventTime',
   });
 
   events.value.forEach((event) => {

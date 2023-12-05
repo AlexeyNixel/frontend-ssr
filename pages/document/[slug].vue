@@ -43,7 +43,7 @@ document.value = await menuStore.getMenu(slug.value, {
 
 <style scoped lang="scss">
 .document {
-  word-break: break-all;
+  word-break: normal;
   &__title {
     font-size: 1.4rem;
     font-weight: bold;
