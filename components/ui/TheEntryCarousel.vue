@@ -13,13 +13,13 @@ entries.value = await entryStore.getEntriesByRubric(props.rubric, {
 });
 </script>
 <template>
-  <Swiper class="h-1/2" :slidesPerView="2" :spaceBetween="0" trigger="click">
+  <Swiper class="" :slidesPerView="2" :spaceBetween="0" trigger="click">
     <SwiperSlide
-      class="rounded-[10px] flex h-full"
+      class="rounded-[10px] flex"
       v-for="item in entries"
       :key="item.id"
     >
-      <TheEntryCard class="flex h-full" :entry="item" />
+      <TheEntryCard class="flex" :entry="item" />
     </SwiperSlide>
   </Swiper>
 </template>
