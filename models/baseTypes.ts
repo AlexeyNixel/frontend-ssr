@@ -91,6 +91,7 @@ export type RubricType = {
   title: string;
   slug: string;
   entries: EntryType;
+  desc?: string;
 };
 
 export type SliderType = {
@@ -125,7 +126,7 @@ export type ParamsType = {
   type?: string;
   model?: string;
   isDeleted?: boolean;
-  genres: any;
+  genres?: any;
 };
 
 export type MetaType = {
