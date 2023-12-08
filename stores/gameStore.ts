@@ -34,14 +34,15 @@ export const useGameStore = defineStore('game', () => {
     return data;
   };
 
-  const getGame = async (slug: string, params?: ParamsType) => {
+  const getGame = async (slug: string, params?: ParamsType): Promise<any> => {
     const data = await findGame(slug, params);
     game.value = data;
     return data;
   };
 
-  const getGenres = async () => {
+  const getGenres = async (): Promise<any> => {
     genres.value = await findGenres();
+    return genres.value;
   };
 
   return {

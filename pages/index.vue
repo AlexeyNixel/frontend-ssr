@@ -3,7 +3,7 @@ import { useGeneralStore } from '~/stores/generalStore';
 
 const generalStore = useGeneralStore();
 const { isDesktop } = useDevice();
-
+const toast = useToast();
 if (process.client) {
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
@@ -31,9 +31,9 @@ onMounted(() => {
   <TheBillboardMobile v-else />
   <TheNews v-if="isDesktop" />
   <TheNewsMobile v-else />
-  <TheGames />
-  <client-only><TheGos /></client-only>
   <TheDepartment />
+  <client-only><TheGos /></client-only>
+  <TheGames />
   <TheExhibitions v-if="isDesktop" />
   <UNotifications class="notification" />
 </template>

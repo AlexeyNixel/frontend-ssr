@@ -12,6 +12,7 @@ const ui = {
   },
   rounded: 'rounded-[10px]',
   shadow: 'shadow-none',
+  ring: 'ring-0 ring-white',
   body: {
     base: '',
     background: 'dark:bg-neutral-900',
@@ -27,10 +28,15 @@ defineProps<Props>();
       <UCard :ui="ui" class="rounded-[10px]">
         <template #header>
           <div class="flex justify-center h-64 bg-white">
-            <img class="h-full" :src="staticUrl + game.cover_file" alt="" />
+            <img
+              v-if="game.cover_file"
+              class="h-full"
+              :src="staticUrl + game.cover_file"
+              alt=""
+            />
+            <img v-else src="/chess-placeholder.png" alt="" />
           </div>
         </template>
-
         <div class="h-16 p-0" v-html="game.name"></div>
       </UCard>
     </nuxt-link>

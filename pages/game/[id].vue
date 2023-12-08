@@ -67,18 +67,21 @@ const items = ref([
 genres.value?.forEach((item) => {
   genresTrans.value[item.tag] = item.desc;
 });
-console.log(games.value);
 </script>
 
 <template>
   <div v-if="game">
     <div class="my-10 flex">
       <div class="sticky w-6/12 flex mx-4 justify-center">
-        <img
-          class="h-[800px] object-cover"
-          :src="staticUrl + game.cover_file"
-          alt=""
-        />
+        <client-only>
+          <viewer rebuild @inited="inited">
+            <img
+              class="h-[800px] object-cover"
+              :src="staticUrl + game.cover_file"
+              alt=""
+            />
+          </viewer>
+        </client-only>
       </div>
       <div class="w-6/12">
         <div class="mb-2 text-2xl font-bold" v-html="game.name"></div>

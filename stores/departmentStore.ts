@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { DepartmentType, ParamsType } from '~/models/baseTypes';
+import type { DepartmentType, ParamsType } from '~/models/baseTypes';
 import { findDepartments } from '~/api/departmentApi';
 
 export const useDepartmentStore = defineStore('department', () => {

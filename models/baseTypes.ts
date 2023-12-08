@@ -125,6 +125,7 @@ export type ParamsType = {
   type?: string;
   model?: string;
   isDeleted?: boolean;
+  genres: any;
 };
 
 export type MetaType = {

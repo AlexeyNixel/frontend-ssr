@@ -34,6 +34,7 @@ const page = ref<number>(Number(route.query.page) || 1);
 
 const handleNavigate = (val?: number) => {
   if (val) page.value = val;
+  
   navigateTo({
     path: '/entry/search',
     query: {
