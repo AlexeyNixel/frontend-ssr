@@ -71,28 +71,29 @@ genres.value?.forEach((item) => {
 
 <template>
   <div v-if="game">
-    <div class="my-10 flex">
-      <div class="sticky w-6/12 flex mx-4 justify-center">
+    <div class="my-10 flex-row-reverse lg:flex lg:flex-row">
+      <div class="lg:w-6/12 flex mx-4 justify-center">
         <client-only>
           <viewer rebuild @inited="inited">
             <img
-              class="h-[800px] object-cover"
+              class="h-[300px] lg:h-[800px] object-cover"
               :src="staticUrl + game.cover_file"
               alt=""
             />
           </viewer>
         </client-only>
       </div>
-      <div class="w-6/12">
+      <div class="lg:w-6/12">
         <div class="mb-2 text-2xl font-bold" v-html="game.name"></div>
         <div class="my-2" v-html="game.short_description"></div>
         <div class="flex">
-          <div
-            class="mr-4 mb-2 text-gray-500"
+          <nuxt-link
+            :to="{ path: '/game', query: { genres: item } }"
+            class="mr-4 mb-2 text-gray-500 underline"
             v-for="item in game.genres.split('; ')"
           >
             {{ genresTrans[item] }}
-          </div>
+          </nuxt-link>
         </div>
         <div class="text-gray-500 text-sm my-2" v-if="game.game_year">
           Дата выхода: {{ game.game_year }}

@@ -15,7 +15,10 @@ const { slides } = storeToRefs(sliderStore);
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const isLoading = ref<boolean>(false);
 
-sliderStore.getSlides({ include: 'image,entry' });
+sliderStore.getSlides({
+  include: 'image,entry',
+  orderBy: '-createdAt',
+});
 
 watch(slides, () => {
   isLoading.value = slides.value.length > 0;

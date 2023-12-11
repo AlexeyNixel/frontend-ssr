@@ -7,12 +7,12 @@ const departments = ref<DepartmentType[]>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 departments.value = await departmentStore.getDepartments({
-  include: 'preview'
+  include: 'preview',
 });
 </script>
 
 <template>
-  <div class="flex justify-between my-4">
+  <div class="flex justify-between my-4 hidden lg:flex">
     <nuxt-link
       :to="`/department/${item.slug}`"
       v-for="item in departments"

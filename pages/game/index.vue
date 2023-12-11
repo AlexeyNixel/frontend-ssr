@@ -16,6 +16,7 @@ const ui = {
   },
 };
 
+const { isDesktop } = useDevice();
 const route = useRoute();
 const gameStore = useGameStore();
 const activeGenres = ref<any>([]);
@@ -85,13 +86,13 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div class="flex">
+  <div class="block lg:flex">
     <div
-      class="sticky h-max top-2 w-[25%] bg-white dark:bg-neutral-900 rounded-[10px] p-2"
+      class="flex flex-wrap h-max lg:sticky lg:w-[25%] top-2 bg-white dark:bg-neutral-900 rounded-[10px] p-2 my-2 lg:my-0"
     >
-      <div class="item" v-for="item in genres" :key="item.tag">
+      <div class="lg:w-full" v-for="item in genres" :key="item.tag">
         <UCheckbox
-          class="my-2"
+          class="m-2"
           v-model="item.status"
           @update:model-value="handleSelectGenres()"
           name="item"
@@ -99,7 +100,7 @@ onBeforeMount(async () => {
         />
       </div>
     </div>
-    <div class="w-[75%] ml-2">
+    <div class="w-full lg:w-[75%] m-0 lg:ml-2">
       <div class="mb-2 p-2 bg-white dark:bg-neutral-900 rounded-[10px]">
         <UInput
           @keydown.enter="handleNavigate(1)"
@@ -114,7 +115,7 @@ onBeforeMount(async () => {
         />
       </div>
       <div
-        class="bg-white dark:bg-neutral-900 rounded-[10px] grid grid-cols-3 gap-2 p-4"
+        class="bg-white dark:bg-neutral-900 rounded-[10px] grid grid-cols-1 lg:grid-cols-3 gap-2 p-4"
         v-if="games.length > 0"
       >
         <the-game v-for="item in games" :key="item.id" :game="item" />

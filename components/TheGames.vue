@@ -30,7 +30,7 @@ await gameStore.getGamesRandom();
     </div>
     <Swiper
       :slidesPerView="5"
-      :spaceBetween="12"
+      :spaceBetween="5"
       :pagination="true"
       :modules="[SwiperPagination]"
       class="mt-1"
