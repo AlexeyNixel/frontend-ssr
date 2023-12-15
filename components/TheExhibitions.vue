@@ -29,7 +29,7 @@ exhibitions.value = await fileStore.getFiles({
     :spaceBetween="30"
     :pagination="true"
     :modules="[SwiperPagination]"
-    class="my-4 sm:h-[144px] md:h-[190px] lg:h-[230px] xl:h-[300px]"
+    class="my-4 sm:h-[144px] md:h-[190px] lg:h-[230px] xl:h-[300px] rounded-[10px]"
     trigger="click"
   >
     <SwiperSlide

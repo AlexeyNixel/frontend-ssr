@@ -68,8 +68,8 @@ watch(news, () => {
         </div>
         <div class="w-[65%] ml-3 text-black dark:text-white">
           {{
-            entry.title.length > 50
-              ? entry.title.slice(0, 50).trim() + '...'
+            entry.title.length > 75
+              ? entry.title.slice(0, 75).trim() + '...'
               : entry.title.trim()
           }}
         </div>

@@ -1,3 +1,4 @@
+import { findGame, findGamesRandom } from './../api/games';
 import { findGames, findGenres } from '~/api/games';
 import { defineStore } from 'pinia';
 import type { GameType, ParamsType, MetaType } from '~/models/baseTypes';
@@ -16,7 +17,8 @@ export const useGameStore = defineStore('game', () => {
     value?: boolean;
   }
 
-  const games = ref<GameType[]>();
+  const games = ref<GameType[]>([]);
+  const game = ref<GameType>();
   const genres = ref<Genres[]>();
   const metaGames = ref<Meta>();
 
@@ -26,16 +28,31 @@ export const useGameStore = defineStore('game', () => {
     games.value = data;
     return data;
   };
+  const getGamesRandom = async () => {
+    const { data } = await findGamesRandom();
+    games.value = data;
+    return data;
+  };
 
-  const getGenres = async () => {
+  const getGame = async (slug: string, params?: ParamsType): Promise<any> => {
+    const data = await findGame(slug, params);
+    game.value = data;
+    return data;
+  };
+
+  const getGenres = async (): Promise<any> => {
     genres.value = await findGenres();
+    return genres.value;
   };
 
   return {
     genres,
     games,
+    game,
     metaGames,
     getGames,
+    getGamesRandom,
+    getGame,
     getGenres,
   };
 });

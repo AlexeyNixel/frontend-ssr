@@ -7,11 +7,9 @@ import { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
 import { CalendarDay } from 'v-calendar/src/utils/page';
 import TheEvent from '~/components/ui/TheEvent.vue';
-import { is } from 'date-fns/locale';
 
 const billboardStore = useBillboardStore();
 
-const calendar = ref(null);
 const selectEvent = ref<BillboardType[]>([]);
 const events = ref<BillboardType[]>([]);
 const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
@@ -53,6 +51,7 @@ const handleSelectDay = async (date?: CalendarDay) => {
   selectEvent.value = await billboardStore.getBillboards({
     fromDate: day + 'T00:00:00.000Z',
     toDate: day + 'T00:00:00.000Z',
+    orderBy: 'eventTime',
   });
 };
 
@@ -61,7 +60,7 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
     fromDate: fromDate + 'T00:00:00.000Z',
     toDate: toDate + 'T00:00:00.000Z',
     pageSize: 50,
-    orderBy: '-eventDate',
+    orderBy: '-eventTime',
   });
 
   events.value.forEach((event) => {
@@ -93,7 +92,6 @@ onMounted(() => {
       <div class="flex">
         <div class="lg:w-[35%] xl:w-[30%] w-full">
           <Calendar
-            :ref="calendar"
             :is-dark="{ selector: 'html', darkClass: 'dark' }"
             transparent
             borderless

@@ -1,8 +1,9 @@
 <script lang="ts" setup>
 import { storeToRefs } from 'pinia';
 import { useEntryStore } from '~/stores/entryStore';
+import { RubricType } from '~/models/baseTypes';
+import { useRubricStore } from '~/stores/rubricStore';
 import TheEntry from '~/components/ui/TheEntry.vue';
-import { EntryType } from '~/models/baseTypes';
 
 const ruMenu: { [key: string]: string } = {
   anonsy: 'Анонсы',
@@ -12,6 +13,9 @@ const ruMenu: { [key: string]: string } = {
 
 const route = useRoute();
 const entryStore = useEntryStore();
+const rubricStore = useRubricStore();
+
+const rubric = ref<RubricType>();
 
 const { metaEntry } = storeToRefs(entryStore);
 const { entries } = storeToRefs(entryStore);
@@ -36,11 +40,14 @@ const fetchData = async () => {
   });
 };
 
+rubric.value = await rubricStore.getRubric(slug.value);
+
 fetchData();
 </script>
 
 <template>
-  <div class="text-2xl font-bold mx-2">{{ ruMenu[slug] }}</div>
+  <div class="text-2xl font-bold">{{ ruMenu[slug] }}</div>
+  <div v-if="rubric?.desc" v-html="rubric.desc"></div>
   <TheEntry :entry="item" v-for="item in entries" :key="item.id"></TheEntry>
   <UPagination
     class="flex justify-center my-4"

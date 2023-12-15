@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { useDepartmentStore } from '~/stores/departmentStore';
 import { DepartmentType } from '~/models/baseTypes';
-import { useGeneralStore } from '~/stores/generalStore';
 
 const departmentStore = useDepartmentStore();
-
 const departments = ref<DepartmentType[]>();
-
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 departments.value = await departmentStore.getDepartments({
@@ -15,7 +12,7 @@ departments.value = await departmentStore.getDepartments({
 </script>
 
 <template>
-  <div class="flex justify-between">
+  <div class="flex justify-between my-4 hidden lg:flex">
     <nuxt-link
       :to="`/department/${item.slug}`"
       v-for="item in departments"
@@ -43,6 +40,4 @@ departments.value = await departmentStore.getDepartments({
   </div>
 </template>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>
