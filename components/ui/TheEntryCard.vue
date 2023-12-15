@@ -7,14 +7,17 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 </script>
 
 <template>
-  <nuxt-link :to="`/entry/${entry.slug}`" class="flex h-full mx-1">
+  <nuxt-link :to="`/entry/${entry.slug}`" class="mx-1 flex p-2">
     <UCard
       :ui="{
         header: {
           padding: 'p-0 sm:p-0',
         },
+        body: {
+          padding: 'sm:p-2',
+        },
       }"
-      class="shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
+      class="shadow-none border-0 dark:bg-neutral-900 bg-white p-0 h-full"
     >
       <template class="border-0" #header>
         <img
@@ -25,8 +28,8 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
       </template>
       <div class="text-sm">
         {{
-          entry.title.length > 70
-            ? entry.title.slice(0, 70).trim() + '...'
+          entry.title.length > 75
+            ? entry.title.slice(0, 75).trim() + '...'
             : entry.title.trim()
         }}
       </div>

@@ -1,3 +1,4 @@
+import { findEntryPinned } from './../api/entryApi';
 import { defineStore } from 'pinia';
 import {
   findEntries,
@@ -14,6 +15,11 @@ export const useEntryStore = defineStore('entry', () => {
 
   const getEntry = async (slug: string, params?: ParamsType) => {
     entry.value = await findEntry(slug, params);
+    return entry.value;
+  };
+
+  const getEntryPinned = async ():Promise<EntryType> => {
+    entry.value = await findEntryPinned();
     return entry.value;
   };
 
@@ -50,6 +56,7 @@ export const useEntryStore = defineStore('entry', () => {
     metaEntry,
     getEntry,
     getEntries,
+    getEntryPinned,
     getEntriesByRubric,
     getEntriesByDepartment,
   };

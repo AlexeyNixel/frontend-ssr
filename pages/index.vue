@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { useGeneralStore } from '~/stores/generalStore';
-import TheNavigationMobile from '~/components/TheNavigationMobile.vue';
-import TheNewsMobile from '~/components/TheNewsMobile.vue';
-import TheBillboardMobile from '~/components/TheBillboardMobile.vue';
 
 const generalStore = useGeneralStore();
 
@@ -20,9 +17,9 @@ if (process.client) {
   <TheNavigationMobile v-else />
   <TheBillboard v-if="isDesktop" />
   <client-only v-else><TheBillboardMobile /></client-only>
-  <TheNewsList />
-  <!-- <TheNews v-if="isDesktop" />
-  <TheNewsMobile v-else /> -->
+  <TheNewsList v-if="isDesktop" />
+  <TheNewsMobile v-else />
+  <!-- <TheNews v-if="isDesktop" /> -->
   <client-only><TheGos /></client-only>
   <TheDepartment />
   <TheExhibitions v-if="isDesktop" />
