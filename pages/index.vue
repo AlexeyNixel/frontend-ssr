@@ -4,21 +4,33 @@ import { useGeneralStore } from '~/stores/generalStore';
 const generalStore = useGeneralStore();
 const { isDesktop } = useDevice();
 const toast = useToast();
+const notification = ref();
 if (process.client) {
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
 }
 
-const notification = await generalStore.getNotification();
+notification.value = await generalStore.getNotification();
+console.log(notification.value);
+
 onMounted(() => {
-  if (notification) {
-    toast.add({
-      title: notification.desc,
-      timeout: 15000,
-      ui: {
-        container: 'top-0 left-0',
-      },
-    });
+  if (notification.value) {
+    if (
+      process.client &&
+      localStorage.getItem('notification') !== notification.value.id
+    ) {
+      localStorage.setItem('notification', notification.value.id);
+      toast.add({
+        title: `${notification.value.desc}. Читать подробнее`,
+        timeout: 30000,
+        ui: {
+          container: 'top-0 left-0',
+        },
+        click: () => {
+          navigateTo(`/entry/${notification.value.entryId}`);
+        },
+      });
+    }
   }
 });
 </script>
