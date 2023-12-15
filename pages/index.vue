@@ -28,9 +28,11 @@ onMounted(() => {
   <TheNavigation v-if="isDesktop" />
   <TheNavigationMobile v-else />
   <TheBillboard v-if="isDesktop" />
-  <TheBillboardMobile v-else />
-  <TheNews v-if="isDesktop" />
+  <client-only v-else><TheBillboardMobile /></client-only>
+  <TheNewsList v-if="isDesktop" />
   <TheNewsMobile v-else />
+  <!-- <TheNews v-if="isDesktop" /> -->
+  <client-only><TheGos /></client-only>
   <TheDepartment />
   <client-only><TheGos /></client-only>
   <TheGames />

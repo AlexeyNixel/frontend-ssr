@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import { EntryType } from '~/models/baseTypes';
+import TheEntryCard from '~/components/ui/TheEntryCard.vue';
 
 const NEWS_MENU_RUBRICS = {
   aktualnoe: 'Актуальное',
@@ -27,13 +28,24 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
 </script>
 
 <template>
-  <div>
-    <div class="my-3" v-for="(items, rubric) in news" :key="rubric">
-      <div class="flex overflow-x-scroll">
+  <div class="h-max">
+    <Swiper
+      v-for="(items, rubric) in news"
+      :key="rubric"
+      :slidesPerView="2"
+      :spaceBetween="10"
+      :pagination="true"
+      :modules="[SwiperPagination]"
+      class="h-full my-4"
+      trigger="click"
+    >
+      <SwiperSlide
+        class="flex rounded-[10px] w-full"
+        v-for="item in items"
+        :key="item.id"
+      >
         <UCard
-          class="w-52 mx-3 shrink-0 shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
-          v-for="item in items"
-          :key="item.id"
+          class="h-[310px] mb-2 shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
           @click="
             navigateTo({
               path: `/entry/${item?.slug}`,
@@ -52,16 +64,16 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
               alt=""
             />
           </template>
-          <div>
+          <div class="h-full text-sm">
             {{
-              item.title.length > 50
-                ? item.title.slice(0, 50).trim() + '...'
+              item.title.length > 75
+                ? item.title.slice(0, 75).trim() + '...'
                 : item.title.trim()
             }}
           </div>
         </UCard>
-      </div>
-    </div>
+      </SwiperSlide>
+    </Swiper>
   </div>
 </template>
 
