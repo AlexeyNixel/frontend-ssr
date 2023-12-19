@@ -36,14 +36,14 @@ const socialIcon = [
 
 <template>
   <footer class="dark:bg-neutral-900 bg-blue-600 p-4 rounded-t-[10px]">
-    <div class="flex">
-      <div class="w-6/12">
+    <div class="flex flex-col-reverse lg:flex-row">
+      <div class="lg:w-6/12">
         <div class="flex items-center" v-for="(item, index) in infoIcon">
           <Icon class="text-3xl text-white my-3 mr-3" :name="item.icon" />
           <div class="text-white">{{ item.title }}</div>
         </div>
       </div>
-      <div class="w-6/12">
+      <div class="lg:w-6/12">
         <div class="">
           <div class="font-bold text-white">О нас</div>
           <div class="text-white">

@@ -44,7 +44,6 @@ onMounted(() => {
   <TheNewsList v-if="isDesktop" />
   <TheNewsMobile v-else />
   <!-- <TheNews v-if="isDesktop" /> -->
-  <client-only><TheGos /></client-only>
   <TheDepartment />
   <client-only><TheGos /></client-only>
   <TheGames />

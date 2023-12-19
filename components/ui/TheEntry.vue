@@ -13,7 +13,7 @@ defineProps<Props>();
 <template>
   <NuxtLink
     :to="`/entry/${entry.slug}`"
-    class="flex my-4 text-black dark:text-white bg-white p-4 dark:bg-neutral-900 hover:bg-slate-300 dark:hover:bg-neutral-800 rounded-[10px] transition"
+    class="flex my-4 items-center text-black dark:text-white bg-white p-4 dark:bg-neutral-900 hover:bg-slate-300 dark:hover:bg-neutral-800 rounded-[10px] transition"
   >
     <div class="w-4/12 lg:w-[20%]">
       <img
@@ -30,9 +30,11 @@ defineProps<Props>();
       <TheBase v-else class="w-full" />
     </div>
     <div class="ml-[10px] flex flex-col justify-between w-8/12 lg:w-[80%]">
-      <div class="font-bold lg:text-xl lg:mb-2">{{ entry.title }}</div>
+      <div class="text-sm lg:font-bold lg:text-xl lg:mb-2">
+        {{ entry.title }}
+      </div>
       <div class="hidden lg:block" v-html="entry.desc"></div>
-      <div class="self-end">
+      <div class="hidden lg:block self-end">
         {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
       </div>
     </div>

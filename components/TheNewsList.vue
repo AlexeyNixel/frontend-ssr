@@ -13,7 +13,7 @@ const entryPinned = ref<EntryType>();
 entry.value = await entryStore.getEntriesByRubric('anonsy', {
   pageSize: 4,
   include: 'preview',
-  orderBy: '-createdAt',
+  orderBy: '-publishedAt',
 });
 
 entryPinned.value = await entryStore.getEntryPinned();

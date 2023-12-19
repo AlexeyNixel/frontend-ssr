@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useGameStore } from '~/stores/gameStore';
-
+const { isDesktop } = useDevice();
 const ui = {
   header: {
     padding: 'p-0 sm:p-0',
@@ -29,7 +29,7 @@ await gameStore.getGamesRandom();
       <nuxt-link to="/game" class="mx-4">Игры</nuxt-link>
     </div>
     <Swiper
-      :slidesPerView="5"
+      :slidesPerView="isDesktop ? 5 : 2"
       :spaceBetween="5"
       :pagination="true"
       :modules="[SwiperPagination]"

@@ -26,15 +26,8 @@ const placeName = AffichePlaces;
       <div class="mx-3">
         <div class="h-[250px] overflow-y-scroll" v-html="item.desc"></div>
         <div class="h-[50px] flex items-center justify-between">
-          <div>
-            <div class="flex">
-              <div class="mr-2">{{ dayjs(item.eventDate).format('D') }}</div>
-              <div class="">{{ dayjs(item.eventDate).format('MMM') }}</div>
-            </div>
-            <div>{{ placeName[item.eventPlace] }}</div>
-          </div>
-          <div class="">
-            <div>{{ item.phone }}</div>
+          <div class="flex flex-row-reverse">
+            <div class="text-sm">{{ placeName[item.eventPlace] }}</div>
           </div>
         </div>
       </div>

@@ -33,19 +33,19 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
       v-for="(items, rubric) in news"
       :key="rubric"
       :slidesPerView="2"
-      :spaceBetween="10"
+      :spaceBetween="2"
       :pagination="true"
       :modules="[SwiperPagination]"
       class="h-full my-4"
       trigger="click"
     >
       <SwiperSlide
-        class="flex rounded-[10px] w-full"
+        class="flex rounded-[10px] w-full px-1"
         v-for="item in items"
         :key="item.id"
       >
         <UCard
-          class="h-[310px] mb-2 shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
+          class="h-[310px] mb-2 shadow-none border-0 dark:bg-transparent bg-white p-0"
           @click="
             navigateTo({
               path: `/entry/${item?.slug}`,
