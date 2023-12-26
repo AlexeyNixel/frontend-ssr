@@ -9,17 +9,19 @@ const entry = ref<EntryType[]>();
 const entryPinned = ref<EntryType>();
 
 entry.value = await entryStore.getEntriesByRubric('anonsy', {
-      pageSize: 4,
-      include: 'preview',
-      orderBy: '-publishedAt',
-    });
+  pageSize: 4,
+  include: 'preview',
+  orderBy: '-publishedAt',
+});
 
 entryPinned.value = await entryStore.getEntryPinned();
 </script>
 
 <template>
   <div class="flex">
-    <div class="w-8/12 bg-white dark:bg-neutral-900 rounded-[10px] p-4">
+    <div
+      class="flex flex-col justify-between w-8/12 bg-white dark:bg-neutral-900 rounded-[10px] p-4"
+    >
       <div class="mx-3">
         <div class="ml-1 mb-2">
           <nuxt-link class="text-2xl" to="/entry/rubric/anonsy">
@@ -47,12 +49,9 @@ entryPinned.value = await entryStore.getEntryPinned();
       </div>
     </div>
     <div class="ml-3 w-4/12 bg-white dark:bg-neutral-900 rounded-[10px] p-2">
-      <div class="flex flex-col main">
-        <TheEntryCarousel class="relative" rubric="sobytiya" />
-        <TheEntryCarousel
-          class="relative lg:top-12 xl:top-12"
-          rubric="aktualnoe"
-        />
+      <div class="main">
+        <TheEntryCarousel rubric="sobytiya" />
+        <TheEntryCarousel rubric="aktualnoe" />
       </div>
     </div>
   </div>
