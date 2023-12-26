@@ -8,7 +8,7 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 </script>
 
 <template>
-  <nuxt-link :to="`/entry/${entry.slug}`" class="mx-1 flex p-2">
+  <nuxt-link :to="`/entry/${entry.slug}`" class="mx-1 flex">
     <UCard
       :ui="{
         header: {
@@ -17,6 +17,7 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
         body: {
           padding: 'sm:p-2',
         },
+        ring: 'ring-0',
       }"
       class="shadow-none border-0 dark:bg-neutral-900 bg-white p-0 h-full"
     >
@@ -39,5 +40,3 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
     </UCard>
   </nuxt-link>
 </template>
-
-<style lang="scss" scoped></style>

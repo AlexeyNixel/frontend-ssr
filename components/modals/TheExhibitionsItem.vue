@@ -30,16 +30,3 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
     </UModal>
   </div>
 </template>
-
-<style scoped lang="scss">
-// .content {
-//   width: 80vw;
-//   height: 80vh;
-// }
-
-// .dialog {
-//   width: max-content;
-//   height: max-content;
-//   margin: 0;
-// }
-</style>

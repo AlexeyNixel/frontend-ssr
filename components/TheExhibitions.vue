@@ -47,5 +47,3 @@ exhibitions.value = await fileStore.getFiles({
   </Swiper>
   <the-exhibitions-item :path="currentPath" />
 </template>
-
-<style scoped lang="scss"></style>

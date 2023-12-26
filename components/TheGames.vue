@@ -62,5 +62,3 @@ await gameStore.getGamesRandom();
     </Swiper>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

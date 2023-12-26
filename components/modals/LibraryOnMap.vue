@@ -17,5 +17,3 @@ const { isMap } = storeToRefs(generalStore);
     </div>
   </UModal>
 </template>
-
-<style scoped lang="scss"></style>

@@ -76,5 +76,3 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
     </Swiper>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

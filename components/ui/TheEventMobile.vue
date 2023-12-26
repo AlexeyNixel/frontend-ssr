@@ -34,5 +34,3 @@ const placeName = AffichePlaces;
     </SwiperSlide>
   </Swiper>
 </template>
-
-<style scoped lang="scss"></style>

@@ -41,12 +41,3 @@ defineProps<Props>();
   </NuxtLink>
 </template>
 
-<style scoped lang="scss">
-// .image-placeholder {
-//   background-image: url('../../public/favicon.ico');
-//   background-repeat: no-repeat;
-//   background-size: contain;
-//   background-position: center;
-//   color: transparent;
-// }
-</style>

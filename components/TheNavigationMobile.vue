@@ -35,7 +35,3 @@ const buttons = [
     </NuxtLink>
   </div>
 </template>
-
-<style scoped lang="scss">
-
-</style>

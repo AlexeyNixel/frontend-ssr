@@ -39,5 +39,3 @@ entries.value = await entryStore.getEntriesByRubric(props.rubric, {
     </Nuxt-link>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

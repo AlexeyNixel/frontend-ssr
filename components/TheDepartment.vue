@@ -39,5 +39,3 @@ departments.value = await departmentStore.getDepartments({
     </nuxt-link>
   </div>
 </template>
-
-<style scoped lang="scss"></style>

@@ -11,7 +11,6 @@ if (process.client) {
 }
 
 notification.value = await generalStore.getNotification();
-console.log(notification.value);
 
 onMounted(() => {
   if (notification.value) {

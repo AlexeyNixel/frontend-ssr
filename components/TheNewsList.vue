@@ -22,14 +22,17 @@ entryPinned.value = await entryStore.getEntryPinned();
     <div
       class="flex flex-col justify-between w-8/12 bg-white dark:bg-neutral-900 rounded-[10px] p-4"
     >
-      <div class="mx-3">
+      <div class="">
         <div class="ml-1 mb-2">
-          <nuxt-link class="text-2xl" to="/entry/rubric/anonsy">
+          <nuxt-link
+            class="text-xl font-bold text-black dark:text-white"
+            to="/entry/rubric/anonsy"
+          >
             Анонсы
           </nuxt-link>
         </div>
         <nuxt-link
-          class="grid grid-cols-2 gap-3"
+          class="flex"
           v-if="entryPinned"
           :to="`/entry/${entryPinned.slug}`"
         >
@@ -38,8 +41,8 @@ entryPinned.value = await entryStore.getEntryPinned();
             :src="entryPinned?.preview.path"
             alt=""
           />
-          <div>
-            <div class="font-bold xl:text-2xl" v-html="entryPinned.title"></div>
+          <div class="ml-4">
+            <div class="font-bold xl:text-xl" v-html="entryPinned.title"></div>
             <div v-html="entryPinned.desc"></div>
           </div>
         </nuxt-link>
@@ -56,5 +59,3 @@ entryPinned.value = await entryStore.getEntryPinned();
     </div>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
