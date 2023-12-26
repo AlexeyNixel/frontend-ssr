@@ -1,20 +1,18 @@
 <script lang="ts" setup>
-import dayjs from 'dayjs';
 import { EntryType } from 'models/baseTypes';
 import { useEntryStore } from '~/stores/entryStore';
 import TheEntryCard from '~/components/ui/TheEntryCard.vue';
 import TheEntryCarousel from '~/components/ui/TheEntryCarousel.vue';
 
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const entryStore = useEntryStore();
 const entry = ref<EntryType[]>();
 const entryPinned = ref<EntryType>();
 
 entry.value = await entryStore.getEntriesByRubric('anonsy', {
-  pageSize: 4,
-  include: 'preview',
-  orderBy: '-publishedAt',
-});
+      pageSize: 4,
+      include: 'preview',
+      orderBy: '-publishedAt',
+    });
 
 entryPinned.value = await entryStore.getEntryPinned();
 </script>
@@ -49,13 +47,15 @@ entryPinned.value = await entryStore.getEntryPinned();
       </div>
     </div>
     <div class="ml-3 w-4/12 bg-white dark:bg-neutral-900 rounded-[10px] p-2">
-      <TheEntryCarousel class="" rubric="sobytiya" />
-      <TheEntryCarousel class="" rubric="aktualnoe" />
+      <div class="flex flex-col main">
+        <TheEntryCarousel class="relative" rubric="sobytiya" />
+        <TheEntryCarousel
+          class="relative lg:top-12 xl:top-12"
+          rubric="aktualnoe"
+        />
+      </div>
     </div>
   </div>
 </template>
 
-<style lang="scss" scoped>
-.news {
-}
-</style>
+<style lang="scss" scoped></style>

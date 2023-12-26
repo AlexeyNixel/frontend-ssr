@@ -13,7 +13,7 @@ export const findEntries = async (params?: ParamsType) => {
   return { data, meta };
 };
 
-export const findEntryPinned = async ():Promise<EntryType> => {
+export const findEntryPinned = async (): Promise<EntryType> => {
   const data = await axiosApi.get(ENTRY_ROUTE + 'pinned');
   return data;
 };

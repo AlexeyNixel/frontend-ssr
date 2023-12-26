@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { EntryType } from 'models/baseTypes';
+import TheBase from '~/components/TheBase.vue';
 
 defineProps<{ entry: EntryType }>();
 
@@ -21,10 +22,12 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
     >
       <template class="border-0" #header>
         <img
+          v-if="entry.preview?.path"
           class="w-full object-cover h-[152px]"
           :src="staticUrl + entry.preview?.path"
           alt=""
         />
+        <the-base class="w-full h-[152px] object-cover" v-else></the-base>
       </template>
       <div class="text-sm">
         {{

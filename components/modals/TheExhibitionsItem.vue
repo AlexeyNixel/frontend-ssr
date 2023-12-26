@@ -20,6 +20,12 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
       class="h-full"
       v-model="generalStore.isExhibition"
     >
+      <nuxt-link
+        target="_blank"
+        :to="staticUrl + path"
+        class="flex items-center justify-center"
+        >Открыть в новой вкладке</nuxt-link
+      >
       <iframe class="h-full w-full" :src="staticUrl + path" />
     </UModal>
   </div>

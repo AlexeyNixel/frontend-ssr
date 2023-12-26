@@ -30,15 +30,6 @@ const buttons = [
     style: null,
     desc: 'Электронный каталог',
   },
-  // {
-  //   icon: 'fluent:board-games-20-filled',
-  //   event: () =>
-  //     navigateTo('/games/', {
-  //       external: true,
-  //     }),
-  //   style: null,
-  //   desc: 'Каталог настольных игр',
-  // },
   {
     icon: 'mdi:map-marker',
     event: () => (isMap.value = !isMap.value),
@@ -66,7 +57,7 @@ const buttons = [
   },
   {
     icon: 'fa-graduation-cap',
-    event: () => navigateTo('information', { external: true }),
+    event: () => navigateTo('/information', { external: true }),
     style: null,
     desc: 'Сведения об организации, осуществляющей образовательную деятельность',
   },

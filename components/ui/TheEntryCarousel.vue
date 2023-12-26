@@ -2,7 +2,6 @@
 import { EntryType } from 'models/baseTypes';
 import { useEntryStore } from '~/stores/entryStore';
 import TheEntryCard from '~/components/ui/TheEntryCard.vue';
-import { client } from 'process';
 
 const props = defineProps<{ rubric: string }>();
 const entryStore = useEntryStore();
@@ -10,13 +9,6 @@ const entries = ref<EntryType[]>();
 const width = computed(() => {
   if (process.client) return window.innerWidth;
 });
-// console.log(width.value);
-if (process.client) {
-  watch(window.innerWidth, () => {
-    console.log(123);
-  });
-}
-
 entries.value = await entryStore.getEntriesByRubric(props.rubric, {
   include: 'preview',
   orderBy: '-createdAt',
