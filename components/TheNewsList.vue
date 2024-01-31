@@ -32,18 +32,24 @@ entryPinned.value = await entryStore.getEntryPinned();
           </nuxt-link>
         </div>
         <nuxt-link
-          class="flex"
+          class="flex mb-2"
           v-if="entryPinned"
           :to="`/entry/${entryPinned.slug}`"
         >
           <img
-            class="rounded-l-[10px]"
+            class="rounded-l-[10px] w-1/2"
             :src="entryPinned?.preview.path"
             alt=""
           />
           <div class="ml-4">
-            <div class="font-bold xl:text-xl" v-html="entryPinned.title"></div>
-            <div v-html="entryPinned.desc"></div>
+            <div
+              class="font-bold xl:text-xl text-black dark:text-white"
+              v-html="entryPinned.title"
+            ></div>
+            <div
+              class="text-black dark:text-white"
+              v-html="entryPinned.desc"
+            ></div>
           </div>
         </nuxt-link>
       </div>

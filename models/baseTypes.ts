@@ -27,6 +27,14 @@ export type GameType = {
   status_desc: string;
 };
 
+export type Book = {
+  id: string;
+  title: string;
+  desc: string;
+  content: string;
+  preview: ImageType;
+};
+
 export type BillboardType = {
   id: string;
   oldId: number;

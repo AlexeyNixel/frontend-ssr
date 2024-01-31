@@ -34,7 +34,7 @@ const page = ref<number>(Number(route.query.page) || 1);
 
 const handleNavigate = (val?: number) => {
   if (val) page.value = val;
-  
+
   navigateTo({
     path: '/entry/search',
     query: {
@@ -110,7 +110,9 @@ watch(filters.value, () => {
     <UPagination
       class="flex justify-center my-4"
       v-model="page"
-      :total="pages * 10"
+      :page-count="10"
+      
+      :total="pages"
       @update:model-value="handleNavigate()"
     />
   </div>

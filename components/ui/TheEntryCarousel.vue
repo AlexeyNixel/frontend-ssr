@@ -33,7 +33,7 @@ entries.value = await entryStore.getEntriesByRubric(props.rubric, {
     </Swiper>
     <Nuxt-link
       :to="`/entry/rubric/${props.rubric}`"
-      class="flex justify-end mr-4"
+      class="flex justify-end mr-4 text-black dark:text-white hover:underline"
     >
       Больше новостей
     </Nuxt-link>

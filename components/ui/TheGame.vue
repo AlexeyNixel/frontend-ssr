@@ -37,7 +37,10 @@ defineProps<Props>();
             <img v-else src="/chess-placeholder.png" alt="" />
           </div>
         </template>
-        <div class="h-16 p-0" v-html="game.name"></div>
+        <div
+          class="h-16 p-0 text-black dark:text-white"
+          v-html="game.name"
+        ></div>
       </UCard>
     </nuxt-link>
   </div>

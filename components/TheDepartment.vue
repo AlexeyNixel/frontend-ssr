@@ -34,7 +34,7 @@ departments.value = await departmentStore.getDepartments({
             alt=""
           />
         </template>
-        <div>{{ item.title }}</div>
+        <div class="text-black dark:text-white">{{ item.title }}</div>
       </UCard>
     </nuxt-link>
   </div>

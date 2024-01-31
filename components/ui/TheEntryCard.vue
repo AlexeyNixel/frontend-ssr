@@ -30,7 +30,7 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
         />
         <the-base class="w-full h-[152px] object-cover" v-else></the-base>
       </template>
-      <div class="text-sm">
+      <div class="text-sm text-black dark:text-white">
         {{
           entry.title.length > 75
             ? entry.title.slice(0, 75).trim() + '...'

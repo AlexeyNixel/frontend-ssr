@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useGeneralStore } from '~/stores/generalStore';
+import TheBook from '~/components/TheBook.vue';
 
 const generalStore = useGeneralStore();
 const { isDesktop } = useDevice();
@@ -44,6 +45,7 @@ onMounted(() => {
   <TheNewsMobile v-else />
   <!-- <TheNews v-if="isDesktop" /> -->
   <TheDepartment />
+  <TheBook />
   <client-only><TheGos /></client-only>
   <TheGames />
   <TheExhibitions v-if="isDesktop" />

@@ -19,4 +19,5 @@ export enum Routes {
   GAMES_RANDOM_ROUTE = '/api/games/random',
   GENRE_ROUTE = '/api/genre/',
   NOTIFICATION_ROUTE = '/api/notification/',
+  BOOK_ROUTE = '/api/book/',
 }
