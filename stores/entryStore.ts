@@ -1,3 +1,4 @@
+import { EntryQuery, EntryResponseType } from '../models/entry-model';
 import { findEntryPinned } from './../api/entryApi';
 import { defineStore } from 'pinia';
 import {
@@ -18,16 +19,15 @@ export const useEntryStore = defineStore('entry', () => {
     return entry.value;
   };
 
-  const getEntryPinned = async ():Promise<EntryType> => {
+  const getEntryPinned = async (): Promise<EntryType> => {
     entry.value = await findEntryPinned();
     return entry.value;
   };
 
-  const getEntries = async (params?: ParamsType) => {
-    const { data, meta } = await findEntries(params);
-    metaEntry.value = meta;
-    entries.value = data;
-    return { data, meta };
+  const getEntries = async (
+    params?: EntryQuery
+  ): Promise<EntryResponseType> => {
+    return await findEntries(params);
   };
 
   const getEntriesByRubric = async (

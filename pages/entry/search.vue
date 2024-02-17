@@ -7,6 +7,7 @@ import { useSearchStore } from '~/stores/searchStore';
 import { navigateTo } from '#app';
 import { storeToRefs } from 'pinia';
 import TheFilter from '~/components/TheFilter.vue';
+import { EntryQuery, EntryResponseType } from 'models/entry-model';
 
 const ui = {
   icon: {
@@ -24,9 +25,16 @@ const route = useRoute();
 const entryStore = useEntryStore();
 const searchStore = useSearchStore();
 
-const { entries } = storeToRefs(entryStore);
+const entries = ref<EntryResponseType>();
 const { metaEntry } = storeToRefs(entryStore);
-const { filters } = storeToRefs(searchStore);
+// const { filters } = storeToRefs(searchStore);
+
+const filters = reactive({
+  order: (route.query.order as string) || '-publishedAt',
+  department: route.query.department || '',
+  rubric: route.query.rubric || '',
+  year: route.query.year || '',
+});
 
 const search = ref<string>(route.query.search as string);
 const pages = ref<number>(1);
@@ -38,11 +46,9 @@ const handleNavigate = (val?: number) => {
   navigateTo({
     path: '/entry/search',
     query: {
-      order: filters.value.orderFilter,
-      year: filters.value.year,
-      departments: filters.value.departmentFilter,
       page: val || page.value,
       search: search.value,
+      ...filters,
     },
   });
   fetchData();
@@ -50,45 +56,30 @@ const handleNavigate = (val?: number) => {
 
 const fetchData = async () => {
   if (process.client) window.scroll(0, 0);
-
-  const params = ref<ParamsType>({
-    toDate: filters.value.year
-      ? filters.value.year + '-12-31T00:00:00.000Z'
-      : '',
-    fromDate: filters.value.year
-      ? filters.value.year + '-01-01T00:00:00.000Z'
-      : '',
-    orderBy: filters.value.orderFilter,
+  entries.value = await entryStore.getEntries({
+    page: page.value,
+    search: search.value,
+    toDate: filters.year ? filters.year + '-12-31T00:00:00.000Z' : undefined,
+    fromDate: filters.year ? filters.year + '-01-01T00:00:00.000Z' : undefined,
+    orderBy: filters.order,
     include: 'preview',
+    department: (filters.department as string) || undefined,
+    rubric: (filters.rubric as string) || undefined,
   });
-
-  if (filters.value.departmentFilter === '') {
-    await entryStore.getEntries({
-      page: page.value,
-      search: search.value,
-      ...params.value,
-    });
-    pages.value = Number(metaEntry.value?.pages);
-  } else {
-    await entryStore.getEntriesByDepartment(filters.value.departmentFilter, {
-      page: page.value,
-      search: search.value,
-      ...params.value,
-    });
-    pages.value = Number(metaEntry.value?.pages);
-  }
+  pages.value = Number(metaEntry.value?.pages);
+  console.log(entries.value);
 };
 
 fetchData();
 
-watch(filters.value, () => {
+watch(filters, () => {
+  handleNavigate();
   page.value = 1;
-  fetchData();
 });
 </script>
 
 <template>
-  <div>
+  <div v-if="entries">
     <UInput
       @keydown.enter="handleNavigate(1)"
       variant="none"
@@ -101,18 +92,17 @@ watch(filters.value, () => {
       v-model="search"
     >
       <template #trailing>
-        <TheFilter />
+        <TheFilter v-model="filters" />
       </template>
     </UInput>
     <div class="entry-list">
-      <TheEntry v-for="item in entries" :key="item.id" :entry="item" />
+      <TheEntry v-for="item in entries.data" :key="item.id" :entry="item" />
     </div>
     <UPagination
       class="flex justify-center my-4"
       v-model="page"
-      :page-count="10"
-      
-      :total="pages"
+      :page-count="entries.meta.pageSize"
+      :total="entries.meta.total"
       @update:model-value="handleNavigate()"
     />
   </div>

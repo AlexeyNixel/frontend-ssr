@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { EntryType } from '~/models/baseTypes';
 import dayjs from 'dayjs';
+import { EntryType } from 'models/entry-model';
 
 interface Props {
   entry: EntryType;
@@ -40,4 +40,3 @@ defineProps<Props>();
     </div>
   </NuxtLink>
 </template>
-

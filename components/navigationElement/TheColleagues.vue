@@ -6,7 +6,7 @@ const menuStore = useMenuStore();
 const about = ref<MenuType[]>();
 
 about.value = await menuStore.getMenus({
-  searchByField: `menuType=COLLEAGUES`,
+  type: 'COLLEAGUES',
   include: 'menuItems',
 });
 

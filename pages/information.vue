@@ -61,14 +61,14 @@ const links = reactive([
     <div class="text-2xl font-bold">
       Сведения об организации, осуществляющей образовательную деятельность
     </div>
-    <NuxtLink
-      v-for="link in links"
-      :key="link.slug"
-      :to="`${link.slug}`"
-      class="flex flex-col text-black dark:text-white hover:text-blue-700 dark:hover:text-blue-500 hover:underline odd:text-neutral-500 dark:odd:text-neutral-300 transition"
-    >
-      {{ link.title }}
-    </NuxtLink>
+    <template v-for="link in links" :key="link.slug">
+      <NuxtLink
+        :to="`${link.slug}`"
+        class="flex flex-col text-black dark:text-white hover:text-blue-700 dark:hover:text-blue-500 hover:underline odd:text-neutral-500 dark:odd:text-neutral-300 transition"
+      >
+        {{ link.title }}
+      </NuxtLink>
+    </template>
   </div>
 </template>
 

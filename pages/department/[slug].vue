@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
 import TheEntry from '~/components/ui/TheEntry.vue';
-import { EntryType } from '~/models/baseTypes';
 import { navigateTo } from '#app';
-import { storeToRefs } from 'pinia';
+import { EntryResponseType } from 'models/entry-model';
 
 const departmentRu: { [key: string]: string } = {
   ool: 'Отдел отраслевой литературы',
@@ -14,29 +13,29 @@ const departmentRu: { [key: string]: string } = {
 };
 
 const route = useRoute();
-const router = useRouter();
 const slug = ref<string>(route.params.slug as string);
 const entryStore = useEntryStore();
 const page = ref<number>(Number(route.query.page) || 1);
-const { metaEntry } = storeToRefs(entryStore);
-const { entries } = storeToRefs(entryStore);
+const entries = ref<EntryResponseType>();
 
 const swapPage = () => {
+  if (process.client) window.scroll(0, 0);
+
+  fetchData();
   navigateTo({
     path: `/department/${slug.value}`,
     query: { page: page.value },
   });
-
-  fetchData();
 };
 
 const fetchData = async () => {
-  await entryStore.getEntriesByDepartment(slug.value, {
+  entries.value = await entryStore.getEntries({
     orderBy: '-publishedAt',
-    include: 'preview',
+    include: 'preview,department',
     page: page.value || 1,
+    pageSize: 10,
+    department: slug.value,
   });
-  if (process.client) window.scroll(0, 0);
 };
 
 fetchData();
@@ -49,16 +48,18 @@ fetchData();
     </Title>
   </Head>
   <div class="title">{{ departmentRu[route.params.slug as string] }}</div>
-  <div>
-    <TheEntry v-for="item in entries" :key="item.id" :entry="item" />
+  <div v-if="entries">
+    <div>
+      <TheEntry v-for="item in entries.data" :key="item.id" :entry="item" />
+    </div>
+    <UPagination
+      class="my-4 flex items-center justify-center"
+      v-model="page"
+      :page-count="entries.meta.pageSize"
+      :total="entries.meta.total"
+      @update:model-value="swapPage()"
+    />
   </div>
-  <UPagination
-    class="my-4 flex items-center justify-center"
-    v-model="page"
-    :page-count="10"
-    :total="Number(metaEntry.pages) * 10"
-    @update:model-value="swapPage()"
-  />
 </template>
 
 <style scoped lang="scss">

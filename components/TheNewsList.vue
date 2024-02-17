@@ -1,14 +1,14 @@
 <script lang="ts" setup>
 import { EntryType } from 'models/baseTypes';
 import { useEntryStore } from '~/stores/entryStore';
-import TheEntryCard from '~/components/ui/TheEntryCard.vue';
-import TheEntryCarousel from '~/components/ui/TheEntryCarousel.vue';
+import { EntryResponseType } from 'models/entry-model';
 
 const entryStore = useEntryStore();
-const entry = ref<EntryType[]>();
+const entries = ref<EntryResponseType>();
 const entryPinned = ref<EntryType>();
 
-entry.value = await entryStore.getEntriesByRubric('anonsy', {
+entries.value = await entryStore.getEntries({
+  rubric: 'anonsy',
   pageSize: 4,
   include: 'preview',
   orderBy: '-publishedAt',
@@ -26,7 +26,10 @@ entryPinned.value = await entryStore.getEntryPinned();
         <div class="ml-1 mb-2">
           <nuxt-link
             class="text-xl font-bold text-black dark:text-white"
-            to="/entry/rubric/anonsy"
+            :to="{
+              path: '/entry/search',
+              query: { rubric: 'anonsy' },
+            }"
           >
             Анонсы
           </nuxt-link>
@@ -53,14 +56,18 @@ entryPinned.value = await entryStore.getEntryPinned();
           </div>
         </nuxt-link>
       </div>
-      <div class="rounded-[10px] grid grid-cols-4">
-        <the-entry-card v-for="item in entry" :key="item.id" :entry="item" />
+      <div class="rounded-[10px] grid grid-cols-4" v-if="entries">
+        <ui-the-entry-card
+          v-for="item in entries.data"
+          :key="item.id"
+          :entry="item"
+        />
       </div>
     </div>
     <div class="ml-3 w-4/12 bg-white dark:bg-neutral-900 rounded-[10px] p-2">
       <div class="main">
-        <TheEntryCarousel rubric="sobytiya" />
-        <TheEntryCarousel rubric="aktualnoe" />
+        <ui-the-entry-carousel rubric="sobytiya" />
+        <ui-the-entry-carousel rubric="aktualnoe" />
       </div>
     </div>
   </div>

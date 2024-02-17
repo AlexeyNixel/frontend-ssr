@@ -3,12 +3,30 @@ import { storeToRefs } from 'pinia';
 import { useDepartmentStore } from '~/stores/departmentStore';
 import { useSearchStore } from '~/stores/searchStore';
 
+interface Props {
+  modelValue: {
+    orderBy: string;
+    department: string;
+    rubric: string;
+    year: string;
+  };
+}
+
+const props = defineProps<Props>();
+
 const searchStore = useSearchStore();
 const departmentStore = useDepartmentStore();
 
-const { filters } = storeToRefs(searchStore);
+// const { filters } = storeToRefs(searchStore);
 const { orderFilters } = storeToRefs(searchStore);
 const { departments } = storeToRefs(departmentStore);
+
+const handleClearFilter = () => {
+  props.modelValue.department = '';
+  props.modelValue.year = '';
+  props.modelValue.rubric = '';
+  props.modelValue.orderBy = '';
+};
 
 await departmentStore.getDepartments();
 </script>
@@ -22,12 +40,12 @@ await departmentStore.getDepartments();
       <div class="p-4 w-96">
         <div class="flex justify-between items-center my-3">
           <div class="text-2xl font-bold">Фильтры</div>
-          <UButton @click="searchStore.clearFilter()">очистить</UButton>
+          <UButton @click="handleClearFilter">очистить</UButton>
         </div>
         <div class="item">
           <div>Сортировка</div>
           <USelect
-            v-model="filters.orderFilter"
+            v-model="modelValue.orderBy"
             :options="orderFilters"
             option-attribute="name"
           />
@@ -35,14 +53,14 @@ await departmentStore.getDepartments();
         <div class="item">
           <div>Год</div>
           <USelect
-            v-model="filters.year"
+            v-model="modelValue.year"
             :options="searchStore.generateDate()"
           />
         </div>
         <div class="item">
           <div>Отдел</div>
           <USelect
-            v-model="filters.departmentFilter"
+            v-model="modelValue.department"
             :options="departments"
             value-attribute="slug"
             option-attribute="title"

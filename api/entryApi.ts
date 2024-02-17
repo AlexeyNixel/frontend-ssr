@@ -1,16 +1,17 @@
+import { EntryQuery } from '../models/entry-model';
 import { Routes } from '~/api/routes';
 import { axiosApi } from '~/api/axios';
 import { EntryType, MetaType, ParamsType } from '~/models/baseTypes';
+import { EntryResponseType } from 'models/entry-model';
 
 const { ENTRY_ROUTE } = Routes;
 const { RUBRIC_ROUTE } = Routes;
 const { DEPARTMENT_ROUTE } = Routes;
 
-export const findEntries = async (params?: ParamsType) => {
-  const metaEntry = ref<MetaType>();
-  //@ts-ignore
-  const { data, meta } = await axiosApi.get(ENTRY_ROUTE, { params });
-  return { data, meta };
+export const findEntries = async (
+  params?: EntryQuery
+): Promise<EntryResponseType> => {
+  return await axiosApi.get(ENTRY_ROUTE, { params });
 };
 
 export const findEntryPinned = async (): Promise<EntryType> => {

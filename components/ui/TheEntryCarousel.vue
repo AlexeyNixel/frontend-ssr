@@ -2,21 +2,21 @@
 import { EntryType } from 'models/baseTypes';
 import { useEntryStore } from '~/stores/entryStore';
 import TheEntryCard from '~/components/ui/TheEntryCard.vue';
+import { EntryResponseType } from 'models/entry-model';
 
 const props = defineProps<{ rubric: string }>();
 const entryStore = useEntryStore();
-const entries = ref<EntryType[]>();
-const width = computed(() => {
-  if (process.client) return window.innerWidth;
-});
-entries.value = await entryStore.getEntriesByRubric(props.rubric, {
+const entries = ref<EntryResponseType>();
+
+entries.value = await entryStore.getEntries({
+  rubric: props.rubric,
   include: 'preview',
   orderBy: '-createdAt',
 });
 </script>
 
 <template>
-  <div>
+  <div v-if="entries">
     <Swiper
       class="flex h-[280px]"
       :slidesPerView="2"
@@ -25,14 +25,14 @@ entries.value = await entryStore.getEntriesByRubric(props.rubric, {
     >
       <SwiperSlide
         class="rounded-[10px] flex h-full"
-        v-for="item in entries"
+        v-for="item in entries.data"
         :key="item.id"
       >
         <TheEntryCard class="h-full" :entry="item" />
       </SwiperSlide>
     </Swiper>
     <Nuxt-link
-      :to="`/entry/rubric/${props.rubric}`"
+      :to="{ path: '/entry/search', query: { rubric: rubric } }"
       class="flex justify-end mr-4 text-black dark:text-white hover:underline"
     >
       Больше новостей

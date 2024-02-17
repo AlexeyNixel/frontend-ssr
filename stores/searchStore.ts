@@ -3,6 +3,8 @@ import dayjs from 'dayjs';
 import { ParamsType } from '~/models/baseTypes';
 
 export const useSearchStore = defineStore('search', () => {
+  const route = useRoute();
+
   const orderFilters = ref([
     {
       name: 'По умолчанию',
@@ -19,15 +21,17 @@ export const useSearchStore = defineStore('search', () => {
   ]);
 
   const filters = ref({
-    orderFilter: '-publishedAt',
-    year: '',
-    departmentFilter: '',
+    orderFilter: (route.query.order as string) || '-publishedAt',
+    year: route.query.year || '',
+    department: (route.query.department as string) || '',
+    rubric: (route.query.rubric as string) || '',
   });
 
   const clearFilter = () => {
     filters.value.orderFilter = '-publishedAt';
-    filters.value.departmentFilter = '';
+    filters.value.department = '';
     filters.value.year = '';
+    filters.value.rubric = '';
   };
 
   const params = ref<ParamsType>({
