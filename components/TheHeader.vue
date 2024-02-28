@@ -57,7 +57,7 @@ const buttons = [
   },
   {
     icon: 'fa-graduation-cap',
-    event: () => navigateTo('/information', { external: true }),
+    event: () => navigateTo('/information'),
     style: null,
     desc: 'Сведения об организации, осуществляющей образовательную деятельность',
   },

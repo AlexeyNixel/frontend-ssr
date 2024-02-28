@@ -13,7 +13,7 @@ a {
 }
 
 body {
-  @apply bg-gray-200 dark:bg-black;
+  @apply transition-colors ease-in-out bg-gray-200 dark:bg-black duration-300;
 }
 
 html.dark {

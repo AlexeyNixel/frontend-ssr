@@ -14,7 +14,12 @@ entries.value = await entryStore.getEntries({
   orderBy: '-publishedAt',
 });
 
-entryPinned.value = await entryStore.getEntryPinned();
+entryPinned.value = await entryStore.getEntry(
+  'literaturnyj-konkurs-divnyj-genij-07-33-26-02-24',
+  {
+    include: 'preview',
+  }
+);
 </script>
 
 <template>
