@@ -34,7 +34,7 @@ exhibitions.value = await fileStore.getFiles({
   >
     <SwiperSlide
       class="flex justify-between rounded-[10px] w-full"
-      v-for="(slide, index) in exhibitions"
+      v-for="(slide, index) in exhibitions.data"
       :key="index"
     >
       <img

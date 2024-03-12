@@ -36,7 +36,7 @@ onMounted(() => {
       <div class="text-2xl font-bold">
         {{ entry?.title }}
       </div>
-      <div class="text-right">
+      <div class="text-right ml-5">
         <NuxtLink
           :to="`/department/${entry?.department.slug}`"
           class="font-bold"

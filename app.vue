@@ -20,6 +20,11 @@ useHead({
       body: true,
     },
     {
+      async: 'true',
+      src: 'https://culturaltracking.ru/static/js/spxl.js?pixelId=25706',
+      'data-pixel-id': 25706,
+    },
+    {
       children:
         ' (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};\n' +
         '   m[i].l=1*new Date();\n' +

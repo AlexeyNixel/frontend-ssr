@@ -10,7 +10,7 @@ const NEWS_MENU_RUBRICS = {
 };
 
 const entryStore = useEntryStore();
-const news = ref<{ [key: string]: EntryType[] }>({});
+const news = ref<{ [key: string]: any }>({});
 
 const rubricsTranslate: { [key: string]: string } = {
   aktualnoe: 'Актуальное',
@@ -19,11 +19,13 @@ const rubricsTranslate: { [key: string]: string } = {
 };
 
 for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
-  news.value[rubric] = await entryStore.getEntriesByRubric(rubric, {
+  const data = await entryStore.getEntries({
+    rubric: rubric,
     pageSize: 6,
     include: 'rubrics,preview',
     orderBy: '-publishedAt',
   });
+  news.value[rubric] = data.data;
 }
 </script>
 

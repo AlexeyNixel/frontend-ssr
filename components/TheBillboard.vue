@@ -15,6 +15,7 @@ const events = ref<BillboardType[]>([]);
 const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
 const toDate = dayjs(new Date()).endOf('month').format('YYYY-MM-DD');
 const isLoading = ref<boolean>(false);
+const isOffDay = ref<boolean>(false);
 
 const ui = {
   base: 'animate-pulse',
@@ -38,6 +39,7 @@ const attrs = ref<AttributeConfig[]>([
     highlight: {
       color: 'orange',
     },
+    dot: 'orange',
     //@ts-ignore
     dates: { repeat: { weekdays: 2 } },
     popover: {
@@ -47,6 +49,12 @@ const attrs = ref<AttributeConfig[]>([
 ]);
 
 const handleSelectDay = async (date?: CalendarDay) => {
+  if (date?.attributes[0]?.key === 'off') {
+    isOffDay.value = true;
+    console.log(isOffDay.value);
+  } else {
+    isOffDay.value = false;
+  }
   const day = dayjs(date?.date || new Date()).format('YYYY-MM-DD');
   selectEvent.value = await billboardStore.getBillboards({
     fromDate: day + 'T00:00:00.000Z',
@@ -112,12 +120,18 @@ onMounted(() => {
               <the-event :event="item" />
             </SwiperSlide>
           </Swiper>
-          <div
-            class="w-full h-full flex flex-col justify-center items-center"
-            v-else
-          >
-            <img class="w-3/12" src="/books.svg" alt="" />
-            <h2 class="text-xl my-2 font-bold">Сегодня можете взять книги</h2>
+          <div v-else>
+            <ui-off-day
+              class="w-full h-full flex flex-col justify-center items-center"
+              v-if="isOffDay"
+            ></ui-off-day>
+            <div
+              class="w-full h-full flex flex-col justify-center items-center"
+              v-else
+            >
+              <img class="w-3/12" src="/books.svg" alt="" />
+              <h2 class="text-xl my-2 font-bold">Сегодня можете взять книги</h2>
+            </div>
           </div>
         </div>
       </div>

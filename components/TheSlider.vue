@@ -28,15 +28,18 @@ watch(slides, () => {
 <template>
   <USkeleton :ui="ui" v-if="!isLoading" class="slider" />
   <Swiper
-    :modules="[SwiperAutoplay, SwiperPagination]"
-    :loop="true"
     v-else
-    :pagination="true"
+    :modules="[SwiperAutoplay]"
+    :loop="true"
     :autoplay="{ delay: 6000, disableOnInteraction: true }"
     class="slider"
   >
-    <SwiperSlide class="rounded-[10px]" v-for="item in slides" :key="item.id">
-      <a v-if="item.url" :href="item.url" target="_blank">
+    <SwiperSlide
+      class="rounded-[10px] h-full"
+      v-for="item in slides"
+      :key="item.id"
+    >
+      <a v-if="item.url" :href="item.url" target="_blank" class="h-full">
         <img
           class="w-full h-full rounded-[10px]"
           :src="staticUrl + item.image.path"
@@ -63,6 +66,6 @@ watch(slides, () => {
 
 <style scoped lang="scss">
 .slider {
-  @apply sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[400px] 2xl:h-[400px] w-full;
+  @apply h-[30vw] sm:h-[200px] md:h-[240px] lg:h-[320px] xl:h-[400px] 2xl:h-[400px] w-full;
 }
 </style>

@@ -11,7 +11,7 @@ const entries = ref<EntryResponseType>();
 entries.value = await entryStore.getEntries({
   rubric: props.rubric,
   include: 'preview',
-  orderBy: '-createdAt',
+  orderBy: '-publishedAt',
 });
 </script>
 

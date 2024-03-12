@@ -12,37 +12,37 @@ const page = ref<number>(Number(route.query.page) || 1);
 const currentPath = ref<string>('');
 const { metaFile } = storeToRefs(fileStore);
 const { files } = storeToRefs(fileStore);
+console.log(files.value);
 
 const handleChangeExhibition = (path: string) => {
   navigateTo({ path: 'http://static.infomania.ru' + path });
 };
 
-const swapPage = async () => {
-  navigateTo({ path: '/exhibitions', query: { page: page.value } });
-  if (process.client) window.scrollTo(0, 0);
-  await fileStore.getFiles({
+const fetchData = async () => {
+  files.value = await fileStore.getFiles({
     searchByField: 'type=EXHIBITION',
     orderBy: '-createdAt',
-    pageSize: 9,
+    pageSize: 15,
     page: page.value,
   });
 };
 
-await fileStore.getFiles({
-  searchByField: 'type=EXHIBITION',
-  orderBy: '-createdAt',
-  pageSize: 9,
-  page: page.value,
-});
+const handleNavigate = async () => {
+  navigateTo({ path: '/exhibitions', query: { page: page.value } });
+  if (process.client) window.scrollTo(0, 0);
+  fetchData();
+};
+
+await fetchData();
 </script>
 
 <template>
   <div class="text-2xl my-2 font-bold">Викторины и выставки</div>
-  <div class="grid grid-cols-3 gap-2">
+  <div class="grid grid-cols-3 gap-2" v-if="files">
     <a
       :href="`http://static.infomania.ru${item.path}`"
       class="exhibition"
-      v-for="item in files"
+      v-for="item in files.data"
       :key="item.id"
     >
       <img
@@ -55,10 +55,11 @@ await fileStore.getFiles({
   </div>
   <the-exhibitions-item :path="currentPath" />
   <UPagination
-    class="my-2 flex justify-center items-center"
+    class="flex justify-center my-4"
     v-model="page"
-    :total="metaFile.pages * 10"
-    @update:model-value="swapPage()"
+    :page-count="files.meta.pageSize"
+    :total="files.meta.total"
+    @update:model-value="handleNavigate()"
   />
 </template>
 
