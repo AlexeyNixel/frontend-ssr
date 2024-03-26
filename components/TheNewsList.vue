@@ -22,7 +22,7 @@ entryPinned.value = await entryStore.getEntryPinned();
     <div
       class="flex flex-col justify-between w-8/12 bg-white dark:bg-neutral-900 rounded-[10px] p-4"
     >
-      <div class="">
+      <div>
         <div class="ml-1 mb-2">
           <nuxt-link
             class="text-xl font-bold text-black dark:text-white"
@@ -49,10 +49,13 @@ entryPinned.value = await entryStore.getEntryPinned();
               class="font-bold xl:text-xl text-black dark:text-white"
               v-html="entryPinned.title"
             ></div>
-            <div
-              class="text-black dark:text-white"
-              v-html="entryPinned.desc"
-            ></div>
+            <div class="text-black dark:text-white">
+              {{
+                entryPinned.desc.length > 300
+                  ? entryPinned.desc.slice(0, 300).trim() + '...'
+                  : entryPinned.desc.trim()
+              }}
+            </div>
           </div>
         </nuxt-link>
       </div>

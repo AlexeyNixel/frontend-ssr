@@ -111,15 +111,7 @@ onMounted(() => {
           </Calendar>
         </div>
         <div class="hidden lg:block lg:w-[65%] xl:w-[70%] flex h-full">
-          <Swiper v-if="selectEvent.length > 0" class="event">
-            <SwiperSlide
-              class="event__item"
-              v-for="item in selectEvent"
-              :key="item.id"
-            >
-              <the-event :event="item" />
-            </SwiperSlide>
-          </Swiper>
+          <ui-event-list :events='selectEvent' v-if="selectEvent.length > 0"/>
           <div v-else>
             <ui-off-day
               class="w-full h-full flex flex-col justify-center items-center"

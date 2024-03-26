@@ -36,7 +36,6 @@ onMounted(() => {
 </script>
 
 <template>
-  <div></div>
   <TheSlider />
   <TheNavigation v-if="isDesktop" />
   <TheNavigationMobile v-else />
@@ -45,7 +44,7 @@ onMounted(() => {
   <TheNewsList v-if="isDesktop" />
   <TheNewsMobile v-else />
   <TheDepartment />
-  <!-- <TheBook /> -->
+  <TheBook />
   <client-only><TheGos /></client-only>
   <TheGames />
   <TheExhibitions v-if="isDesktop" />

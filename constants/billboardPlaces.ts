@@ -17,6 +17,7 @@ enum AffichePlacesEnum {
   SPACE_TYPE_OOL_COM = 'ool_com',
   SPACE_TYPE_CPKIM = 'cpkim',
   SPACE_TYPE_VIRT = 'virt',
+  SPACE_TYPE_GUEST_2 = 'guest_2',
 }
 
 export const AffichePlaces: { [key in any]: string } = {
@@ -43,4 +44,5 @@ export const AffichePlaces: { [key in any]: string } = {
   [AffichePlacesEnum.SPACE_TYPE_CPKIM]:
     'Центр поддержки культурных инициатив молодёжи',
   [AffichePlacesEnum.SPACE_TYPE_VIRT]: 'Электронные ресурсы библиотеки',
+  [AffichePlacesEnum.SPACE_TYPE_GUEST_2]: 'Гостиная (Цоколь)',
 };

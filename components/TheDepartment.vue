@@ -9,7 +9,6 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 departments.value = await departmentStore.getDepartments({
   include: 'preview',
 });
-console.log(departments.value);
 </script>
 
 <template>

@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { BillboardType, ParamsType } from '~/models/baseTypes';
-import { findBillboards } from '~/api/billboardApi';
+import { findBillboard, findBillboards } from '~/api/billboardApi';
 import { AttributeConfig } from 'v-calendar/src/utils/attribute';
 
 export const useBillboardStore = defineStore('billboard', () => {
@@ -27,10 +27,15 @@ export const useBillboardStore = defineStore('billboard', () => {
     return billboards.value;
   };
 
+  const getBillboard = async (slug: string) => {
+    return await findBillboard(slug)
+  }
+
   return {
     attrs,
     billboards,
     getBillboards,
+    getBillboard,
     activeComp,
     selectedEvents
   };
