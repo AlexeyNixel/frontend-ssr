@@ -11,15 +11,19 @@ const billboardStore = useBillboardStore();
 const event = ref<BillboardType>();
 const handleGetEvent = async (slug?: string) => {
   if (slug) event.value = await billboardStore.getBillboard(slug);
-  console.log(event.value);
 };
 
-const handleCloseEvent = () => {
-  event.value = undefined;
-};
+onMounted(async () =>{
+  if (props.events.length === 1) {
+    event.value = props.events[0]
+  }
+})
 
 watch(props, () => {
   event.value = undefined;
+  if (props.events.length === 1) {
+    event.value = props.events[0]
+  }
 });
 </script>
 
@@ -29,7 +33,7 @@ watch(props, () => {
     <ui-the-event v-if='event' v-model='event' :event='event'></ui-the-event>
     <UButton
       v-else variant='link'
-      class='my-2 text-start odd:bg-neutral-200 mx-4'
+      class='my-2 text-start odd:bg-neutral-100 dark:odd:bg-neutral-800 mx-4'
       v-for='item in events'
       :key='item.id'
       @click='handleGetEvent(item?.id)'

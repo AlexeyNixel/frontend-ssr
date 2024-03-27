@@ -45,7 +45,8 @@ onMounted(() => {
   <TheNewsMobile v-else />
   <TheDepartment />
   <TheBook />
-  <client-only><TheGos /></client-only>
+  <TheGos />
+<!--  <client-only></client-only>-->
   <TheGames />
   <TheExhibitions v-if="isDesktop" />
   <UNotifications class="notification" />
