@@ -26,9 +26,9 @@ const placeName = AffichePlaces;
   <div class="flex w-full">
     <div class="lg:w-[12%] xl:w-[10%] text-center">
       <div class="text-5xl">{{ dayjs(event.eventDate).format('D') }}</div>
-      <div>{{ event.eventTime.slice(11, 16) }}</div>
       <div class="month">{{ dayjs(event.eventDate).format('MMM') }}</div>
       <div class="day-name">({{ dayjs(event.eventDate).format('dd') }})</div>
+      <div>{{ event.eventTime.slice(11, 16) }}</div>
       <NuxtLink
         :to="`http://admin.infomania.ru/billboard/update/${event.id}`"
         class="slider__update"
