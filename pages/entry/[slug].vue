@@ -30,7 +30,10 @@ onMounted(() => {
   <div class="my-[1vh]">
     <Head>
       <Title>{{ entry?.title }}</Title>
-      <Meta name="description" :content="entry?.desc" />
+      <Meta
+        name="description"
+        :content="entry?.desc"
+      />
     </Head>
     <div class="flex my-3 justify-between">
       <div class="text-2xl font-bold">
@@ -47,15 +50,24 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <viewer rebuild @inited="inited">
-      <div class="ck-content" v-html="entry?.content"></div>
+    <viewer
+      rebuild
+      @inited="inited"
+    >
+      <div
+        class="ck-content indent-5"
+        v-html="entry?.content"
+      ></div>
     </viewer>
     <client-only v-if="generalStore.token">
       <NuxtLink
         :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
         external
       >
-        <UButton color="blue" class="font-bold text-white text-sm">
+        <UButton
+          color="blue"
+          class="font-bold text-white text-sm"
+        >
           Редактировать
         </UButton>
       </NuxtLink>
@@ -63,4 +75,10 @@ onMounted(() => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.ck-content {
+  :deep(p) {
+    margin: 10px 0px !important;
+  }
+}
+</style>

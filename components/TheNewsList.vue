@@ -40,7 +40,7 @@ entryPinned.value = await entryStore.getEntryPinned();
           :to="`/entry/${entryPinned.slug}`"
         >
           <img
-            class="rounded-l-[10px] w-1/2"
+            class="rounded-l-[10px] h-max w-1/2"
             :src="entryPinned?.preview.path"
             alt=""
           />
@@ -59,7 +59,10 @@ entryPinned.value = await entryStore.getEntryPinned();
           </div>
         </nuxt-link>
       </div>
-      <div class="rounded-[10px] grid grid-cols-4" v-if="entries">
+      <div
+        class="rounded-[10px] grid grid-cols-4"
+        v-if="entries"
+      >
         <ui-the-entry-card
           v-for="item in entries.data"
           :key="item.id"

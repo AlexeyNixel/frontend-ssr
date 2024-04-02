@@ -16,6 +16,7 @@ const fromDate = dayjs(new Date()).startOf('month').format('YYYY-MM-DD');
 const toDate = dayjs(new Date()).endOf('month').format('YYYY-MM-DD');
 const isLoading = ref<boolean>(false);
 const isOffDay = ref<boolean>(false);
+const selectedDay = ref('');
 
 const ui = {
   base: 'animate-pulse',
@@ -51,14 +52,14 @@ const attrs = ref<AttributeConfig[]>([
 const handleSelectDay = async (date?: CalendarDay) => {
   if (date?.attributes[0]?.key === 'off') {
     isOffDay.value = true;
-    console.log(isOffDay.value);
   } else {
     isOffDay.value = false;
   }
-  const day = dayjs(date?.date || new Date()).format('YYYY-MM-DD');
+
+  selectedDay.value = dayjs(date?.date || new Date()).format('YYYY-MM-DD');
   selectEvent.value = await billboardStore.getBillboards({
-    fromDate: day + 'T00:00:00.000Z',
-    toDate: day + 'T00:00:00.000Z',
+    fromDate: selectedDay.value + 'T00:00:00.000Z',
+    toDate: selectedDay.value + 'T00:00:00.000Z',
     orderBy: 'eventTime',
   });
 };
@@ -75,7 +76,9 @@ const handleFetchData = async (fromDate: string, toDate: string) => {
     //@ts-ignore
     attrs.value.push({
       key: event.id,
-      highlight: true,
+      highlight: {
+        color: 'blue',
+      },
       dates: dayjs(event.eventDate).format('YYYY-MM-DD'),
       popover: {
         label: event.title,
@@ -93,7 +96,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <USkeleton :ui="ui" v-if="!isLoading" class="h-[370px]" />
+  <USkeleton
+    :ui="ui"
+    v-if="!isLoading"
+    class="h-[370px]"
+  />
   <client-only v-else>
     <div class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]">
       <div class="text-xl font-bold mx-4 py-3">Афиша</div>
@@ -111,7 +118,11 @@ onMounted(() => {
           </Calendar>
         </div>
         <div class="hidden lg:block lg:w-[65%] xl:w-[70%] flex h-full">
-          <ui-event-list :events='selectEvent' v-if="selectEvent.length > 0"/>
+          <ui-event-list
+            :events="selectEvent"
+            :day="selectedDay"
+            v-if="selectEvent.length > 0"
+          />
           <div v-else>
             <ui-off-day
               class="w-full h-full flex flex-col justify-center items-center"
@@ -121,7 +132,11 @@ onMounted(() => {
               class="w-full h-full flex flex-col justify-center items-center"
               v-else
             >
-              <img class="w-3/12" src="/books.svg" alt="" />
+              <img
+                class="w-3/12"
+                src="/books.svg"
+                alt=""
+              />
               <h2 class="text-xl my-2 font-bold">Сегодня можете взять книги</h2>
             </div>
           </div>

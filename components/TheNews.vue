@@ -34,7 +34,10 @@ watch(news, () => {
 </script>
 
 <template>
-  <div v-if="isLoading" class="flex justify-between my-4">
+  <div
+    v-if="isLoading"
+    class="flex justify-between my-4"
+  >
     <USkeleton
       v-for="item in 3"
       :key="item"
@@ -42,7 +45,10 @@ watch(news, () => {
       class="h-[952px] lg:w-[32.8%]"
     />
   </div>
-  <div class="flex flex-col lg:flex-row justify-between" v-else>
+  <div
+    class="flex flex-col lg:flex-row justify-between"
+    v-else
+  >
     <div
       class="lg:w-[32.8%] bg-white dark:bg-neutral-900 p-4 rounded-[10px]"
       v-for="(item, index) in news"
@@ -51,8 +57,9 @@ watch(news, () => {
       <NuxtLink
         :to="`/entry/rubric/${index}`"
         class="mx-3 text-xl font-bold hover:underline"
-        >{{ NEWS_MENU_RUBRICS[index] }}</NuxtLink
       >
+        {{ NEWS_MENU_RUBRICS[index] }}
+      </NuxtLink>
       <NuxtLink
         :to="`/entry/${entry.id}`"
         class="flex my-4 items-center lg:h-[130px] hover:bg-slate-300 dark:hover:bg-neutral-800 transition rounded-[10px] p-3"

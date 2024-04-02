@@ -1,9 +1,16 @@
-<script lang='ts' setup>
+<script lang="ts" setup>
 import { onMounted } from 'vue';
 
+const navigateRuStore = (e: any) => {
+  console.log(e);
+  e.stopPropagation();
+  navigateTo('https://apps.rustore.ru/app/ru.gosuslugi.pos', {
+    external: true,
+    open: { target: '_blank' },
+  });
+};
 
 onMounted(() => {
-
   const el = document.createElement('script');
   el.setAttribute('type', 'text/javascript');
   el.setAttribute('async', 'true');
@@ -14,41 +21,50 @@ onMounted(() => {
 
   // @ts-expect-error
   Widget('https://pos.gosuslugi.ru/form', 348893);
-
 });
 </script>
 
 <template>
-  <div class='message'>
-    <div id='js-show-iframe-wrapper'>
-      <div class='pos-banner-fluid bf-83'>
-        <div class='bf-83__decor'>
-          <div class='bf-83__logo-wrap'>
+  <div class="message">
+    <div id="js-show-iframe-wrapper">
+      <div class="pos-banner-fluid bf-83">
+        <div class="bf-83__decor">
+          <div class="bf-83__logo-wrap">
             <img
-              class='bf-83__logo'
-              src='https://pos.gosuslugi.ru/bin/banner-fluid/gosuslugi-logo-blue.svg'
-              alt='Госуслуги'
+              class="bf-83__logo"
+              src="https://pos.gosuslugi.ru/bin/banner-fluid/gosuslugi-logo-blue.svg"
+              alt="Госуслуги"
             />
-            <div class='bf-83__slogan'>Решаем вместе</div>
+            <div class="bf-83__slogan">Решаем вместе</div>
           </div>
         </div>
-        <div class='bf-83__content'>
-          <div class='bf-83__description'>
-          <span class='bf-83__text'>
-            Есть вопрос?
-          </span>
-            <span class='bf-83__text bf-83__text_small'>
-            Напишите нам
-          </span>
+        <div class="bf-83__content">
+          <div class="bf-83__description">
+            <span class="bf-83__text"> Есть вопрос? </span>
+            <span class="bf-83__text bf-83__text_small"> Напишите нам </span>
           </div>
-          <div class='bf-83__bottom-wrap'>
-            <div class='bf-83__btn-wrap'>
+          <div class="bf-83__bottom-wrap">
+            <div class="bf-83__btn-wrap">
               <!-- pos-banner-btn_2 не удалять; другие классы не добавлять -->
               <button
-                class='pos-banner-btn_2'
-                type='button'
-              >Написать
+                class="pos-banner-btn_2"
+                type="button"
+              >
+                Написать
               </button>
+              <UButton
+                href="https://apps.rustore.ru/app/ru.gosuslugi.pos"
+                target="_blank"
+                class="pos-banner-btn_2 dark:bg-white min-h-[52px] ring-0 mt-2 rounded-[8px]"
+                color="white z-100"
+                @click="navigateRuStore"
+              >
+                <img
+                  class="w-full"
+                  src="/rustore-icon.png"
+                  alt=""
+                />
+              </UButton>
             </div>
           </div>
         </div>
@@ -57,7 +73,7 @@ onMounted(() => {
   </div>
 </template>
 
-<style lang='scss' scoped>
+<style lang="scss" scoped>
 .message {
   margin: 1vw 0;
 }
@@ -77,5 +93,4 @@ onMounted(() => {
 :deep(#js-show-iframe-wrapper .bf-83__decor) {
   border-radius: 10px;
 }
-
 </style>
