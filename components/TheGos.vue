@@ -2,7 +2,6 @@
 import { onMounted } from 'vue';
 
 const navigateRuStore = (e: any) => {
-  console.log(e);
   e.stopPropagation();
   navigateTo('https://apps.rustore.ru/app/ru.gosuslugi.pos', {
     external: true,

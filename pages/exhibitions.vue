@@ -10,9 +10,7 @@ const fileStore = useFileStore();
 const page = ref<number>(Number(route.query.page) || 1);
 
 const currentPath = ref<string>('');
-const { metaFile } = storeToRefs(fileStore);
 const { files } = storeToRefs(fileStore);
-console.log(files.value);
 
 const handleChangeExhibition = (path: string) => {
   navigateTo({ path: 'http://static.infomania.ru' + path });
@@ -38,7 +36,10 @@ await fetchData();
 
 <template>
   <div class="text-2xl my-2 font-bold">Викторины и выставки</div>
-  <div class="grid grid-cols-3 gap-2" v-if="files">
+  <div
+    class="grid grid-cols-3 gap-2"
+    v-if="files"
+  >
     <a
       :href="`http://static.infomania.ru${item.path}`"
       class="exhibition"

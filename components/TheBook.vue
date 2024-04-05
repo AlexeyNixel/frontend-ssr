@@ -16,18 +16,25 @@ const selectBook = (book: string) => {
 };
 
 const { data } = await bookStore.getAll({
-  pageSize: 20,
+  pageSize: 15,
   orderBy: '-createdAt',
   include: 'preview',
 });
+
 books.value = data;
 </script>
 
 <template>
   <div class="my-2 bg-white dark:bg-neutral-900 p-4 rounded-xl">
-    <nuxt-link to="/book" class="text-xl font-bold text-black dark:text-white">
-      Книги
-    </nuxt-link>
+    <div class="flex items-center justify-between">
+      <div class="text-xl font-bold">Книги</div>
+      <nuxt-link
+        to="/book"
+        class="mx-4 text-blue-400 dark:text-blue-400 hover:text-blue-500 hover:dark:text-blue-500 hover:underline"
+      >
+        Полный каталог книг
+      </nuxt-link>
+    </div>
     <Swiper
       :slidesPerView="isDesktop ? 6 : 2"
       :spaceBetween="5"
@@ -49,7 +56,6 @@ books.value = data;
             class="justify-between items-center w-max h-[250px] cursor-pointer"
             alt=""
           />
-          <!--          <div class='absolute'>asd</div>-->
           <div>
             {{ item.title }}
           </div>
@@ -57,7 +63,10 @@ books.value = data;
       </SwiperSlide>
     </Swiper>
   </div>
-  <modals-book v-model="isOpenBook" :current-book="currentBook"></modals-book>
+  <modals-book
+    v-model="isOpenBook"
+    :current-book="currentBook"
+  ></modals-book>
 </template>
 
 <style lang="scss" scoped>

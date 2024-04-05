@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { navigateTo, setPageLayout } from '#app';
+import { navigateTo } from '#app';
 import { auth } from '~/api/admin';
 import { useGeneralStore } from '~/stores/generalStore';
 import { storeToRefs } from 'pinia';
@@ -50,7 +50,10 @@ const handleAuth = async () => {
         :trailing="false"
         placeholder="Search..."
       />
-      <UButton label="Войти" @click="handleAuth()" />
+      <UButton
+        label="Войти"
+        @click="handleAuth()"
+      />
       <div v-if="!correctDate">неправильный логин или пароль</div>
     </form>
   </div>

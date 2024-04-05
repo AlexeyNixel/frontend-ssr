@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useGameStore } from '~/stores/gameStore';
+
 const { isDesktop } = useDevice();
 const ui = {
   header: {
@@ -25,10 +26,14 @@ await gameStore.getGamesRandom();
 
 <template>
   <div class="my-4 bg-white dark:bg-neutral-900 rounded-[10px] p-2">
-    <div class="text-xl font-bold py-2 rounded-[10px]">
-      <nuxt-link to="/game" class="mx-4 text-black dark:text-white"
-        >Игры</nuxt-link
+    <div class="flex justify-between items-center py-2 mx-1 rounded-[10px]">
+      <div class="text-xl font-bold">Игры</div>
+      <nuxt-link
+        to="/game"
+        class="mx-4 text-blue-400 dark:text-blue-400 hover:text-blue-500 hover:dark:text-blue-500 hover:underline"
       >
+        Полный каталог игр
+      </nuxt-link>
     </div>
     <Swiper
       :slidesPerView="isDesktop ? 5 : 2"
@@ -44,7 +49,10 @@ await gameStore.getGamesRandom();
         :key="game.id"
       >
         <nuxt-link :to="`/game/${game.id}`">
-          <UCard :ui="ui" class="rounded-[10px]">
+          <UCard
+            :ui="ui"
+            class="rounded-[10px]"
+          >
             <template #header>
               <div class="flex justify-center h-64 bg-white">
                 <img
@@ -53,10 +61,13 @@ await gameStore.getGamesRandom();
                   :src="staticUrl + game.cover_file"
                   alt=""
                 />
-                <img v-else src="/chess-placeholder.png" alt="" />
+                <img
+                  v-else
+                  src="/chess-placeholder.png"
+                  alt=""
+                />
               </div>
             </template>
-
             <div
               class="h-16 p-0 text-black dark:text-white"
               v-html="game.name"

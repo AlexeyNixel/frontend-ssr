@@ -1,14 +1,33 @@
 <script lang="ts" setup>
 import { useBookStore } from '~/stores/bookStore';
-import { Book } from '~/models/baseTypes';
+import { ImageType } from '~/models/baseTypes';
+
+interface Book {
+  data: [
+    {
+      id: string;
+      title: string;
+      content: string;
+      desc: string;
+      fileId: string;
+      isDeleted: boolean;
+      preview: ImageType;
+    },
+  ];
+  meta: {
+    page: number;
+    pageSize: number;
+    total: number;
+  };
+}
 
 const route = useRoute();
 const bookStore = useBookStore();
-const books = ref<any>();
+const books = ref<Book>();
 const page = ref<number>(Number(route.query.page) || 1);
 const pages = ref<number>(1);
-const isOpenBook = ref<boolean>(false)
-const currentBook = ref<string>('')
+const isOpenBook = ref<boolean>(false);
+const currentBook = ref<string>('');
 
 const selectBook = (book: string) => {
   isOpenBook.value = true;
@@ -39,25 +58,34 @@ handleFetchData();
 </script>
 
 <template>
-  <div>
-    <div class="grid grid-cols-5 gap-4 items-center">
+  <div v-if="books">
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-10 items-center"
+    >
       <div
-        class="flex flex-col items-center justify-center h-max flex-wrap hover:scale-[1.1]"
-        v-for="book in books?.data"
+        class="flex flex-col items-center justify-center h-max flex-wrap hover:scale-[1.06] transition"
+        v-for="book in books.data"
         :key="book.id"
-        @click='selectBook(book.id)'
+        @click="selectBook(book.id)"
       >
-        <img class="h-[300px] w-max" :src="book?.preview.path" alt="" />
-        <div class="break-words">{{ book.title }}</div>
+        <img
+          class="h-[300px] w-max"
+          :src="book?.preview.path"
+          alt=""
+        />
+        <div class="break-words text-center h-[100px]">{{ book.title }}</div>
       </div>
     </div>
     <UPagination
       class="flex justify-center my-4"
       v-model="page"
-      :total="books?.meta.total"
-      :page-count='books?.meta.pageSize'
+      :page-count="books.meta.pageSize"
+      :total="Number(books.meta.total)"
       @update:model-value="handleNavigate()"
     />
   </div>
-  <modals-book :current-book='currentBook' v-model='isOpenBook' ></modals-book>
+  <modals-book
+    :current-book="currentBook"
+    v-model="isOpenBook"
+  ></modals-book>
 </template>

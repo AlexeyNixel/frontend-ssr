@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
-import { DepartmentType, ParamsType } from '~/models/baseTypes';
 import TheEntry from '~/components/ui/TheEntry.vue';
-import { useDepartmentStore } from '~/stores/departmentStore';
 import { useSearchStore } from '~/stores/searchStore';
 import { navigateTo } from '#app';
 import { storeToRefs } from 'pinia';
 import TheFilter from '~/components/TheFilter.vue';
-import { EntryQuery, EntryResponseType } from 'models/entry-model';
+import { EntryResponseType } from 'models/entry-model';
 
 const ui = {
   icon: {
@@ -67,7 +65,6 @@ const fetchData = async () => {
     rubric: (filters.rubric as string) || undefined,
   });
   pages.value = Number(metaEntry.value?.pages);
-  console.log(entries.value);
 };
 
 fetchData();
@@ -96,7 +93,11 @@ watch(filters, () => {
       </template>
     </UInput>
     <div class="entry-list">
-      <TheEntry v-for="item in entries.data" :key="item.id" :entry="item" />
+      <TheEntry
+        v-for="item in entries.data"
+        :key="item.id"
+        :entry="item"
+      />
     </div>
     <UPagination
       class="flex justify-center my-4"
