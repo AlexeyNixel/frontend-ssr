@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs';
-import { BillboardType } from '~/models/baseTypes';
+import type { BillboardType } from '~/models/baseTypes';
 import { AffichePlaces } from '~/constants/billboardPlaces';
 import { useGeneralStore } from '~/stores/generalStore';
 

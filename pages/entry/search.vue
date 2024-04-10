@@ -5,7 +5,7 @@ import { useSearchStore } from '~/stores/searchStore';
 import { navigateTo } from '#app';
 import { storeToRefs } from 'pinia';
 import TheFilter from '~/components/TheFilter.vue';
-import { EntryResponseType } from 'models/entry-model';
+import type { EntryResponseType } from '~/models/entry-model';
 
 const ui = {
   icon: {

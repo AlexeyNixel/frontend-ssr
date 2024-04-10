@@ -1,37 +1,28 @@
 <script setup lang="ts">
 import { useGeneralStore } from '~/stores/generalStore';
-import TheBook from '~/components/TheBook.vue';
+import { storeToRefs } from 'pinia';
 
 const generalStore = useGeneralStore();
 const { isDesktop } = useDevice();
 const toast = useToast();
 const notification = ref();
+const { screenWidth } = storeToRefs(generalStore);
+
 if (process.client) {
   const token = localStorage.getItem('token');
   generalStore.token = token as string;
+
+  window.addEventListener('resize', (e: Event) => {
+    if (e.target) {
+      screenWidth.value = e.target.innerWidth as number;
+    }
+  });
 }
 
 notification.value = await generalStore.getNotification();
 
 onMounted(() => {
-  if (notification.value) {
-    if (
-      process.client &&
-      localStorage.getItem('notification') !== notification.value.id
-    ) {
-      localStorage.setItem('notification', notification.value.id);
-      toast.add({
-        title: `${notification.value.desc}. Читать подробнее`,
-        timeout: 30000,
-        ui: {
-          container: 'top-0 left-0',
-        },
-        click: () => {
-          navigateTo(`/entry/${notification.value.entryId}`);
-        },
-      });
-    }
-  }
+  if (process.client) screenWidth.value = window.innerWidth;
 });
 </script>
 
@@ -46,7 +37,7 @@ onMounted(() => {
   <TheDepartment />
   <TheBook />
   <TheGos />
-<!--  <client-only></client-only>-->
+  <!--  <client-only></client-only>-->
   <TheGames />
   <TheExhibitions v-if="isDesktop" />
   <UNotifications class="notification" />

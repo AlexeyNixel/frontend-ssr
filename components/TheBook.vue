@@ -1,19 +1,22 @@
 <script lang="ts" setup>
-import { Book } from '~/models/baseTypes';
+import type { Book } from '~/models/baseTypes';
 import { useBookStore } from '~/stores/bookStore';
 import { Navigation } from 'swiper/modules';
+import { useGeneralStore } from '~/stores/generalStore';
+import { storeToRefs } from 'pinia';
+import { ModalsBook } from '#components';
+import { useModal } from '#ui/composables/useModal';
 
+const generalStore = useGeneralStore();
 const bookStore = useBookStore();
-const books = ref<Book[]>();
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
-const isOpenBook = ref<boolean>(false);
-const currentBook = ref<string>('');
-const { isDesktop } = useDevice();
 
-const selectBook = (book: string) => {
-  isOpenBook.value = true;
-  currentBook.value = book;
-};
+const books = ref<Book[]>();
+const { screenWidth } = storeToRefs(generalStore);
+const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
+const { isDesktop } = useDevice();
+const pageSize = ref<number>(screenWidth?.value! / 250 || 5);
+
+const modal = useModal();
 
 const { data } = await bookStore.getAll({
   pageSize: 15,
@@ -24,6 +27,16 @@ const { data } = await bookStore.getAll({
 books.value = await data?.sort((a: any) =>
   a.oldId < Math.random() * 20 ? -1 : 1
 );
+
+const openModal = (book: Book) => {
+  modal.open(ModalsBook, { book: book });
+};
+
+watch(screenWidth, () => {
+  if (!screenWidth.value) return;
+  if (screenWidth.value > 1280) pageSize.value = 6;
+  else pageSize.value = screenWidth.value / 250;
+});
 </script>
 
 <template>
@@ -39,7 +52,7 @@ books.value = await data?.sort((a: any) =>
     </div>
     <client-only>
       <Swiper
-        :slidesPerView="isDesktop ? 6 : 2"
+        :slidesPerView="isDesktop ? pageSize : 2"
         :spaceBetween="5"
         :pagination="true"
         :modules="[Navigation]"
@@ -51,7 +64,7 @@ books.value = await data?.sort((a: any) =>
           class="flex justify-between rounded-[10px] w-full px-2"
           v-for="item in books"
           :key="item.id"
-          @click="selectBook(item.id)"
+          @click="openModal(item)"
         >
           <div class="text-center flex flex-col items-center">
             <img
@@ -67,10 +80,6 @@ books.value = await data?.sort((a: any) =>
       </Swiper>
     </client-only>
   </div>
-  <modals-book
-    v-model="isOpenBook"
-    :current-book="currentBook"
-  ></modals-book>
 </template>
 
 <style lang="scss" scoped>

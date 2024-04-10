@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useDepartmentStore } from '~/stores/departmentStore';
-import { DepartmentType } from '~/models/baseTypes';
+import type { DepartmentType } from '~/models/baseTypes';
 
 const departmentStore = useDepartmentStore();
 const departments = ref<DepartmentType[]>();
@@ -27,7 +27,10 @@ departments.value = await departmentStore.getDepartments({
         }"
         class="shadow-none border-0 dark:bg-neutral-900 bg-white p-0"
       >
-        <template class="border-0" #header>
+        <template
+          class="border-0"
+          #header
+        >
           <img
             class="w-full object-cover"
             :src="staticUrl + item.preview?.path"

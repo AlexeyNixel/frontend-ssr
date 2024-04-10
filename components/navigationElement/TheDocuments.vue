@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useMenuStore } from '~/stores/menuStore';
-import { MenuType } from '~/models/baseTypes';
+import type { MenuType } from '~/models/baseTypes';
 
 const menuStore = useMenuStore();
 const about = ref<MenuType[]>();
@@ -18,7 +18,11 @@ about.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
     <div
       class="grid grid-cols-3 bg-white dark:bg-neutral-900 py-3 px-5 rounded-[10px]"
     >
-      <div class="" v-for="item in about" :key="item.id">
+      <div
+        class=""
+        v-for="item in about"
+        :key="item.id"
+      >
         <div class="text-xl">{{ item.title }}</div>
         <div
           class="my-1 text-black odd:text-neutral-200"

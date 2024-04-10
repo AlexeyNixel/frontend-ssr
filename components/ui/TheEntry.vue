@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import dayjs from 'dayjs';
-import { EntryType } from 'models/entry-model';
+import type { EntryType } from '~/models/entry-model';
 
 interface Props {
   entry: EntryType;
@@ -27,13 +27,19 @@ defineProps<Props>();
         v-if="entry.preview?.path"
         :src="entry.preview?.path"
       />
-      <TheBase v-else class="w-full" />
+      <TheBase
+        v-else
+        class="w-full"
+      />
     </div>
     <div class="ml-[10px] flex flex-col justify-between w-8/12 lg:w-[80%]">
       <div class="text-sm lg:font-bold lg:text-xl lg:mb-2">
         {{ entry.title }}
       </div>
-      <div class="hidden lg:block" v-html="entry.desc"></div>
+      <div
+        class="hidden lg:block"
+        v-html="entry.desc"
+      ></div>
       <div class="hidden lg:block self-end">
         {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
       </div>

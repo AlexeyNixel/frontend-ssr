@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useGameStore } from '~/stores/gameStore';
+import { useGeneralStore } from '~/stores/generalStore';
 
 const { isDesktop } = useDevice();
 const ui = {
@@ -21,6 +22,16 @@ const staticUrl = ref(import.meta.env['VITE_GAME_STATIC_URL']);
 const gameStore = useGameStore();
 const { games } = storeToRefs(gameStore);
 
+const generalStore = useGeneralStore();
+const { screenWidth } = storeToRefs(generalStore);
+const pageSize = ref<number>(screenWidth?.value! / 250 || 5);
+
+watch(screenWidth, () => {
+  if (!screenWidth.value) return;
+  if (screenWidth.value > 1280) pageSize.value = 5;
+  else pageSize.value = screenWidth.value / 250;
+});
+
 await gameStore.getGamesRandom();
 </script>
 
@@ -36,7 +47,7 @@ await gameStore.getGamesRandom();
       </nuxt-link>
     </div>
     <Swiper
-      :slidesPerView="isDesktop ? 5 : 2"
+      :slidesPerView="pageSize"
       :spaceBetween="5"
       :pagination="true"
       :modules="[SwiperPagination]"

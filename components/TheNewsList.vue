@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { EntryType } from 'models/baseTypes';
+import type { EntryType } from '~/models/baseTypes';
 import { useEntryStore } from '~/stores/entryStore';
-import { EntryResponseType } from 'models/entry-model';
+import type { EntryResponseType } from '~/models/entry-model';
 
 const entryStore = useEntryStore();
 const entries = ref<EntryResponseType>();
@@ -35,12 +35,12 @@ entryPinned.value = await entryStore.getEntryPinned();
           </nuxt-link>
         </div>
         <nuxt-link
-          class="flex mb-2"
+          class="flex mb-2 max-h-[300px]"
           v-if="entryPinned"
           :to="`/entry/${entryPinned.slug}`"
         >
           <img
-            class="rounded-l-[10px] h-max w-1/2"
+            class="rounded-l-[10px] w-1/2 object-cover"
             :src="entryPinned?.preview.path"
             alt=""
           />

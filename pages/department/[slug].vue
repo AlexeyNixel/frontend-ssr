@@ -2,7 +2,7 @@
 import { useEntryStore } from '~/stores/entryStore';
 import TheEntry from '~/components/ui/TheEntry.vue';
 import { navigateTo } from '#app';
-import { EntryResponseType } from 'models/entry-model';
+import { EntryResponseType } from '~/models/entry-model';
 
 const departmentRu: { [key: string]: string } = {
   ool: 'Отдел отраслевой литературы',
@@ -50,7 +50,11 @@ fetchData();
   <div class="title">{{ departmentRu[route.params.slug as string] }}</div>
   <div v-if="entries">
     <div>
-      <TheEntry v-for="item in entries.data" :key="item.id" :entry="item" />
+      <TheEntry
+        v-for="item in entries.data"
+        :key="item.id"
+        :entry="item"
+      />
     </div>
     <UPagination
       class="my-4 flex items-center justify-center"

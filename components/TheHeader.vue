@@ -56,7 +56,7 @@ const buttons = [
     desc: 'Версия для слабовидящих',
   },
   {
-    icon: 'fa-graduation-cap',
+    icon: 'fa:graduation-cap',
     event: () => navigateTo('/information'),
     style: null,
     desc: 'Сведения об организации, осуществляющей образовательную деятельность',
@@ -68,7 +68,11 @@ const buttons = [
   <header class="flex justify-between my-5 items-center">
     <div class="">
       <NuxtLink to="/">
-        <img class="w-40 lg:w-64" src="/logo.png" alt="" />
+        <img
+          class="w-40 lg:w-64"
+          src="/logo.png"
+          alt=""
+        />
       </NuxtLink>
     </div>
     <div class="grid md:grid-cols-8 grid-cols-4">
@@ -78,13 +82,24 @@ const buttons = [
         :text="item.desc"
         :class="item.style"
       >
-        <UButton color="blue" variant="link" @click="item.event">
-          <Icon class="text-2xl lg:text-4xl" :name="item.icon" />
+        <UButton
+          color="blue"
+          variant="link"
+          @click="item.event"
+        >
+          <Icon
+            class="text-2xl lg:text-4xl"
+            :name="item.icon"
+          />
         </UButton>
       </UTooltip>
       <client-only>
         <UTooltip text="Темная тема">
-          <UButton color="orange" variant="link" @click="toggleDark()">
+          <UButton
+            color="orange"
+            variant="link"
+            @click="toggleDark()"
+          >
             <Icon
               class="text-2xl lg:text-4xl"
               name="mdi:weather-night"

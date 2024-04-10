@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BillboardType } from '~/models/baseTypes';
+import type { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
 import dayjs from 'dayjs';
 

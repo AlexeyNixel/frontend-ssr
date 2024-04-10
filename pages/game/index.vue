@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { GameType } from 'models/baseTypes';
+import type { GameType } from '~/models/baseTypes';
 import { useGameStore } from '~/stores/gameStore';
 import TheGame from '~/components/ui/TheGame.vue';
 import { storeToRefs } from 'pinia';
@@ -90,7 +90,11 @@ onBeforeMount(async () => {
     <div
       class="flex flex-wrap h-max lg:sticky lg:w-[25%] top-2 bg-white dark:bg-neutral-900 rounded-[10px] p-2 my-2 lg:my-0"
     >
-      <div class="lg:w-full" v-for="item in genres" :key="item.tag">
+      <div
+        class="lg:w-full"
+        v-for="item in genres"
+        :key="item.tag"
+      >
         <UCheckbox
           class="m-2"
           v-model="item.status"
@@ -118,7 +122,11 @@ onBeforeMount(async () => {
         class="bg-white dark:bg-neutral-900 rounded-[10px] grid grid-cols-1 lg:grid-cols-3 gap-2 p-4"
         v-if="games.length > 0"
       >
-        <the-game v-for="item in games" :key="item.id" :game="item" />
+        <the-game
+          v-for="item in games"
+          :key="item.id"
+          :game="item"
+        />
       </div>
       <div
         v-else

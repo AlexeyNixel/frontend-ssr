@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
-import { EntryType } from '~/models/baseTypes';
+import type { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
 import dayjs from 'dayjs';
 import { useGeneralStore } from '~/stores/generalStore';

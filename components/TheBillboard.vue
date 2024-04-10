@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { Calendar } from 'v-calendar';
 import 'v-calendar/style.css';
-import { AttributeConfig } from 'v-calendar/src/utils/attribute';
+// import { AttributeConfig } from '@/v-calendar/src/utils/attribute';
 import dayjs from 'dayjs';
-import { BillboardType } from '~/models/baseTypes';
+import type { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
-import { CalendarDay } from 'v-calendar/src/utils/page';
+// import type { AttributeConfig } from 'v-calendar/src/utils/attribute';
+// import { CalendarDay } from '@/v-calendar/src/utils/page';
 
 const billboardStore = useBillboardStore();
 
@@ -33,7 +34,7 @@ const calendarMove = async (val: any) => {
   await handleFetchData(startDay, endDay);
 };
 
-const attrs = ref<AttributeConfig[]>([
+const attrs = ref<any>([
   {
     key: 'off',
     highlight: {
@@ -48,7 +49,7 @@ const attrs = ref<AttributeConfig[]>([
   },
 ]);
 
-const handleSelectDay = async (date?: CalendarDay) => {
+const handleSelectDay = async (date?: any) => {
   isOffDay.value = date?.attributes[0]?.key === 'off';
 
   selectedDay.value = dayjs(date?.date || new Date('2024-04-08')).format(

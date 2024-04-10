@@ -2,7 +2,7 @@
 import { Calendar } from 'v-calendar';
 import { storeToRefs } from 'pinia';
 import { useBillboardStore } from '~/stores/billboardStore';
-import { BillboardType, ParamsType } from '~/models/baseTypes';
+import type { BillboardType, ParamsType } from '~/models/baseTypes';
 import dayjs from 'dayjs';
 
 const billboardStore = useBillboardStore();

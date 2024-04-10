@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { GameType } from 'models/baseTypes';
+import type { GameType } from '~/models/baseTypes';
 
 interface Props {
   game: GameType;
@@ -25,7 +25,10 @@ defineProps<Props>();
 <template>
   <div>
     <nuxt-link :to="`/game/${game.id}`">
-      <UCard :ui="ui" class="rounded-[10px]">
+      <UCard
+        :ui="ui"
+        class="rounded-[10px]"
+      >
         <template #header>
           <div class="flex justify-center h-64 bg-white">
             <img
@@ -34,7 +37,11 @@ defineProps<Props>();
               :src="staticUrl + game.cover_file"
               alt=""
             />
-            <img v-else src="/chess-placeholder.png" alt="" />
+            <img
+              v-else
+              src="/chess-placeholder.png"
+              alt=""
+            />
           </div>
         </template>
         <div

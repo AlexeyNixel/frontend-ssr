@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { useEntryStore } from '~/stores/entryStore';
-import { EntryType } from '~/models/baseTypes';
-import TheEntryCard from '~/components/ui/TheEntryCard.vue';
 
 const NEWS_MENU_RUBRICS = {
   aktualnoe: 'Актуальное',
@@ -59,7 +57,10 @@ for (let rubric of Object.keys(NEWS_MENU_RUBRICS)) {
             },
           }"
         >
-          <template class="border-0" #header>
+          <template
+            class="border-0"
+            #header
+          >
             <img
               class="h-[156px] w-full object-cover"
               :src="item.preview?.path"

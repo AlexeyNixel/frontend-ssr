@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { EntryType } from 'models/baseTypes';
 import { useEntryStore } from '~/stores/entryStore';
 import TheEntryCard from '~/components/ui/TheEntryCard.vue';
-import { EntryResponseType } from 'models/entry-model';
+import type { EntryResponseType } from '~/models/entry-model';
 
 const props = defineProps<{ rubric: string }>();
 const entryStore = useEntryStore();
@@ -28,7 +27,10 @@ entries.value = await entryStore.getEntries({
         v-for="item in entries.data"
         :key="item.id"
       >
-        <TheEntryCard class="h-full" :entry="item" />
+        <TheEntryCard
+          class="h-full"
+          :entry="item"
+        />
       </SwiperSlide>
     </Swiper>
     <Nuxt-link
