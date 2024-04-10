@@ -29,6 +29,7 @@ export type GameType = {
 
 export type Book = {
   id: string;
+  oldId: number;
   title: string;
   desc: string;
   content: string;

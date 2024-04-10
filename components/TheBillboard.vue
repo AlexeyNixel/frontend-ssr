@@ -6,7 +6,6 @@ import dayjs from 'dayjs';
 import { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
 import { CalendarDay } from 'v-calendar/src/utils/page';
-import TheEvent from '~/components/ui/TheEvent.vue';
 
 const billboardStore = useBillboardStore();
 
@@ -50,13 +49,14 @@ const attrs = ref<AttributeConfig[]>([
 ]);
 
 const handleSelectDay = async (date?: CalendarDay) => {
-  if (date?.attributes[0]?.key === 'off') {
-    isOffDay.value = true;
-  } else {
-    isOffDay.value = false;
-  }
+  isOffDay.value = date?.attributes[0]?.key === 'off';
 
-  selectedDay.value = dayjs(date?.date || new Date()).format('YYYY-MM-DD');
+  selectedDay.value = dayjs(date?.date || new Date('2024-04-08')).format(
+    'YYYY-MM-DD'
+  );
+  if (dayjs(selectedDay.value).format('dd') === 'пн') {
+    isOffDay.value = true;
+  }
   selectEvent.value = await billboardStore.getBillboards({
     fromDate: selectedDay.value + 'T00:00:00.000Z',
     toDate: selectedDay.value + 'T00:00:00.000Z',
@@ -117,20 +117,23 @@ onMounted(() => {
           >
           </Calendar>
         </div>
-        <div class="hidden lg:block lg:w-[65%] xl:w-[70%] flex h-full">
+        <div class="lg:block lg:w-[65%] xl:w-[70%] flex">
           <ui-event-list
             :events="selectEvent"
             :day="selectedDay"
             v-if="selectEvent.length > 0"
           />
-          <div v-else>
+          <div
+            class="h-full m-auto"
+            v-else
+          >
             <ui-off-day
               class="w-full h-full flex flex-col justify-center items-center"
               v-if="isOffDay"
             ></ui-off-day>
             <div
-              class="w-full h-full flex flex-col justify-center items-center"
               v-else
+              class="w-full h-full flex flex-col justify-center items-center"
             >
               <img
                 class="w-3/12"

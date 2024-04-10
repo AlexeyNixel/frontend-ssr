@@ -7,7 +7,7 @@ const bookStore = useBookStore();
 const books = ref<Book[]>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const isOpenBook = ref<boolean>(false);
-const currentBook = ref<string>();
+const currentBook = ref<string>('');
 const { isDesktop } = useDevice();
 
 const selectBook = (book: string) => {
@@ -21,7 +21,9 @@ const { data } = await bookStore.getAll({
   include: 'preview',
 });
 
-books.value = data;
+books.value = await data?.sort((a: any) =>
+  a.oldId < Math.random() * 20 ? -1 : 1
+);
 </script>
 
 <template>
@@ -35,33 +37,35 @@ books.value = data;
         Полный каталог книг
       </nuxt-link>
     </div>
-    <Swiper
-      :slidesPerView="isDesktop ? 6 : 2"
-      :spaceBetween="5"
-      :pagination="true"
-      :modules="[Navigation]"
-      :navigation="true"
-      trigger="click"
-      class="my-4"
-    >
-      <SwiperSlide
-        class="flex justify-between rounded-[10px] w-full px-2"
-        v-for="item in books"
-        :key="item.id"
-        @click="selectBook(item.id)"
+    <client-only>
+      <Swiper
+        :slidesPerView="isDesktop ? 6 : 2"
+        :spaceBetween="5"
+        :pagination="true"
+        :modules="[Navigation]"
+        :navigation="true"
+        trigger="click"
+        class="my-4"
       >
-        <div class="text-center flex flex-col items-center">
-          <img
-            :src="staticUrl + item.preview?.path"
-            class="justify-between items-center w-max h-[250px] cursor-pointer"
-            alt=""
-          />
-          <div>
-            {{ item.title }}
+        <SwiperSlide
+          class="flex justify-between rounded-[10px] w-full px-2"
+          v-for="item in books"
+          :key="item.id"
+          @click="selectBook(item.id)"
+        >
+          <div class="text-center flex flex-col items-center">
+            <img
+              :src="staticUrl + item.preview?.path"
+              class="justify-between items-center w-max h-[250px] cursor-pointer"
+              alt=""
+            />
+            <div>
+              {{ item.title }}
+            </div>
           </div>
-        </div>
-      </SwiperSlide>
-    </Swiper>
+        </SwiperSlide>
+      </Swiper>
+    </client-only>
   </div>
   <modals-book
     v-model="isOpenBook"

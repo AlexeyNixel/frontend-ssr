@@ -40,6 +40,11 @@ const buttons = [
     value: 'documents',
     color: 'blue',
   },
+  // {
+  //   title: 'Что почитать',
+  //   value: 'about',
+  //   color: 'purple',
+  // },
 ];
 
 const components: { [key: string]: any } = {
@@ -72,7 +77,10 @@ const swapMenus = (menu: any) => {
       />
     </div>
   </div>
-  <Transition :duration="300" name="nested">
+  <Transition
+    :duration="300"
+    name="nested"
+  >
     <component :is="components[currentMenu]" />
   </Transition>
 </template>
