@@ -16,8 +16,9 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
   <UModal
     :ui="{
       width: 'sm:max-w-[50vw]',
+      background: 'bg-white dark:bg-neutral-900',
     }"
-    class="w-[30%] p-4"
+    class="w-[30%] p-4 dark:bg-white"
   >
     <div class="flex self-end items-end">
       <UButton
@@ -28,16 +29,27 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
       />
     </div>
     <div class="flex flex-col md:flex-row p-4">
-      <div class="w-full md:w-1/3">
-        <img
-          class=""
-          :src="staticUrl + book?.preview.path"
-          alt=""
-        />
+      <div class="flex flex-col justify-center w-1/4">
+        <div class="w-full">
+          <img
+            class="w-full"
+            :src="staticUrl + book?.preview.path"
+            alt=""
+          />
+        </div>
+        <div class="dark:bg-neutral-800 my-2 p-2 rounded-[10px]">
+          Боевие, Фентези
+        </div>
+        <div class="dark:bg-neutral-800 my-2 p-2 rounded-[10px]">
+          Отдел художественной литературы
+        </div>
+        <div class="dark:bg-neutral-800 my-2 p-2 rounded-[10px]">
+          Дата поступления: 20.11.2023
+        </div>
       </div>
-      <div class="md:w-2/3 ml-4">
+      <div class="md:w-3/4 ml-4">
         <!--          <div class="text-xl font-bold my-2">{{ book.title }}</div>-->
-        <div class="font-bold my-2">{{ book.desc }}</div>
+        <h1 class="font-bold text-lg">{{ book.desc }}</h1>
         <div class="my-2 text-justify">{{ book.content }}</div>
       </div>
     </div>
