@@ -1,12 +1,9 @@
 <script setup lang="ts">
 import { Calendar } from 'v-calendar';
 import 'v-calendar/style.css';
-// import { AttributeConfig } from '@/v-calendar/src/utils/attribute';
 import dayjs from 'dayjs';
 import type { BillboardType } from '~/models/baseTypes';
 import { useBillboardStore } from '~/stores/billboardStore';
-// import type { AttributeConfig } from 'v-calendar/src/utils/attribute';
-// import { CalendarDay } from '@/v-calendar/src/utils/page';
 
 const billboardStore = useBillboardStore();
 
@@ -52,9 +49,7 @@ const attrs = ref<any>([
 const handleSelectDay = async (date?: any) => {
   isOffDay.value = date?.attributes[0]?.key === 'off';
 
-  selectedDay.value = dayjs(date?.date || new Date('2024-04-08')).format(
-    'YYYY-MM-DD'
-  );
+  selectedDay.value = dayjs(date?.date || new Date()).format('YYYY-MM-DD');
   if (dayjs(selectedDay.value).format('dd') === 'пн') {
     isOffDay.value = true;
   }

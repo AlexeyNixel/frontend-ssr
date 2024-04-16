@@ -30,7 +30,7 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
       >
         <img
           v-if="entry?.preview.path"
-          class="w-full object-cover h-[152px]"
+          class="w-full object-cover h-[152px] rounded-[10px]"
           :src="staticUrl + entry.preview?.path"
           alt=""
         />

@@ -2,8 +2,8 @@
 import { useEntryStore } from '~/stores/entryStore';
 import type { EntryType } from '~/models/baseTypes';
 import { useRoute } from 'vue-router';
-import dayjs from 'dayjs';
 import { useGeneralStore } from '~/stores/generalStore';
+import dayjs from 'dayjs';
 
 const generalStore = useGeneralStore();
 const route = useRoute();
@@ -63,12 +63,26 @@ onMounted(() => {
       <NuxtLink
         :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
         external
+        target="_blank"
       >
         <UButton
           color="blue"
           class="font-bold text-white text-sm"
         >
           Редактировать
+        </UButton>
+      </NuxtLink>
+      <NuxtLink
+        :to="`http://admin.infomania.ru/entry/update/${entry?.slug}?editor=alt`"
+        external
+        target="_blank"
+        class="ml-2"
+      >
+        <UButton
+          color="red"
+          class="font-bold text-white text-sm"
+        >
+          Редактировать html
         </UButton>
       </NuxtLink>
     </client-only>
