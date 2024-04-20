@@ -9,10 +9,13 @@ const generalStore = useGeneralStore();
 const route = useRoute();
 const entryStore = useEntryStore();
 const entry = ref<EntryType>();
+const slug = ref(route.params.slug as string);
 
-entry.value = await entryStore.getEntry(route.params.slug as string, {
-  include: 'department',
-});
+if (slug.value) {
+  entry.value = await entryStore.getEntry(slug.value, {
+    include: 'department',
+  });
+}
 
 onMounted(() => {
   const table = document.querySelector('.table');
@@ -27,21 +30,24 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="my-[1vh]">
+  <div
+    class="my-[1vh]"
+    v-if="entry"
+  >
     <Head>
-      <Title>{{ entry?.title }}</Title>
+      <Title>{{ entry.title }}</Title>
       <Meta
         name="description"
-        :content="entry?.desc"
+        :content="entry.desc"
       />
     </Head>
     <div class="flex my-3 justify-between">
       <div class="text-2xl font-bold">
-        {{ entry?.title }}
+        {{ entry.title }}
       </div>
       <div class="text-right ml-5">
         <NuxtLink
-          :to="`/department/${entry?.department.slug}`"
+          :to="{ path: 'search', query: { department: entry.department.slug } }"
           class="font-bold"
           >{{ entry?.department.title }}
         </NuxtLink>
@@ -56,12 +62,12 @@ onMounted(() => {
     >
       <div
         class="ck-content indent-5"
-        v-html="entry?.content"
-      ></div>
+        v-html="entry.content"
+      />
     </viewer>
-    <client-only v-if="generalStore.token">
+    <div v-if="generalStore.token">
       <NuxtLink
-        :to="`http://admin.infomania.ru/entry/update/${entry?.slug}`"
+        :to="`http://admin.infomania.ru/entry/update/${slug}`"
         external
         target="_blank"
       >
@@ -85,7 +91,7 @@ onMounted(() => {
           Редактировать html
         </UButton>
       </NuxtLink>
-    </client-only>
+    </div>
   </div>
 </template>
 
