@@ -50,7 +50,7 @@ useHead({
 </script>
 
 <template>
-  <NuxtLayout>
+  <NuxtLayout name="default">
     <NuxtPage />
     <UModals />
   </NuxtLayout>

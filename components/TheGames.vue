@@ -47,12 +47,25 @@ await gameStore.getGamesRandom();
       </nuxt-link>
     </div>
     <Swiper
-      :slidesPerView="pageSize"
       :spaceBetween="5"
       :pagination="true"
       :modules="[SwiperPagination]"
       class="mt-1"
       trigger="click"
+      :breakpoints="{
+        1280: {
+          slidesPerView: 5,
+        },
+        1024: {
+          slidesPerView: 4,
+        },
+        768: {
+          slidesPerView: 3,
+        },
+        640: {
+          slidesPerView: 2,
+        },
+      }"
     >
       <SwiperSlide
         class="flex justify-between rounded-[10px] w-full my-[2px]"

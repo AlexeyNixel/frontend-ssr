@@ -52,13 +52,26 @@ watch(screenWidth, () => {
     </div>
     <client-only>
       <Swiper
-        :slidesPerView="isDesktop ? pageSize : 2"
         :spaceBetween="5"
         :pagination="true"
         :modules="[Navigation]"
         :navigation="true"
         trigger="click"
         class="my-4"
+        :breakpoints="{
+          1280: {
+            slidesPerView: 5,
+          },
+          1024: {
+            slidesPerView: 5,
+          },
+          768: {
+            slidesPerView: 3,
+          },
+          640: {
+            slidesPerView: 2,
+          },
+        }"
       >
         <SwiperSlide
           class="flex justify-between rounded-[10px] w-full px-2"

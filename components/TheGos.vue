@@ -55,7 +55,7 @@ onMounted(() => {
                 href="https://apps.rustore.ru/app/ru.gosuslugi.pos"
                 target="_blank"
                 class="pos-banner-btn_2 dark:bg-white min-h-[52px] ring-0 mt-2 rounded-[8px]"
-                color="white z-100"
+
                 @click="navigateRuStore"
               >
                 <img

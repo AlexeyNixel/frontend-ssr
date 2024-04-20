@@ -1,46 +1,52 @@
 <script setup lang="ts">
 import { useGeneralStore } from '~/stores/generalStore';
 import { storeToRefs } from 'pinia';
+import { useEntryStore } from '~/stores/entryStore';
 
 const generalStore = useGeneralStore();
+const entryStore = useEntryStore();
 const { isDesktop } = useDevice();
-const toast = useToast();
-const notification = ref();
-const { screenWidth } = storeToRefs(generalStore);
 
-if (process.client) {
-  const token = localStorage.getItem('token');
-  generalStore.token = token as string;
+const { anonsy, aktualnoe, sobytiya } = storeToRefs(entryStore);
 
-  window.addEventListener('resize', (e: Event) => {
-    if (e.target) {
-      screenWidth.value = e.target.innerWidth as number;
-    }
-  });
-}
+const params = {
+  pageSize: 6,
+  orderBy: '-publishedAt',
+  include: 'preview',
+};
 
-notification.value = await generalStore.getNotification();
+anonsy.value = await entryStore.getEntries({
+  rubric: 'anonsy',
+  ...params,
+});
+
+aktualnoe.value = await entryStore.getEntries({
+  rubric: 'aktualnoe',
+  ...params,
+});
+
+sobytiya.value = await entryStore.getEntries({
+  rubric: 'sobytiya',
+  ...params,
+});
 
 onMounted(() => {
-  if (process.client) screenWidth.value = window.innerWidth;
+  generalStore.token = localStorage.getItem('token') as string;
 });
 </script>
 
 <template>
   <TheSlider />
-  <TheNavigation v-if="isDesktop" />
-  <TheNavigationMobile v-else />
+  <TheNavigation />
   <TheBillboard v-if="isDesktop" />
   <client-only v-else><TheBillboardMobile /></client-only>
-  <TheNewsList v-if="isDesktop" />
-  <TheNewsMobile v-else />
+  <TheNewsList />
   <TheDepartment />
   <TheBook />
   <TheGos />
-  <!--  <client-only></client-only>-->
+  <client-only></client-only>
   <TheGames />
-  <TheExhibitions v-if="isDesktop" />
-  <UNotifications class="notification" />
+  <TheExhibitions />
 </template>
 
 <style lang="scss" scoped>

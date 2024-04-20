@@ -1,27 +1,25 @@
 <script setup lang="ts">
-import { useEntryStore } from '~/stores/entryStore';
 import TheEntryCard from '~/components/ui/TheEntryCard.vue';
 import type { EntryResponseType } from '~/models/entry-model';
 import { useGeneralStore } from '~/stores/generalStore';
 import { storeToRefs } from 'pinia';
 
+interface Props {
+  entries: EntryResponseType;
+  rubric: string;
+}
+
 const generalStore = useGeneralStore();
 const { screenWidth } = storeToRefs(generalStore);
-const props = defineProps<{ rubric: string }>();
-const entryStore = useEntryStore();
-const entries = ref<EntryResponseType>();
-const pageSize = ref<number>(screenWidth.value! / 600 || 2);
 
-watch(screenWidth, () => {
-  if (!screenWidth.value) return;
-  if (screenWidth.value > 1280) pageSize.value = 2;
-  else pageSize.value = screenWidth.value / 600;
-});
+const props = defineProps<Props>();
 
-entries.value = await entryStore.getEntries({
-  rubric: props.rubric,
-  include: 'preview',
-  orderBy: '-publishedAt',
+const pageSize = computed(() => {
+  if (screenWidth.value) {
+    if (screenWidth.value > 1280) {
+      return 2;
+    } else return screenWidth.value / 600;
+  }
 });
 </script>
 
@@ -32,6 +30,20 @@ entries.value = await entryStore.getEntries({
       :slidesPerView="pageSize"
       :spaceBetween="0"
       trigger="click"
+      :breakpoints="{
+        1280: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 1.5,
+        },
+        768: {
+          slidesPerView: 1,
+        },
+        640: {
+          slidesPerView: 1,
+        },
+      }"
     >
       <SwiperSlide
         class="rounded-[10px] flex h-full"

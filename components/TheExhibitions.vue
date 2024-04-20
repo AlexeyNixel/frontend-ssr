@@ -25,12 +25,25 @@ exhibitions.value = await fileStore.getFiles({
 
 <template>
   <Swiper
-    :slidesPerView="3"
     :spaceBetween="30"
     :pagination="true"
     :modules="[SwiperPagination]"
-    class="my-4 sm:h-[144px] md:h-[190px] lg:h-[230px] xl:h-[300px] rounded-[10px]"
+    class="my-4 sm:h-full md:h-full lg:h-[230px] xl:h-[300px] rounded-[10px]"
     trigger="click"
+    :breakpoints="{
+      1280: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesPerView: 3,
+      },
+      768: {
+        slidesPerView: 2,
+      },
+      640: {
+        slidesPerView: 2,
+      },
+    }"
   >
     <SwiperSlide
       class="flex justify-between rounded-[10px] w-full"

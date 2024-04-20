@@ -1,5 +1,5 @@
-import { MetaType, PreviewType } from 'models/common';
-import { DepartmentType } from 'models/department-model';
+import type { MetaType, PreviewType } from '~/models/common';
+import type { DepartmentType } from '~/models/department-model';
 
 export type EntryType = {
   id: string;
@@ -34,6 +34,6 @@ export type EntryQuery = {
   include?: string;
   search?: string;
   page?: number;
-  rubric?: string;
+  rubric?: 'anonsy' | 'aktualnoe' | 'sobytiya';
   department?: string;
 };

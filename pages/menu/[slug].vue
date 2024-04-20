@@ -3,7 +3,7 @@ import { useMenuStore } from '@/stores/menuStore';
 import { useRoute } from 'vue-router';
 
 import { useTitle } from '@vueuse/core';
-import { MenuType } from '~/models/baseTypes';
+import type { MenuType } from '~/models/baseTypes';
 
 const route = useRoute();
 const menuStore = useMenuStore();
@@ -18,17 +18,29 @@ useTitle('Меню');
 </script>
 
 <template>
-  <div class="menus" v-for="item in menus" :key="item.id">
+  <div
+    class="menus"
+    v-for="item in menus"
+    :key="item.id"
+  >
     <div class="menus__title">{{ item.title }}</div>
-    <div v-for="menu in item.menuItems" :key="menu.id">
+    <div
+      v-for="menu in item.menuItems"
+      :key="menu.id"
+    >
       <NuxtLink
-        :to='`/document/${menu.slug}`'
+        :to="`/document/${menu.slug}`"
         class="menus__item"
         v-if="!menu.link"
       >
         {{ menu.title }}
       </NuxtLink>
-      <a :href="menu.link" class="menus__item" v-else target="_blank">
+      <a
+        :href="menu.link"
+        class="menus__item"
+        v-else
+        target="_blank"
+      >
         {{ menu.title }}
       </a>
     </div>
