@@ -97,52 +97,53 @@ onMounted(() => {
     v-if="!isLoading"
     class="h-[370px]"
   />
-  <client-only v-else>
-    <div class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]">
-      <div class="text-xl font-bold mx-4 py-3">Афиша</div>
-      <div class="flex">
-        <div class="lg:w-[35%] xl:w-[30%] w-full">
-          <Calendar
-            :is-dark="{ selector: 'html', darkClass: 'dark' }"
-            transparent
-            borderless
-            expanded
-            :attributes="attrs"
-            @dayclick="handleSelectDay"
-            @did-move="calendarMove"
-          >
-          </Calendar>
-        </div>
-        <div class="lg:block lg:w-[65%] xl:w-[70%] flex">
-          <ui-event-list
-            :events="selectEvent"
-            :day="selectedDay"
-            v-if="selectEvent.length > 0"
-          />
+  <div
+    class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]"
+    v-else
+  >
+    <div class="text-xl font-bold mx-4 py-3">Афиша</div>
+    <div class="flex">
+      <div class="lg:w-[35%] xl:w-[30%] w-full">
+        <Calendar
+          :is-dark="{ selector: 'html', darkClass: 'dark' }"
+          transparent
+          borderless
+          expanded
+          :attributes="attrs"
+          @dayclick="handleSelectDay"
+          @did-move="calendarMove"
+        >
+        </Calendar>
+      </div>
+      <div class="lg:block lg:w-[65%] xl:w-[70%] flex">
+        <ui-event-list
+          :events="selectEvent"
+          :day="selectedDay"
+          v-if="selectEvent.length > 0"
+        />
+        <div
+          class="h-full m-auto"
+          v-else
+        >
+          <ui-off-day
+            class="w-full h-full flex flex-col justify-center items-center"
+            v-if="isOffDay"
+          ></ui-off-day>
           <div
-            class="h-full m-auto"
             v-else
+            class="w-full h-full flex flex-col justify-center items-center"
           >
-            <ui-off-day
-              class="w-full h-full flex flex-col justify-center items-center"
-              v-if="isOffDay"
-            ></ui-off-day>
-            <div
-              v-else
-              class="w-full h-full flex flex-col justify-center items-center"
-            >
-              <img
-                class="w-3/12"
-                src="/books.svg"
-                alt=""
-              />
-              <h2 class="text-xl my-2 font-bold">Сегодня можете взять книги</h2>
-            </div>
+            <img
+              class="w-3/12"
+              src="/books.svg"
+              alt=""
+            />
+            <h2 class="text-xl my-2 font-bold">Сегодня можете взять книги</h2>
           </div>
         </div>
       </div>
     </div>
-  </client-only>
+  </div>
 </template>
 
 <style scoped lang="scss">
