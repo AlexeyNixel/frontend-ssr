@@ -62,16 +62,16 @@ await sliderStore.getSlides({
           alt=""
         />
       </NuxtLink>
-      <!--      <NuxtLink-->
-      <!--        :to="`http://admin.infomania.ru/slides/update/${item.id}`"-->
-      <!--        class="absolute top-3 right-3"-->
-      <!--        v-if="generalStore.token"-->
-      <!--      >-->
-      <!--        <Icon-->
-      <!--          class="text-2xl hover:rotate-180 transition"-->
-      <!--          name="mdi:cog"-->
-      <!--        />-->
-      <!--      </NuxtLink>-->
+      <NuxtLink
+        v-if="!item.entry && !item.url"
+        to="#"
+      >
+        <img
+          class="w-full h-full rounded-[10px]"
+          :src="staticUrl + item.image.path"
+          alt=""
+        />
+      </NuxtLink>
     </SwiperSlide>
   </Swiper>
 </template>
