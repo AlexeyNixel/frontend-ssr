@@ -95,7 +95,7 @@ onMounted(() => {
   <USkeleton
     :ui="ui"
     v-if="!isLoading"
-    class="h-[370px]"
+    class="h-[370px] my-4 rounded-[10px]"
   />
   <div
     class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]"
