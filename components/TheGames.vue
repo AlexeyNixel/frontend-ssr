@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
 import { useGameStore } from '~/stores/gameStore';
-import { useGeneralStore } from '~/stores/generalStore';
 
 const { isDesktop } = useDevice();
 const ui = {
@@ -18,87 +17,108 @@ const ui = {
   },
 };
 
+const breakpoints = {
+  1280: {
+    slidesPerView: 5,
+  },
+  1024: {
+    slidesPerView: 4,
+  },
+  768: {
+    slidesPerView: 3,
+  },
+  640: {
+    slidesPerView: 2,
+  },
+};
+
 const staticUrl = ref(import.meta.env['VITE_GAME_STATIC_URL']);
 const gameStore = useGameStore();
 const { games } = storeToRefs(gameStore);
-
-const generalStore = useGeneralStore();
-const { screenWidth } = storeToRefs(generalStore);
-const pageSize = ref<number>(screenWidth?.value! / 250 || 5);
-
-watch(screenWidth, () => {
-  if (!screenWidth.value) return;
-  if (screenWidth.value > 1280) pageSize.value = 5;
-  else pageSize.value = screenWidth.value / 250;
-});
 
 await gameStore.getGamesRandom();
 </script>
 
 <template>
-  <div class="my-4 bg-white dark:bg-neutral-900 rounded-[10px] p-2">
-    <div class="flex justify-between items-center py-2 mx-1 rounded-[10px]">
-      <div class="text-xl font-bold">Игры</div>
+  <div class="games">
+    <div class="games__header">
+      <div class="title">Игры</div>
       <nuxt-link
         to="/game"
-        class="mx-4 text-blue-400 dark:text-blue-400 hover:text-blue-500 hover:dark:text-blue-500 hover:underline"
+        class="link"
+        >Полный каталог игр</nuxt-link
       >
-        Полный каталог игр
-      </nuxt-link>
     </div>
     <Swiper
       :spaceBetween="5"
       :pagination="true"
       :modules="[SwiperPagination]"
-      class="mt-1"
       trigger="click"
-      :breakpoints="{
-        1280: {
-          slidesPerView: 5,
-        },
-        1024: {
-          slidesPerView: 4,
-        },
-        768: {
-          slidesPerView: 3,
-        },
-        640: {
-          slidesPerView: 2,
-        },
-      }"
+      :breakpoints="breakpoints"
+      class="slider games__slider"
     >
       <SwiperSlide
-        class="flex justify-between rounded-[10px] w-full my-[2px]"
         v-for="game in games"
         :key="game.id"
+        class="slider__item"
       >
-        <nuxt-link :to="`/game/${game.id}`">
-          <UCard
-            :ui="ui"
-            class="rounded-[10px]"
-          >
-            <template #header>
-              <div class="flex justify-center h-64 bg-white">
-                <img
-                  v-if="game.cover_file"
-                  class="h-full"
-                  :src="staticUrl + game.cover_file"
-                  alt=""
-                />
-                <img
-                  v-else
-                  src="/chess-placeholder.png"
-                  alt=""
-                />
-              </div>
-            </template>
-            <div
-              class="h-16 p-0 text-black dark:text-white"
-              v-html="game.name"
-            ></div>
-          </UCard>
-        </nuxt-link>
+        <UCard
+          :ui="ui"
+          class="game-card"
+        >
+          <template #header>
+            <div class="game-card__header">
+              <img
+                v-if="game.cover_file"
+                class="h-full"
+                :src="staticUrl + game.cover_file"
+                alt=""
+              />
+              <img
+                v-else
+                src="/chess-placeholder.png"
+                alt=""
+              />
+            </div>
+          </template>
+          <div
+            class="game-card__title"
+            v-html="game.name"
+          />
+        </UCard>
       </SwiperSlide>
     </Swiper>
   </div>
 </template>
+
+<style scoped lang="scss">
+.games {
+  @apply my-4 bg-white dark:bg-neutral-900 rounded-[10px] p-4;
+
+  &__header {
+    @apply flex justify-between items-center mb-4;
+
+    .title {
+      @apply text-xl font-bold;
+    }
+  }
+
+  .slider {
+    &__item {
+      @apply flex justify-between rounded-[10px] w-full;
+
+      .game-card {
+        @apply rounded-[10px];
+
+        &__header {
+          @apply flex justify-center h-64 bg-white;
+        }
+
+        &__title {
+          @apply h-16 p-0 text-black dark:text-white;
+        }
+      }
+    }
+  }
+}
+</style>

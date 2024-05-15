@@ -20,8 +20,6 @@ await sliderStore.getSlides({
   orderBy: '-createdAt',
   pageSize: 10,
 });
-
-console.log(slides.value);
 </script>
 
 <template>

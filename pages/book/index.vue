@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { useBookStore } from '~/stores/bookStore';
-import { ImageType } from '~/models/baseTypes';
+import type { ImageType } from '~/models/baseTypes';
 
 interface Book {
   data: [
@@ -28,6 +28,7 @@ const page = ref<number>(Number(route.query.page) || 1);
 const pages = ref<number>(1);
 const isOpenBook = ref<boolean>(false);
 const currentBook = ref<string>('');
+const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const selectBook = (book: string) => {
   isOpenBook.value = true;
@@ -70,7 +71,7 @@ handleFetchData();
       >
         <img
           class="h-[300px] w-max"
-          :src="book?.preview.path"
+          :src="staticUrl + book?.preview.path"
           alt=""
         />
         <div class="break-words text-center h-[100px]">{{ book.title }}</div>
