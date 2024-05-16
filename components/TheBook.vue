@@ -22,11 +22,8 @@ const breakpoints = {
 const modal = useModal();
 const bookStore = useBookStore();
 const { isDesktop } = useDevice();
+const book = ref<Book[]>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
-
-const book = computed(() => {
-  return data?.sort((a: any) => (a.oldId < Math.random() * 20 ? -1 : 1));
-});
 
 const { data } = await bookStore.getAll({
   pageSize: 15,
@@ -34,13 +31,22 @@ const { data } = await bookStore.getAll({
   include: 'preview',
 });
 
+book.value = data;
+
+// book.value = await data?.sort((a: any) =>
+//   a.oldId < Math.random() * 20 ? -1 : 1
+// );
+
 const openModal = (book: Book) => {
   modal.open(ModalsBook, { book: book });
 };
 </script>
 
 <template>
-  <div class="books">
+  <div
+    class="books"
+    v-if="book"
+  >
     <section class="books__header">
       <h2 class="title">Книги</h2>
       <nuxt-link

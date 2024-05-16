@@ -9,6 +9,11 @@ interface Props {
   rubric: string;
 }
 
+const translateRubric = {
+  sobytiya: 'Больше событий',
+  aktualnoe: 'Больше актуального',
+};
+
 const generalStore = useGeneralStore();
 const { screenWidth } = storeToRefs(generalStore);
 
@@ -60,7 +65,7 @@ const pageSize = computed(() => {
       :to="{ path: '/entry/search', query: { rubric: rubric } }"
       class="flex justify-end mr-4 text-black dark:text-white hover:underline"
     >
-      Больше новостей
+      {{ translateRubric[rubric] }}
     </Nuxt-link>
   </div>
 </template>

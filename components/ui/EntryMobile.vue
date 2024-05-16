@@ -1,23 +1,11 @@
 <script setup lang="ts">
-import { useGeneralStore } from '~/stores/generalStore';
-import { storeToRefs } from 'pinia';
 import type { EntryResponseType } from '~/models/entry-model';
 
 interface Props {
   entries: EntryResponseType;
 }
-
+const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 defineProps<Props>();
-
-const generalStore = useGeneralStore();
-const { screenWidth } = storeToRefs(generalStore);
-
-const slidePerView = computed(() => {
-  if (screenWidth.value) {
-    if (screenWidth.value > 642) return 3;
-    else return 2;
-  }
-});
 </script>
 
 <template>
@@ -70,7 +58,7 @@ const slidePerView = computed(() => {
           >
             <img
               class="h-[156px] w-full object-cover"
-              :src="item.preview?.path"
+              :src="staticUrl + item.preview.path"
               alt=""
             />
           </template>
