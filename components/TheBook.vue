@@ -33,10 +33,6 @@ const { data } = await bookStore.getAll({
 
 book.value = data;
 
-// book.value = await data?.sort((a: any) =>
-//   a.oldId < Math.random() * 20 ? -1 : 1
-// );
-
 const openModal = (book: Book) => {
   modal.open(ModalsBook, { book: book });
 };

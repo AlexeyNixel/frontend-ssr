@@ -1,57 +1,50 @@
 <script setup lang="ts">
 import TheEntryCard from '~/components/ui/TheEntryCard.vue';
 import type { EntryResponseType } from '~/models/entry-model';
-import { useGeneralStore } from '~/stores/generalStore';
-import { storeToRefs } from 'pinia';
+import { Navigation } from 'swiper/modules';
 
 interface Props {
   entries: EntryResponseType;
   rubric: string;
 }
 
+const props = defineProps<Props>();
 const translateRubric = {
   sobytiya: 'Больше событий',
   aktualnoe: 'Больше актуального',
 };
 
-const generalStore = useGeneralStore();
-const { screenWidth } = storeToRefs(generalStore);
-
-const props = defineProps<Props>();
-
-const pageSize = computed(() => {
-  if (screenWidth.value) {
-    if (screenWidth.value > 1280) {
-      return 2;
-    } else return screenWidth.value / 600;
-  }
-});
+const breakpoints = {
+  1280: {
+    slidesPerView: 2,
+  },
+  1024: {
+    slidesPerView: 1.5,
+  },
+  768: {
+    slidesPerView: 1,
+  },
+  640: {
+    slidesPerView: 1,
+  },
+};
 </script>
 
 <template>
-  <div v-if="entries">
+  <div
+    class="entry-carousel"
+    v-if="entries"
+  >
     <Swiper
-      class="flex h-[280px]"
-      :slidesPerView="pageSize"
+      class="slider"
       :spaceBetween="0"
+      :modules="[Navigation]"
+      :navigation="true"
       trigger="click"
-      :breakpoints="{
-        1280: {
-          slidesPerView: 2,
-        },
-        1024: {
-          slidesPerView: 1.5,
-        },
-        768: {
-          slidesPerView: 1,
-        },
-        640: {
-          slidesPerView: 1,
-        },
-      }"
+      :breakpoints="breakpoints"
     >
       <SwiperSlide
-        class="rounded-[10px] flex h-full"
+        class="slider__item"
         v-for="item in entries.data"
         :key="item.id"
       >
@@ -63,9 +56,25 @@ const pageSize = computed(() => {
     </Swiper>
     <Nuxt-link
       :to="{ path: '/entry/search', query: { rubric: rubric } }"
-      class="flex justify-end mr-4 text-black dark:text-white hover:underline"
+      class="entry-carousel__rubric-link"
     >
       {{ translateRubric[rubric] }}
     </Nuxt-link>
   </div>
 </template>
+
+<style scoped lang="scss">
+.entry-carousel {
+  &__rubric-link {
+    @apply flex justify-end mr-4 text-black dark:text-white hover:underline;
+  }
+}
+
+.slider {
+  @apply flex h-[280px];
+
+  &__item {
+    @apply rounded-[10px] flex h-full;
+  }
+}
+</style>
