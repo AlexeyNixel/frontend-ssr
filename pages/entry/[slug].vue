@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { useGeneralStore } from '~/stores/generalStore';
 import dayjs from 'dayjs';
 
+const asd = dayjs();
 const generalStore = useGeneralStore();
 const route = useRoute();
 const entryStore = useEntryStore();
@@ -13,7 +14,7 @@ const slug = ref(route.params.slug as string);
 
 if (slug.value) {
   entry.value = await entryStore.getEntry(slug.value, {
-    include: 'department',
+    include: 'department,rubrics',
   });
 }
 
@@ -41,64 +42,88 @@ onMounted(() => {
         :content="entry.desc"
       />
     </Head>
-    <div class="flex my-3 justify-between">
-      <div class="text-2xl font-bold">
-        {{ entry.title }}
-      </div>
-      <div class="text-right ml-5">
-        <NuxtLink
-          :to="{ path: 'search', query: { department: entry.department.slug } }"
-          class="font-bold"
-          >{{ entry?.department.title }}
-        </NuxtLink>
-        <div class="italic">
-          {{ dayjs(entry?.publishedAt).format('DD.MM.YYYY') }}
+    <div class="entry">
+      <div class="entry__header">
+        <div class="title">{{ entry.title }}</div>
+        <div class="entry__info">
+          <nuxt-link
+            class="department"
+            :to="{
+              path: 'search',
+              query: { department: entry.department.slug },
+            }"
+          >
+            {{ entry?.department.title }}
+          </nuxt-link>
+          <div class="date">
+            {{ dayjs(entry?.publishedAt).format('DD.MM.YYYY') }}
+          </div>
         </div>
       </div>
-    </div>
-    <viewer
-      rebuild
-      @inited="inited"
-    >
+
+      <viewer rebuild>
+        <div
+          class="entry__body ck-content"
+          v-html="entry.content"
+        />
+      </viewer>
       <div
-        class="ck-content indent-5"
-        v-html="entry.content"
-      />
-    </viewer>
-    <div v-if="generalStore.token">
-      <NuxtLink
-        :to="`http://admin.infomania.ru/entry/update/${slug}`"
-        external
-        target="_blank"
+        class="entry__footer"
+        v-if="generalStore.token"
       >
         <UButton
+          :to="`http://admin.infomania.ru/entry/update/${slug}`"
+          external="true"
+          target="_blank"
           color="blue"
-          class="font-bold text-white text-sm"
         >
-          Редактировать
+          Обновить
         </UButton>
-      </NuxtLink>
-      <NuxtLink
-        :to="`http://admin.infomania.ru/entry/update/${entry?.slug}?editor=alt`"
-        external
-        target="_blank"
-        class="ml-2"
-      >
         <UButton
+          class="ml-2"
+          :to="`http://admin.infomania.ru/entry/update/${entry?.slug}?editor=alt`"
+          external="true"
+          target="_blank"
           color="red"
-          class="font-bold text-white text-sm"
         >
           Редактировать html
         </UButton>
-      </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.entry {
+  &__header {
+    @apply flex justify-between;
+    .title {
+      @apply font-bold text-2xl;
+    }
+  }
+
+  &__info {
+    @apply text-right;
+    .department {
+      @apply font-bold;
+    }
+  }
+
+  &__body {
+    @apply indent-5;
+  }
+
+  &__button {
+    @apply text-white dark:text-white font-bold bg-amber-200;
+    &_alt {
+      @apply ml-4;
+    }
+  }
+}
+
 .ck-content {
   :deep(p) {
-    margin: 10px 0px !important;
+    margin: 10px 0 !important;
   }
 }
 </style>
