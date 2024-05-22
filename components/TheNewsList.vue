@@ -53,6 +53,11 @@ entryPinned.value = await entryStore.getEntryPinned();
             />
           </template>
         </div>
+        <nuxt-link
+          :to="{ path: '/entry/search', query: { rubric: 'anonsy' } }"
+          class="flex justify-end mr-4 text-black dark:text-white hover:underline"
+          >Больше анонсов</nuxt-link
+        >
       </div>
     </div>
     <div class="news__item_aside news__item">
