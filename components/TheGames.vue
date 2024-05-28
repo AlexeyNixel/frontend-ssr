@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { storeToRefs } from 'pinia';
-import { useGameStore } from '~/stores/gameStore';
+import { storeToRefs } from 'pinia'
+import { useGameStore } from '~/stores/gameStore'
 
 const { isDesktop } = useDevice();
 const ui = {
@@ -62,30 +62,36 @@ await gameStore.getGamesRandom();
         :key="game.id"
         class="slider__item"
       >
-        <UCard
-          :ui="ui"
-          class="game-card"
+        <nuxt-link
+          :to="`/game/` + game.id"
+          class="slider__link"
         >
-          <template #header>
-            <div class="game-card__header">
-              <img
-                v-if="game.cover_file"
-                class="h-full"
-                :src="staticUrl + game.cover_file"
-                alt=""
-              />
-              <img
-                v-else
-                src="/chess-placeholder.png"
-                alt=""
-              />
-            </div>
-          </template>
-          <div
-            class="game-card__title"
-            v-html="game.name"
-          />
-        </UCard>
+
+          <UCard
+            :ui="ui"
+            class="game-card"
+          >
+            <template #header>
+              <div class="game-card__header">
+                <img
+                  v-if="game.cover_file"
+                  class="h-full"
+                  :src="staticUrl + game.cover_file"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="/chess-placeholder.png"
+                  alt=""
+                />
+              </div>
+            </template>
+            <div
+              class="game-card__title"
+              v-html="game.name"
+            />
+          </UCard>
+        </nuxt-link>
       </SwiperSlide>
     </Swiper>
   </div>

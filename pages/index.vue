@@ -36,6 +36,13 @@ onMounted(() => {
 </script>
 
 <template>
+  <Head>
+    <Title>НОМБ</Title>
+    <Meta
+      name="description"
+      content="Новосибирская Областная Молодежная библиотека"
+    />
+  </Head>
   <TheSlider />
   <TheNavigation />
   <TheBillboard v-if="isDesktop" />

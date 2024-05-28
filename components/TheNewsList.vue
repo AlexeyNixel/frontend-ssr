@@ -38,14 +38,8 @@ entryPinned.value = await entryStore.getEntryPinned();
         </div>
       </nuxt-link>
       <div class="list h-1/2">
-        <div
-          class="entry-list"
-          v-if="anonsy"
-        >
-          <template
-            v-for="(item, index) in anonsy.data"
-            :key="item.id"
-          >
+        <div class="entry-list" v-if="anonsy">
+          <template v-for="(item, index) in anonsy.data" :key="item.id">
             <ui-the-entry-card
               class="w-full h-full"
               :entry="item"
@@ -56,8 +50,9 @@ entryPinned.value = await entryStore.getEntryPinned();
         <nuxt-link
           :to="{ path: '/entry/search', query: { rubric: 'anonsy' } }"
           class="flex justify-end mr-4 text-black dark:text-white hover:underline"
-          >Больше анонсов</nuxt-link
         >
+          Больше анонсов
+        </nuxt-link>
       </div>
     </div>
     <div class="news__item_aside news__item">
@@ -76,18 +71,9 @@ entryPinned.value = await entryStore.getEntryPinned();
     </div>
   </div>
   <div class="block lg:hidden">
-    <ui-entry-mobile
-      v-if="anonsy"
-      :entries="anonsy"
-    />
-    <ui-entry-mobile
-      v-if="aktualnoe"
-      :entries="aktualnoe"
-    />
-    <ui-entry-mobile
-      v-if="sobytiya"
-      :entries="sobytiya"
-    />
+    <ui-entry-mobile v-if="anonsy" :entries="anonsy" />
+    <ui-entry-mobile v-if="aktualnoe" :entries="aktualnoe" />
+    <ui-entry-mobile v-if="sobytiya" :entries="sobytiya" />
   </div>
 </template>
 
@@ -96,7 +82,7 @@ entryPinned.value = await entryStore.getEntryPinned();
   @apply flex;
 
   &__item {
-    @apply hidden  h-[670px] lg:block bg-white dark:bg-neutral-900 rounded-[10px] w-8/12 p-4;
+    @apply hidden  h-[700px]  lg:block bg-white dark:bg-neutral-900 rounded-[10px] w-8/12 p-4;
 
     &_aside {
       @apply w-4/12 ml-4;

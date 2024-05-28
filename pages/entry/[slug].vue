@@ -5,7 +5,6 @@ import { useRoute } from 'vue-router';
 import { useGeneralStore } from '~/stores/generalStore';
 import dayjs from 'dayjs';
 
-const asd = dayjs();
 const generalStore = useGeneralStore();
 const route = useRoute();
 const entryStore = useEntryStore();
@@ -23,7 +22,7 @@ onMounted(() => {
 
   if (table) {
     const wrapper = document.createElement('div');
-    wrapper.setAttribute('class', 'w-full overflow-x-scroll');
+    wrapper.setAttribute('class', 'entry__table');
     table.parentNode?.insertBefore(wrapper, table);
     wrapper.appendChild(table);
   }
@@ -31,20 +30,14 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="my-[1vh]"
-    v-if="entry"
-  >
+  <div class="my-[1vh]" v-if="entry">
     <Head>
       <Title>{{ entry.title }}</Title>
-      <Meta
-        name="description"
-        :content="entry.desc"
-      />
+      <Meta name="description" :content="entry.desc" />
     </Head>
-    <div class="entry">
-      <div class="entry__header">
-        <div class="title">{{ entry.title }}</div>
+    <article class="entry">
+      <header class="entry__header">
+        <h2 class="title">{{ entry.title }}</h2>
         <div class="entry__info">
           <nuxt-link
             class="department"
@@ -59,18 +52,11 @@ onMounted(() => {
             {{ dayjs(entry?.publishedAt).format('DD.MM.YYYY') }}
           </div>
         </div>
-      </div>
-
+      </header>
       <viewer rebuild>
-        <div
-          class="entry__body ck-content"
-          v-html="entry.content"
-        />
+        <div class="entry__body ck-content" v-html="entry.content" />
       </viewer>
-      <div
-        class="entry__footer"
-        v-if="generalStore.token"
-      >
+      <footer class="entry__footer" v-if="generalStore.token">
         <UButton
           :to="`http://admin.infomania.ru/entry/update/${slug}`"
           external="true"
@@ -88,8 +74,8 @@ onMounted(() => {
         >
           Редактировать html
         </UButton>
-      </div>
-    </div>
+      </footer>
+    </article>
   </div>
 </template>
 
@@ -110,7 +96,11 @@ onMounted(() => {
   }
 
   &__body {
-    @apply indent-5;
+    @apply indent-12 overflow-hidden;
+  }
+
+  &__table {
+    @apply w-full overflow-x-scroll;
   }
 
   &__button {

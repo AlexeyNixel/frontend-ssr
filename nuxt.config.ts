@@ -1,3 +1,5 @@
+import { getIconCollections } from '@egoist/tailwindcss-icons';
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   //@ts-ignore
@@ -51,5 +53,13 @@ export default defineNuxtConfig({
 
   tailwindcss: {
     cssPath: '~/assets/main.css',
+  },
+
+  ui: {
+    icons: {
+      collections: {
+        ...getIconCollections(['mdi']),
+      },
+    },
   },
 });

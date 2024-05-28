@@ -26,7 +26,7 @@ await sliderStore.getSlides({
   <USkeleton
     :ui="ui"
     v-if="!isLoading"
-    class="carousel"
+    class="carousel skeleton"
   />
   <Swiper
     v-else

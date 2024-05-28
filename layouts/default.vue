@@ -12,18 +12,18 @@ if (process.client) {
 </script>
 
 <template>
-  <div
-    class="px-2 lg:p-0 mx-auto 2xl:max-w-screen-xl xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm"
-  >
+  <div class="default-layout">
     <TheHeader />
     <div class="min-h-[70.3vh]">
       <slot />
     </div>
-    <client-only>
-      <TheFooter />
-    </client-only>
+    <TheFooter />
   </div>
   <worktime-library />
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.default-layout {
+  @apply px-2 lg:p-0 mx-auto 2xl:max-w-screen-xl xl:max-w-screen-xl lg:max-w-screen-lg md:max-w-screen-md sm:max-w-screen-sm;
+}
+</style>

@@ -6,6 +6,5 @@
   "trailingComma": "es5",
   "bracketLine": false,
   "bracketSameLine": false,
-  "proseWrap": "preserve",
-  "singleAttributePerLine": true
+  "proseWrap": "preserve"
 }
