@@ -37,9 +37,8 @@ const attrs = ref<any>([
     highlight: {
       color: 'orange',
     },
-    dot: 'orange',
     //@ts-ignore
-    dates: { repeat: { weekdays: 2 } },
+    dates: { repeat: { weekdays: 1 } },
     popover: {
       label: 'Выходной',
     },
@@ -92,15 +91,8 @@ onMounted(() => {
 </script>
 
 <template>
-  <USkeleton
-    :ui="ui"
-    v-if="!isLoading"
-    class="h-[370px] my-4 rounded-[10px]"
-  />
-  <div
-    class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]"
-    v-else
-  >
+  <USkeleton :ui="ui" v-if="!isLoading" class="h-[370px] my-4 rounded-[10px]" />
+  <div class="my-4 bg-white dark:bg-neutral-900 rounded-[10px]" v-else>
     <div class="text-xl font-bold mx-4 py-3">Афиша</div>
     <div class="flex">
       <div class="lg:w-[35%] xl:w-[30%] w-full">
@@ -121,10 +113,7 @@ onMounted(() => {
           :day="selectedDay"
           v-if="selectEvent.length > 0"
         />
-        <div
-          class="h-full m-auto"
-          v-else
-        >
+        <div class="h-full m-auto" v-else>
           <ui-off-day
             class="w-full h-full flex flex-col justify-center items-center"
             v-if="isOffDay"
@@ -133,11 +122,7 @@ onMounted(() => {
             v-else
             class="w-full h-full flex flex-col justify-center items-center"
           >
-            <img
-              class="w-3/12"
-              src="/books.svg"
-              alt=""
-            />
+            <img class="w-3/12" src="/books.svg" alt="" />
             <h2 class="text-xl my-2 font-bold">Сегодня можете взять книги</h2>
           </div>
         </div>
