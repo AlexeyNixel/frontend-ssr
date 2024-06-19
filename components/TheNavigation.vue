@@ -76,10 +76,7 @@ const swapMenus = (menu: any) => {
       @click="swapMenus(item.value)"
     />
   </div>
-  <Transition
-    :duration="300"
-    name="nested"
-  >
+  <Transition :duration="300" name="nested">
     <component :is="components[currentMenu]" />
   </Transition>
   <div class="navigation-mobile">
@@ -119,10 +116,10 @@ const swapMenus = (menu: any) => {
   .slider {
     @apply h-full my-4;
     &__item {
-      @apply flex rounded-[10px] w-full px-1;
+      @apply flex rounded-[10px]  px-1;
     }
     &__link {
-      @apply flex items-center text-sm mx-2 justify-center py-2 px-4 shrink-0 rounded-[10px] text-white font-bold;
+      @apply w-full flex items-center text-sm mx-2 justify-center py-2 px-4 shrink-0 rounded-[10px] text-white font-bold;
     }
   }
 }

@@ -8,6 +8,8 @@ const darkMode = useDark();
 const toggleDark = useToggle(darkMode);
 const modal = useModal();
 
+async function asd() {}
+
 const openModal = (component: Component) => {
   modal.open(component);
 };
@@ -77,18 +79,10 @@ const buttons = [
 <template>
   <header class="header">
     <NuxtLink to="/">
-      <img
-        class="logo"
-        src="/logo.png"
-        alt="НОМБ"
-      />
+      <img class="logo" src="/logo.png" alt="НОМБ" />
     </NuxtLink>
     <nav class="navigation">
-      <UTooltip
-        v-for="(item, index) in buttons"
-        :key="index"
-        :text="item.desc"
-      >
+      <UTooltip v-for="(item, index) in buttons" :key="index" :text="item.desc">
         <UButton
           @click="item.event"
           variant="link"
@@ -110,8 +104,7 @@ const buttons = [
             :icon="
               darkMode ? 'i-mdi-weather-night' : 'i-mdi-white-balance-sunny'
             "
-          >
-          </UButton>
+          />
         </UTooltip>
       </client-only>
     </nav>

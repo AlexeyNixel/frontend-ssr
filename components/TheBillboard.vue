@@ -23,7 +23,9 @@ onMounted(() => {
     <div class="billboard" v-else>
       <div class="header">Афиша</div>
       <div class="body">
-        <div class="calendar"><TheCalendar v-model="events" /></div>
+        <div class="calendar">
+          <TheCalendar v-model="events" />
+        </div>
         <div class="content">
           <ui-event-list :events="events" />
         </div>

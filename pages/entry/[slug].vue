@@ -5,6 +5,7 @@ import { useRoute } from 'vue-router';
 import { useGeneralStore } from '~/stores/generalStore';
 import dayjs from 'dayjs';
 
+const asd = dayjs();
 const generalStore = useGeneralStore();
 const route = useRoute();
 const entryStore = useEntryStore();
@@ -57,23 +58,22 @@ onMounted(() => {
         <div class="entry__body ck-content" v-html="entry.content" />
       </viewer>
       <footer class="entry__footer" v-if="generalStore.token">
-        <UButton
+        <nuxt-link
           :to="`http://admin.infomania.ru/entry/update/${slug}`"
-          external="true"
+          :external="true"
           target="_blank"
-          color="blue"
+          class="admin-button admin-button_blue"
         >
           Обновить
-        </UButton>
-        <UButton
-          class="ml-2"
+        </nuxt-link>
+        <nuxt-link
+          class="admin-button admin-button_red ml-2"
           :to="`http://admin.infomania.ru/entry/update/${entry?.slug}?editor=alt`"
-          external="true"
+          :external="true"
           target="_blank"
-          color="red"
         >
           Редактировать html
-        </UButton>
+        </nuxt-link>
       </footer>
     </article>
   </div>
@@ -108,6 +108,14 @@ onMounted(() => {
     &_alt {
       @apply ml-4;
     }
+  }
+}
+
+.admin-button {
+  @apply p-2 rounded-xl font-bold text-white bg-blue-500;
+
+  &_red {
+    @apply bg-red-500;
   }
 }
 
