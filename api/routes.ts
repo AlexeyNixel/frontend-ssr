@@ -20,4 +20,5 @@ export enum Routes {
   GENRE_ROUTE = '/api/genre/',
   NOTIFICATION_ROUTE = '/api/notification/',
   BOOK_ROUTE = '/api/book/',
+  COLLECTION_ROUTE = '/api/collection/',
 }

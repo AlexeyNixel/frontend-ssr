@@ -22,7 +22,7 @@ const breakpoints = {
 const modal = useModal();
 const bookStore = useBookStore();
 const { isDesktop } = useDevice();
-const book = ref<Book[]>();
+const books = ref<Book[]>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const { data } = await bookStore.getAll({
@@ -31,7 +31,7 @@ const { data } = await bookStore.getAll({
   include: 'preview',
 });
 
-book.value = data;
+books.value = data;
 
 const openModal = (book: Book) => {
   modal.open(ModalsBook, { book: book });
@@ -39,18 +39,10 @@ const openModal = (book: Book) => {
 </script>
 
 <template>
-  <div
-    class="books"
-    v-if="book"
-  >
+  <div class="books" v-if="books">
     <section class="books__header">
       <h2 class="title">Книги</h2>
-      <nuxt-link
-        to="/book"
-        class="link"
-      >
-        Полный список книг
-      </nuxt-link>
+      <nuxt-link to="/book" class="link"> Полный список книг </nuxt-link>
     </section>
     <Swiper
       :spaceBetween="5"
@@ -62,17 +54,13 @@ const openModal = (book: Book) => {
       class="slider books__slider"
     >
       <SwiperSlide
-        v-for="item in book"
+        v-for="item in books"
         :key="item.id"
         @click="openModal(item)"
         class="slider__item"
       >
         <div class="book">
-          <img
-            :src="staticUrl + item.preview?.path"
-            class="book__img"
-            alt=""
-          />
+          <img :src="staticUrl + item.preview?.path" class="book__img" alt="" />
           <div class="book__title">
             {{ item.title }}
           </div>

@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { useBookStore } from '~/stores/bookStore';
 import type { ImageType } from '~/models/baseTypes';
+import { ModalsBook } from '#components';
+import { useModal } from '#ui/composables/useModal';
 
 interface Book {
   data: [
@@ -30,6 +32,7 @@ const isOpenBook = ref<boolean>(false);
 const currentBook = ref<string>('');
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
+const modal = useModal();
 const selectBook = (book: string) => {
   isOpenBook.value = true;
   currentBook.value = book;
@@ -46,6 +49,10 @@ const handleNavigate = (val?: number) => {
   });
 
   handleFetchData();
+};
+
+const openModal = (book: Book) => {
+  modal.open(ModalsBook, { book: book });
 };
 
 const handleFetchData = async () => {
@@ -67,7 +74,7 @@ handleFetchData();
         class="flex flex-col items-center justify-center h-max flex-wrap hover:scale-[1.06] transition"
         v-for="book in books.data"
         :key="book.id"
-        @click="selectBook(book.id)"
+        @click="openModal(book)"
       >
         <img
           class="h-[300px] w-max"
@@ -85,8 +92,5 @@ handleFetchData();
       @update:model-value="handleNavigate()"
     />
   </div>
-  <modals-book
-    :current-book="currentBook"
-    v-model="isOpenBook"
-  ></modals-book>
+  <modals-book :current-book="currentBook" v-model="isOpenBook"></modals-book>
 </template>

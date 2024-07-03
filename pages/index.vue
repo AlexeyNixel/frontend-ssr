@@ -50,8 +50,7 @@ onMounted(() => {
   <TheNewsList />
   <TheDepartment />
   <TheBook />
-  <TheGos />
-  <client-only></client-only>
+  <client-only><TheGos /></client-only>
   <TheGames />
   <TheExhibitions />
 </template>

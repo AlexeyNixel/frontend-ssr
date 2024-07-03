@@ -1,4 +1,4 @@
-import { ParamsType } from './../models/baseTypes';
+import type { ParamsType } from '~/models/baseTypes';
 import { Routes } from '~/api/routes';
 import { axiosApi } from './axios';
 
