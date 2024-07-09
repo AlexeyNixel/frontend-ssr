@@ -136,6 +136,7 @@ export type ParamsType = {
   model?: string;
   isDeleted?: boolean;
   genres?: any;
+  isVideo?: boolean;
 };
 
 export type MetaType = {

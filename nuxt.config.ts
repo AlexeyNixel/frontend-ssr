@@ -58,7 +58,7 @@ export default defineNuxtConfig({
   ui: {
     icons: {
       collections: {
-        ...getIconCollections(['mdi']),
+        ...getIconCollections(['mdi', 'heroicons']),
       },
     },
   },

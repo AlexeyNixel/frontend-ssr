@@ -49,7 +49,7 @@ onMounted(() => {
   <client-only v-else><TheBillboardMobile /></client-only>
   <TheNewsList />
   <TheDepartment />
-  <TheBook />
+  <ReaderZone />
   <client-only><TheGos /></client-only>
   <TheGames />
   <TheExhibitions />

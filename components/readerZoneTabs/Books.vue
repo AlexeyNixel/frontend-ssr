@@ -1,13 +1,18 @@
-<script lang="ts" setup>
-import type { Book } from '~/models/baseTypes';
+<script setup lang="ts">
 import { useBookStore } from '~/stores/bookStore';
 import { Navigation } from 'swiper/modules';
-import { ModalsBook } from '#components';
-import { useModal } from '#ui/composables/useModal';
+import type { BookModel } from '~/models/book-model';
+import Book from '~/components/ui/Book.vue';
+
+interface Props {
+  isVideo: boolean;
+}
+
+const props = defineProps<Props>();
 
 const breakpoints = {
   1280: {
-    slidesPerView: 5,
+    slidesPerView: 6,
   },
   1024: {
     slidesPerView: 5,
@@ -15,35 +20,34 @@ const breakpoints = {
   768: {
     slidesPerView: 3,
   },
-  640: {
+  540: {
+    slidesPerView: 3,
+  },
+  429: {
     slidesPerView: 2,
   },
+  364: {
+    slidesPerView: 1.5,
+  },
 };
-const modal = useModal();
+
 const bookStore = useBookStore();
 const { isDesktop } = useDevice();
-const books = ref<Book[]>();
+const books = ref<BookModel[]>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const { data } = await bookStore.getAll({
   pageSize: 15,
   orderBy: '-createdAt',
   include: 'preview',
+  isVideo: props.isVideo ? true : undefined,
 });
 
 books.value = data;
-
-const openModal = (book: Book) => {
-  modal.open(ModalsBook, { book: book });
-};
 </script>
 
 <template>
   <div class="books" v-if="books">
-    <section class="books__header">
-      <h2 class="title">Книги</h2>
-      <nuxt-link to="/book" class="link"> Полный список книг </nuxt-link>
-    </section>
     <Swiper
       :spaceBetween="5"
       :pagination="true"
@@ -53,26 +57,16 @@ const openModal = (book: Book) => {
       :breakpoints="breakpoints"
       class="slider books__slider"
     >
-      <SwiperSlide
-        v-for="item in books"
-        :key="item.id"
-        @click="openModal(item)"
-        class="slider__item"
-      >
-        <div class="book">
-          <img :src="staticUrl + item.preview?.path" class="book__img" alt="" />
-          <div class="book__title">
-            {{ item.title }}
-          </div>
-        </div>
+      <SwiperSlide v-for="item in books" :key="item.id" class="slider__item">
+        <Book :book="item" />
       </SwiperSlide>
     </Swiper>
   </div>
 </template>
 
-<style lang="scss" scoped>
+<style scoped lang="scss">
 .books {
-  @apply bg-white dark:bg-neutral-900 rounded-[10px] p-4 my-4;
+  @apply bg-white dark:bg-neutral-900 rounded-[10px]  m-0;
 
   .books__header {
     @apply flex justify-between items-center mb-4;
@@ -84,14 +78,6 @@ const openModal = (book: Book) => {
     .link {
       @apply cursor-pointer hover:underline;
     }
-  }
-}
-
-.book {
-  @apply text-center flex flex-col items-center;
-
-  &__img {
-    @apply justify-between items-center w-max h-[250px] cursor-pointer;
   }
 }
 

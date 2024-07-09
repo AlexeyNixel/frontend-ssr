@@ -4,6 +4,28 @@ import type { EntryResponseType } from '~/models/entry-model';
 interface Props {
   entries: EntryResponseType;
 }
+
+const breakpoints = {
+  1280: {
+    slidesPerView: 3,
+  },
+  1024: {
+    slidesPerView: 3,
+  },
+  768: {
+    slidesPerView: 3,
+  },
+  640: {
+    slidesPerView: 2,
+  },
+  520: {
+    slidesPerView: 2,
+  },
+  364: {
+    slidesPerView: 1.5,
+  },
+};
+
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 defineProps<Props>();
 </script>
@@ -16,23 +38,7 @@ defineProps<Props>();
       :modules="[SwiperPagination]"
       class="h-full my-4"
       trigger="click"
-      :breakpoints="{
-        1280: {
-          slidesPerView: 3,
-        },
-        1024: {
-          slidesPerView: 3,
-        },
-        768: {
-          slidesPerView: 3,
-        },
-        640: {
-          slidesPerView: 2,
-        },
-        520: {
-          slidesPerView: 2,
-        },
-      }"
+      :breakpoints="breakpoints"
     >
       <SwiperSlide
         class="flex rounded-[10px] w-full px-1"
@@ -52,10 +58,7 @@ defineProps<Props>();
             },
           }"
         >
-          <template
-            class="border-0"
-            #header
-          >
+          <template class="border-0" #header>
             <img
               class="h-[156px] w-full object-cover"
               :src="staticUrl + item.preview.path"
