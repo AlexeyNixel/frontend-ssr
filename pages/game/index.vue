@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import type { GameType } from '~/models/baseTypes';
-import { useGameStore } from '~/stores/gameStore';
-import TheGame from '~/components/ui/TheGame.vue';
-import { storeToRefs } from 'pinia';
+import { GameCard, type GameResponseType, useGameStore } from '~/entities/game';
 
 const ui = {
   icon: {
@@ -20,9 +17,9 @@ const { isDesktop } = useDevice();
 const route = useRoute();
 const gameStore = useGameStore();
 const activeGenres = ref<any>([]);
-const games = ref<GameType[]>([]);
+const games = ref<GameResponseType>();
 const genres = ref<[{ tag: string; desc: string; status: boolean }]>();
-const { metaGames } = storeToRefs(gameStore);
+
 const search = ref<string>();
 const page = ref<number>(Number(route.query.page) || 1);
 
@@ -66,6 +63,10 @@ const handleSelectGenres = () => {
   navigateTo({ path: '/game', query: { genres: activeGenres.value } });
 };
 
+useAsyncData(async () => {
+  await fetchData();
+});
+
 onBeforeMount(async () => {
   if (route.query.genres) {
     if (typeof route.query.genres === 'string') {
@@ -80,32 +81,23 @@ onBeforeMount(async () => {
       item.status = true;
     }
   });
-
-  await fetchData();
 });
 </script>
 
 <template>
-  <div class="block lg:flex">
-    <div
-      class="flex flex-wrap h-max lg:sticky lg:w-[25%] top-2 bg-white dark:bg-neutral-900 rounded-[10px] p-2 my-2 lg:my-0"
-    >
-      <div
-        class="lg:w-full"
+  <div class="games block lg:flex" v-if="games">
+    <div class="aside">
+      <UCheckbox
+        class="aside__item"
         v-for="item in genres"
         :key="item.tag"
-      >
-        <UCheckbox
-          class="m-2"
-          v-model="item.status"
-          @update:model-value="handleSelectGenres()"
-          name="item"
-          :label="item.desc"
-        />
-      </div>
+        v-model="item.status"
+        @update:model-value="handleSelectGenres()"
+        :label="item.desc"
+      />
     </div>
-    <div class="w-full lg:w-[75%] m-0 lg:ml-2">
-      <div class="mb-2 p-2 bg-white dark:bg-neutral-900 rounded-[10px]">
+    <div class="main">
+      <div class="header">
         <UInput
           @keydown.enter="handleNavigate(1)"
           variant="none"
@@ -118,30 +110,44 @@ onBeforeMount(async () => {
           v-model="search"
         />
       </div>
-      <div
-        class="bg-white dark:bg-neutral-900 rounded-[10px] grid grid-cols-1 lg:grid-cols-3 gap-2 p-4"
-        v-if="games.length > 0"
-      >
-        <the-game
-          v-for="item in games"
-          :key="item.id"
-          :game="item"
-        />
+      <div class="games-grid" v-if="games.data.length > 0">
+        <game-card v-for="item in games.data" :key="item.id" :game="item" />
       </div>
-      <div
-        v-else
-        class="flex items-center justify-center w-full h-full text-2xl"
-      >
-        <Placeholder class="h-8" />
-        Игр не найдено
-      </div>
+      <div v-else class="not-found">Игр не найдено</div>
       <UPagination
-        v-if="metaGames"
         class="flex justify-center my-4"
         v-model="page"
-        :total="metaGames.pages * 10"
+        :page-count="games.meta?.pageSize"
+        :total="games.meta.pages * 10"
         @update:model-value="handleNavigate()"
       />
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.games {
+  .aside {
+    @apply flex flex-wrap h-max lg:sticky lg:w-[25%] top-2 bg-white;
+    @apply dark:bg-neutral-900 rounded-[10px] p-2 my-2 lg:my-0;
+
+    &__item {
+      @apply lg:w-full m-2;
+    }
+  }
+  .main {
+    @apply w-full lg:w-[75%] m-0 lg:ml-2;
+
+    .header {
+      @apply mb-2 p-2 bg-white dark:bg-neutral-900 rounded-[10px];
+    }
+    .games-grid {
+      @apply bg-white dark:bg-neutral-900 rounded-[10px] grid;
+      @apply grid-cols-1 lg:grid-cols-3 gap-2 p-4;
+    }
+    .not-found {
+      @apply flex items-center justify-center w-full h-full text-2xl;
+    }
+  }
+}
+</style>

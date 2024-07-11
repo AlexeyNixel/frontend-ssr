@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import dayjs from 'dayjs';
-import { ParamsType } from '~/models/baseTypes';
+import { type EntryParams } from '~/entities/entry';
 
 export const useSearchStore = defineStore('search', () => {
   const route = useRoute();
@@ -34,7 +34,7 @@ export const useSearchStore = defineStore('search', () => {
     filters.value.rubric = '';
   };
 
-  const params = ref<ParamsType>({
+  const params = ref<EntryParams>({
     toDate: filters.value.year
       ? filters.value.year + '-12-31T00:00:00.000Z'
       : '',

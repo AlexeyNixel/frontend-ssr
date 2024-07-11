@@ -2,6 +2,7 @@ export type MetaType = {
   page: number;
   pageSize: number;
   total: number;
+  pages?: number;
 };
 
 export type PreviewType = {

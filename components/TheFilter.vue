@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia';
-import { useDepartmentStore } from '~/stores/departmentStore';
+import { useDepartmentStore } from '~/entities/department';
 import { useSearchStore } from '~/stores/searchStore';
 
 interface Props {

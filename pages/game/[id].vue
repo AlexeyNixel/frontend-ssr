@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import TheGame from '~/components/ui/TheGame.vue';
 import { storeToRefs } from 'pinia';
-import { useGameStore } from '~/stores/gameStore';
+import { GameCard, useGameStore } from '~/entities/game';
 
 const ui = {
   list: {
@@ -127,7 +126,7 @@ genres.value?.forEach((item) => {
             </NuxtLink>
           </div>
           <div class="tabs-menu__more-games" v-if="item.key === 'serials'">
-            <TheGame v-for="item in games" :key="item.id" :game="item" />
+            <game-card v-for="item in games" :key="item.id" :game="item" />
           </div>
         </template>
       </UTabs>

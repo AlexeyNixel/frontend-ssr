@@ -8,7 +8,6 @@ export default defineNuxtConfig({
       title: 'НОМБ',
     },
   },
-
   postcss: {
     plugins: {
       tailwindcss: {},
@@ -59,6 +58,26 @@ export default defineNuxtConfig({
     icons: {
       collections: {
         ...getIconCollections(['mdi', 'heroicons']),
+      },
+    },
+  },
+  vite: {
+    server: {
+      proxy: {
+        '/site': {
+          target: 'http://static.infomania.ru/',
+          changeOrigin: true,
+        },
+        '/media': {
+          target: 'http://static.infomania.ru/site',
+          changeOrigin: true,
+        },
+        '/news': {
+          target: 'http://dev.infomania.ru/',
+          changeOrigin: true,
+          //@ts-ignore
+          rewrite: (path) => path.replace(/^\/entry/, ''),
+        },
       },
     },
   },

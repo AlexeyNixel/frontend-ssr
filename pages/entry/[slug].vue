@@ -1,22 +1,20 @@
 <script setup lang="ts">
-import { useEntryStore } from '~/stores/entryStore';
-import type { EntryType } from '~/models/baseTypes';
+import { useEntryStore } from '~/entities/entry';
 import { useRoute } from 'vue-router';
 import { useGeneralStore } from '~/stores/generalStore';
 import dayjs from 'dayjs';
+import { storeToRefs } from 'pinia';
 
 const asd = dayjs();
 const generalStore = useGeneralStore();
 const route = useRoute();
 const entryStore = useEntryStore();
-const entry = ref<EntryType>();
+const { entry } = storeToRefs(entryStore);
 const slug = ref(route.params.slug as string);
 
-if (slug.value) {
-  entry.value = await entryStore.getEntry(slug.value, {
-    include: 'department,rubrics',
-  });
-}
+await entryStore.getEntryById(slug.value, {
+  include: 'department,rubrics',
+});
 
 onMounted(() => {
   const table = document.querySelector('.table');

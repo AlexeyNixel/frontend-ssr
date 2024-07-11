@@ -1,7 +1,15 @@
 <script setup lang="ts">
 import { useGeneralStore } from '~/stores/generalStore';
+import { useEntryStore } from '~/entities/entry';
 import { storeToRefs } from 'pinia';
-import { useEntryStore } from '~/stores/entryStore';
+import EntriesList from '~/widgets/entries-list/ui/EntriesList.vue';
+import { useAsyncData } from '#app';
+import MainSlider from '~/widgets/main-slider/ui/MainSlider.vue';
+import DepartmentsList from '~/widgets/departments-list/ui/DepartmentsList.vue';
+import ExhibitionsList from '~/widgets/exhibitions-list/ui/ExhibitionsList.vue';
+import GamesList from '~/widgets/games-list/ui/GamesList.vue';
+import CalendarEvent from '~/widgets/calendar-event/ui/CalendarEvent.vue';
+import CalendarEventMobile from '~/widgets/calendar-event/ui/CalendarEventMobile.vue';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
@@ -15,23 +23,25 @@ const params = {
   include: 'preview',
 };
 
-anonsy.value = await entryStore.getEntries({
-  rubric: 'anonsy',
-  ...params,
-});
-
-aktualnoe.value = await entryStore.getEntries({
-  rubric: 'aktualnoe',
-  ...params,
-});
-
-sobytiya.value = await entryStore.getEntries({
-  rubric: 'sobytiya',
-  ...params,
-});
-
 onMounted(() => {
   generalStore.token = localStorage.getItem('token') as string;
+});
+
+useAsyncData(async () => {
+  anonsy.value = await entryStore.getEntries({
+    rubric: 'anonsy',
+    ...params,
+  });
+
+  aktualnoe.value = await entryStore.getEntries({
+    rubric: 'aktualnoe',
+    ...params,
+  });
+
+  sobytiya.value = await entryStore.getEntries({
+    rubric: 'sobytiya',
+    ...params,
+  });
 });
 </script>
 
@@ -43,16 +53,16 @@ onMounted(() => {
       content="Новосибирская Областная Молодежная библиотека"
     />
   </Head>
-  <TheSlider />
+  <MainSlider />
   <TheNavigation />
-  <TheBillboard v-if="isDesktop" />
-  <client-only v-else><TheBillboardMobile /></client-only>
-  <TheNewsList />
-  <TheDepartment />
+  <CalendarEvent v-if="isDesktop" />
+  <client-only v-else><CalendarEventMobile /></client-only>
+  <entries-list />
+  <DepartmentsList />
   <ReaderZone />
   <client-only><TheGos /></client-only>
-  <TheGames />
-  <TheExhibitions />
+  <GamesList />
+  <ExhibitionsList />
 </template>
 
 <style lang="scss" scoped>

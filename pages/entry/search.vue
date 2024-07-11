@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { useEntryStore } from '~/stores/entryStore';
-import TheEntry from '~/components/ui/TheEntry.vue';
-import { useSearchStore } from '~/stores/searchStore';
+import {
+  EntryPlate,
+  type EntryResponseType,
+  useEntryStore,
+} from '~/entities/entry';
+
 import { navigateTo } from '#app';
-import { storeToRefs } from 'pinia';
 import TheFilter from '~/components/TheFilter.vue';
-import type { EntryResponseType } from '~/models/entry-model';
 
 const ui = {
   icon: {
@@ -21,11 +22,8 @@ const ui = {
 
 const route = useRoute();
 const entryStore = useEntryStore();
-const searchStore = useSearchStore();
 
 const entries = ref<EntryResponseType>();
-const { metaEntry } = storeToRefs(entryStore);
-// const { filters } = storeToRefs(searchStore);
 
 const filters = reactive({
   order: (route.query.order as string) || '-publishedAt',
@@ -64,10 +62,9 @@ const fetchData = async () => {
     department: (filters.department as string) || undefined,
     rubric: (filters.rubric as string) || undefined,
   });
-  pages.value = Number(metaEntry.value?.pages);
+  pages.value = Number(entries.value?.meta?.total);
 };
-
-fetchData();
+await fetchData();
 
 watch(filters, () => {
   handleNavigate();
@@ -93,17 +90,17 @@ watch(filters, () => {
       </template>
     </UInput>
     <div class="entry-list">
-      <TheEntry
-        v-for="item in entries.data"
-        :key="item.id"
-        :entry="item"
+      <EntryPlate
+        v-for="entry in entries.data"
+        :key="entry.id"
+        :entry="entry"
       />
     </div>
     <UPagination
       class="flex justify-center my-4"
       v-model="page"
-      :page-count="entries.meta.pageSize"
-      :total="entries.meta.total"
+      :page-count="entries.meta?.pageSize"
+      :total="entries.meta?.total"
       @update:model-value="handleNavigate()"
     />
   </div>
