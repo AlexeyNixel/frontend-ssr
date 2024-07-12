@@ -19,7 +19,12 @@ export const useEntryStore = defineStore('entry', () => {
   };
 
   const getEntryById = async (id: string, params?: EntryParams) => {
-    entry.value = await EntryApi.fetchEntryById(id, params);
+    const result = await EntryApi.fetchEntryById(id, params);
+    if (!result) {
+      return { result: null, error: 'not found' };
+    }
+    entry.value = result;
+    return { result, error: null };
   };
 
   const getEntryPinned = async () => {

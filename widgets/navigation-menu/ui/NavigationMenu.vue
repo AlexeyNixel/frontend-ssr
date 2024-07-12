@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import {
-  NavigationElementTheAbout,
-  NavigationElementTheColleagues,
-  NavigationElementTheDocuments,
-  NavigationElementTheReader,
-} from '#components';
+import { About, Colleagues, Documents, Reader } from '~/entities/navigation';
 
 const currentMenu = ref<any>();
 const ui = {
@@ -49,10 +44,10 @@ const buttons = [
 ];
 
 const components: { [key: string]: any } = {
-  reader: NavigationElementTheReader,
-  about: NavigationElementTheAbout,
-  colleagues: NavigationElementTheColleagues,
-  documents: NavigationElementTheDocuments,
+  reader: Reader,
+  about: About,
+  colleagues: Colleagues,
+  documents: Documents,
 };
 
 const swapMenus = (menu: any) => {

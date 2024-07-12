@@ -44,14 +44,14 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '/assets/ckStyle.css',
-    '/assets/imageResize.css',
-    '/assets/gosUslugi.css',
+    '/app/styles/ckeditor.css',
+    '/app/styles/ckeditorImage.css',
+    '/app/styles/gosWidget.css',
     'viewerjs/dist/viewer.css',
   ],
 
   tailwindcss: {
-    cssPath: '~/assets/main.css',
+    cssPath: '~/app/styles/main.css',
   },
 
   ui: {

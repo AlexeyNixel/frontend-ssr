@@ -10,6 +10,7 @@ import ExhibitionsList from '~/widgets/exhibitions-list/ui/ExhibitionsList.vue';
 import GamesList from '~/widgets/games-list/ui/GamesList.vue';
 import CalendarEvent from '~/widgets/calendar-event/ui/CalendarEvent.vue';
 import CalendarEventMobile from '~/widgets/calendar-event/ui/CalendarEventMobile.vue';
+import NavigationMenu from '~/widgets/navigation-menu/ui/NavigationMenu.vue';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
@@ -54,7 +55,7 @@ useAsyncData(async () => {
     />
   </Head>
   <MainSlider />
-  <TheNavigation />
+  <NavigationMenu />
   <CalendarEvent v-if="isDesktop" />
   <client-only v-else><CalendarEventMobile /></client-only>
   <entries-list />

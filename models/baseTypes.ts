@@ -144,22 +144,3 @@ export type MetaType = {
   pages: number;
   pageSize: number;
 };
-
-export type MenuItemType = {
-  id: string;
-  oldId: number;
-  title: string;
-  menuId: string;
-  menuItemType: string;
-  slug: string;
-  link: string;
-  document: DocumentType;
-};
-
-export type MenuType = {
-  id: string;
-  oldId: number;
-  title: string;
-  menuType: string;
-  menuItems: MenuItemType[];
-};

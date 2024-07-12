@@ -1,0 +1,17 @@
+.menu {
+  @apply grid grid-cols-3 bg-white dark:bg-neutral-900 p-4 rounded-[10px];
+  &_big {
+    @apply grid-cols-4;
+  }
+
+  &__item {
+    @apply flex flex-col;
+
+    .title {
+      @apply  text-xl;
+    }
+  }
+}
+.link {
+  @apply text-black dark:text-white hover:text-neutral-500 hover:underline;
+}

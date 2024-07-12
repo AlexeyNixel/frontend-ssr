@@ -42,10 +42,7 @@ const socialsLinks = [
         v-for="(item, index) in contactInfo"
         :key="index"
       >
-        <Icon
-          class="contact-info__icon"
-          :name="item.icon"
-        />
+        <Icon class="contact-info__icon" :name="item.icon" />
         <div class="contact-info__title">{{ item.title }}</div>
       </div>
     </div>
