@@ -1,3 +1,5 @@
+import type { ImageType } from '~/shared/types/base';
+
 export interface CollectionModel {
   id: string;
   name: string;
@@ -5,6 +7,7 @@ export interface CollectionModel {
   isDeleted: boolean;
   fileId: string;
   createdAt: string;
+  preview: ImageType;
 }
 
 export interface CollectionParams {

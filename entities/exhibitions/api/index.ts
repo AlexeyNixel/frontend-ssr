@@ -1,6 +1,6 @@
-import { type ParamsType } from '~/models/baseTypes';
-import { axiosApi } from '~/api/axios';
+import { baseApi } from '~/shared/api';
+import type { ParamsType } from '~/shared/types/base';
 
 export const findExhibitions = async (params?: ParamsType) => {
-  return await axiosApi.get('/api/file/', { params });
+  return await baseApi.get('/api/file/', { params });
 };

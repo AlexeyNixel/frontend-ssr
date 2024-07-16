@@ -1,6 +1,6 @@
-import { axiosApi } from '~/api/axios';
-import type { ParamsType } from '~/models/baseTypes';
+import { baseApi } from '~/shared/api';
+import type { ParamsType } from '~/shared/types/base';
 
 export const findDepartments = async (params?: ParamsType) => {
-  return (await axiosApi.get('/api/department/', { params })).data;
+  return (await baseApi.get('/api/department/', { params })).data;
 };

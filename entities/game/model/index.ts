@@ -1,13 +1,12 @@
 import { findGame, findGames, findGamesRandom, findGenres } from '../api';
 import { type GameType, type GenresType } from '~/entities/game';
 import { defineStore } from 'pinia';
-import type { ParamsType } from '~/models/baseTypes';
+import { type ParamsType } from '~/shared/types/base';
 
 export const useGameStore = defineStore('games', () => {
   const games = ref<GameType[]>([]);
   const game = ref<GameType>();
   const genres = ref<GenresType[]>();
-  const metaGames = ref<Meta>();
 
   const getGames = async (params?: ParamsType) => {
     return await findGames(params);
@@ -31,7 +30,6 @@ export const useGameStore = defineStore('games', () => {
     genres,
     games,
     game,
-    metaGames,
     getGames,
     getGamesRandom,
     getGame,

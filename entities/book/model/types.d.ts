@@ -1,4 +1,4 @@
-import type { MetaType, PreviewType } from '~/models/common';
+import type { ImageType, MetaType } from '~/shared/types/base';
 
 export interface BookModel {
   id: string;
@@ -11,12 +11,12 @@ export interface BookModel {
   isDeleted: boolean;
   link: string;
   oldId: number;
-  preview: PreviewType;
+  preview: ImageType;
   storagePlace: string;
   title: string;
 }
 
 export interface BookResponseModel {
-  data: BookModel;
+  data: BookModel[];
   meta: MetaType;
 }

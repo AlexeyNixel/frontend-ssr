@@ -11,6 +11,7 @@ import GamesList from '~/widgets/games-list/ui/GamesList.vue';
 import CalendarEvent from '~/widgets/calendar-event/ui/CalendarEvent.vue';
 import CalendarEventMobile from '~/widgets/calendar-event/ui/CalendarEventMobile.vue';
 import NavigationMenu from '~/widgets/navigation-menu/ui/NavigationMenu.vue';
+import Bookshelf from '~/widgets/bookshelf/ui/Bookshelf.vue';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
@@ -60,7 +61,7 @@ useAsyncData(async () => {
   <client-only v-else><CalendarEventMobile /></client-only>
   <entries-list />
   <DepartmentsList />
-  <ReaderZone />
+  <Bookshelf />
   <client-only><TheGos /></client-only>
   <GamesList />
   <ExhibitionsList />

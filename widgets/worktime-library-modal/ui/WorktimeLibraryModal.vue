@@ -1,13 +1,7 @@
-<script setup lang="ts">
-import { useGeneralStore } from '~/stores/generalStore';
-import { storeToRefs } from 'pinia';
-
-const generalStore = useGeneralStore();
-const { isWorkTime } = storeToRefs(generalStore);
-</script>
+<script setup lang="ts"></script>
 
 <template>
-  <UModal v-model="isWorkTime">
+  <UModal>
     <div class="p-4">
       <div class="text-xl">Время работы библиотеки</div>
       <p class="my-3">

@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import TheHeader from '~/components/TheHeader.vue';
-import WorktimeLibrary from '~/components/modals/WorktimeLibrary.vue';
 import { useGeneralStore } from '~/stores/generalStore';
 import { storeToRefs } from 'pinia';
+import Header from '~/widgets/header/ui/Header.vue';
+import Footer from '~/widgets/footer/ui/Footer.vue';
 
 const generalStore = useGeneralStore();
 const { token } = storeToRefs(generalStore);
@@ -13,13 +13,12 @@ if (process.client) {
 
 <template>
   <div class="default-layout">
-    <TheHeader />
+    <Header />
     <div class="content">
       <slot />
     </div>
-    <TheFooter class="footer" />
+    <Footer />
   </div>
-  <worktime-library />
 </template>
 
 <style scoped lang="scss">

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { BillboardType } from '~/models/baseTypes';
 import Calendar from '~/widgets/calendar/ui/Calendar.vue';
 import EventsList from '~/entities/billboard/ui/EventsList.vue';
+import type { BillboardType } from '~/entities/billboard';
 
 const events = ref<BillboardType[]>([]);
 const isLoading = ref(true);

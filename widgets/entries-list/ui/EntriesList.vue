@@ -6,7 +6,6 @@ import {
   useEntryStore,
 } from '~/entities/entry';
 import { storeToRefs } from 'pinia';
-import EntriesListMobile from '~/widgets/entries-list/ui/EntriesListMobile.vue';
 
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
@@ -74,11 +73,11 @@ useAsyncData(async () => {
       />
     </div>
   </div>
-  <div class="block lg:hidden">
-    <entries-list-mobile v-if="anonsy" :entries="anonsy" />
-    <entries-list-mobile v-if="aktualnoe" :entries="aktualnoe" />
-    <entries-list-mobile v-if="sobytiya" :entries="sobytiya" />
-  </div>
+  <!--  <div class="block lg:hidden">-->
+  <!--    <entries-list-mobile v-if="anonsy" :entries="anonsy" />-->
+  <!--    <entries-list-mobile v-if="aktualnoe" :entries="aktualnoe" />-->
+  <!--    <entries-list-mobile v-if="sobytiya" :entries="sobytiya" />-->
+  <!--  </div>-->
 </template>
 
 <style scoped lang="scss">

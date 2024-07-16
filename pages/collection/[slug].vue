@@ -1,6 +1,8 @@
 <script setup lang="ts">
-import { findBookByCollection, findCollection } from '~/api/collection';
-import Book from '~/components/ui/Book.vue';
+import { useCollectionStore } from '~/entities/collection';
+import { BookCard } from '~/entities/book';
+
+const collectionStore = useCollectionStore();
 
 const route = useRoute();
 
@@ -10,8 +12,8 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 const books = ref<any>();
 const collection = ref<any>();
 
-books.value = await findBookByCollection(slug.value);
-collection.value = await findCollection(slug.value);
+books.value = await collectionStore.getBookByCollection(slug.value);
+collection.value = await collectionStore.getCollection(slug.value);
 </script>
 
 <template>
@@ -21,7 +23,7 @@ collection.value = await findCollection(slug.value);
       <div class="header__description">{{ collection.description }}</div>
     </header>
     <div class="body">
-      <Book v-for="book in books" :key="book.id" :book="book" />
+      <BookCard v-for="book in books" :key="book.id" :book="book" />
     </div>
   </div>
 </template>

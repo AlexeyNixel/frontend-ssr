@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { findExhibitions } from '../api';
-import type { ParamsType } from '~/models/baseTypes';
+import { type ParamsType } from '~/shared/types/base';
 
 export const useExhibitionStore = defineStore('exhibition', () => {
   const files = ref();

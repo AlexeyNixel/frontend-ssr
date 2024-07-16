@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { BookModel } from '~/models/book-model';
-import { ModalsBook } from '#components';
 import { useModal } from '#ui/composables/useModal';
+import { type BookModel } from '~/entities/book';
+import BookModal from '~/entities/book/ui/BookModal.vue';
 
 const props = defineProps<{
   book: BookModel;
@@ -12,7 +12,7 @@ const modal = useModal();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const openModal = () => {
-  modal.open(ModalsBook, { book: props.book });
+  modal.open(BookModal, { book: props.book });
 };
 </script>
 

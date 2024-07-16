@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import { findCollections } from '~/api/collection';
+import {
+  type CollectionModel,
+  useCollectionStore,
+} from '~/entities/collection';
 
-const collections = ref<Array<any>>([]);
+const collectionStore = useCollectionStore();
+const collections = ref<CollectionModel[]>([]);
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const breakpoints = {
@@ -25,9 +29,15 @@ const breakpoints = {
   },
 };
 
-collections.value = await findCollections({
-  include: 'preview',
+onMounted(() => {
+  fetchCollections();
 });
+
+const fetchCollections = async () => {
+  collections.value = await collectionStore.getCollections({
+    include: 'preview',
+  });
+};
 </script>
 
 <template>

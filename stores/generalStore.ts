@@ -1,4 +1,3 @@
-import { findNotification } from './../api/notification';
 import { defineStore } from 'pinia';
 
 export const useGeneralStore = defineStore('general', () => {
@@ -11,12 +10,7 @@ export const useGeneralStore = defineStore('general', () => {
 
   if (process.client) screenWidth.value = window.innerWidth;
 
-  const getNotification = async () => {
-    return await findNotification();
-  };
-
   return {
-    getNotification,
     isWorkTime,
     isMap,
     token,

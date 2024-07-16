@@ -1,0 +1,18 @@
+.menu {
+  @apply grid grid-cols-3 bg-white dark:bg-neutral-900 p-4 rounded-[10px];
+}
+.menu_big {
+  @apply grid-cols-4;
+}
+.menu__item {
+  @apply flex flex-col;
+}
+.menu__item .title {
+  @apply text-xl;
+}
+
+.link {
+  @apply text-black dark:text-white hover:text-neutral-500 hover:underline;
+}
+
+/*# sourceMappingURL=styles.module.css.map */

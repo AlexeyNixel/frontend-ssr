@@ -36,7 +36,7 @@ await gameStore.getGamesRandom();
       <nuxt-link to="/game" class="link">Полный каталог игр</nuxt-link>
     </div>
     <Swiper
-      :spaceBetween="5"
+      :spaceBetween="15"
       :pagination="true"
       :modules="[SwiperPagination]"
       trigger="click"
@@ -64,7 +64,7 @@ await gameStore.getGamesRandom();
 
   .slider {
     &__item {
-      @apply flex justify-between rounded-[10px] w-full;
+      @apply rounded-[10px] w-full;
 
       .game-card {
         @apply rounded-[10px];

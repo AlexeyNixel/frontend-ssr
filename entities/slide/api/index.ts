@@ -1,6 +1,6 @@
-import { axiosApi } from '~/api/axios';
+import { baseApi } from '~/shared/api';
 
 export const findSlider = async (params?: object) => {
-  const { data } = await axiosApi.get('/api/main-slider/', { params });
+  const { data } = await baseApi.get('/api/main-slider/', { params });
   return data;
 };

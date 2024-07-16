@@ -1,5 +1,5 @@
-import type { DepartmentType } from '~/models/department-model';
-import type { MetaType, PreviewType } from '~/models/common';
+import type { DepartmentType } from '~/entities/department';
+import type { ImageType, MetaType } from '~/shared/types/base';
 
 export interface EntryType {
   id: string;
@@ -16,7 +16,7 @@ export interface EntryType {
   departmentId: string;
   pinned: boolean;
   department: DepartmentType;
-  preview: PreviewType;
+  preview: ImageType;
 }
 
 export type EntryResponseType = {

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useMenuStore } from '@/stores/menuStore';
 import { useRoute } from 'vue-router';
-
-import type { MenuType } from '~/models/baseTypes';
+import { type MenuType, useNavigationStore } from '~/entities/navigation';
 
 const route = useRoute();
-const menuStore = useMenuStore();
+const menuStore = useNavigationStore();
 const menus = ref<MenuType[]>();
 
 menus.value = await menuStore.getMenus({

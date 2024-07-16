@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import TheBase from '~/components/TheBase.vue';
 import { type EntryType } from '~/entities/entry';
+import TheBase from 'public/TheBase.vue';
 
 const props = defineProps<{
   entry: EntryType;

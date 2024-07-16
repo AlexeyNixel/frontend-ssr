@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { GameType } from '~/models/baseTypes';
+import { type GameType } from '~/entities/game';
 
 interface Props {
   game: GameType;
@@ -48,7 +48,7 @@ defineProps<Props>();
 
 <style lang="scss" scoped>
 .game-card {
-  @apply h-max p-3;
+  @apply h-max;
   &__preview {
     img {
       @apply h-[300px] w-full object-cover;

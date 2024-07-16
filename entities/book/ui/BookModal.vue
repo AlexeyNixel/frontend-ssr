@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import type { Book } from '~/models/baseTypes';
 import { useModal } from '#ui/composables/useModal';
+import type { BookModel } from '~/entities/book';
 
 interface Props {
-  book?: Book;
+  book?: BookModel;
 }
 
 const modal = useModal();

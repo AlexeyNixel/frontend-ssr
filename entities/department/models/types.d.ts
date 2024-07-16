@@ -1,4 +1,4 @@
-import { MetaType, PreviewType } from '~/models/common';
+import type { ImageType, MetaType } from '~/shared/types/base';
 
 export interface DepartmentType {
   id: string;
@@ -8,7 +8,7 @@ export interface DepartmentType {
   slug: string;
   isDeleted: boolean;
   entries: string;
-  preview: PreviewType;
+  preview: ImageType;
 }
 
 export type DepartmentResponseType = {

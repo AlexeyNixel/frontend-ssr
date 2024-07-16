@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { useBookStore } from '~/stores/bookStore';
 import { Navigation } from 'swiper/modules';
-import type { BookModel } from '~/models/book-model';
-import Book from '~/components/ui/Book.vue';
+import {
+  BookCard,
+  type BookResponseModel,
+  useBookStore,
+} from '~/entities/book';
 
 interface Props {
   isVideo: boolean;
 }
 
 const props = defineProps<Props>();
+const bookStore = useBookStore();
+const books = ref<BookResponseModel>();
+const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const breakpoints = {
   1280: {
@@ -31,19 +36,18 @@ const breakpoints = {
   },
 };
 
-const bookStore = useBookStore();
-const { isDesktop } = useDevice();
-const books = ref<BookModel[]>();
-const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
-
-const { data } = await bookStore.getAll({
-  pageSize: 15,
-  orderBy: '-createdAt',
-  include: 'preview',
-  isVideo: props.isVideo ? true : undefined,
+onMounted(() => {
+  fetchBook();
 });
 
-books.value = data;
+const fetchBook = async () => {
+  books.value = await bookStore.getAll({
+    pageSize: 15,
+    orderBy: '-createdAt',
+    include: 'preview',
+    isVideo: props.isVideo ? true : undefined,
+  });
+};
 </script>
 
 <template>
@@ -57,8 +61,12 @@ books.value = data;
       :breakpoints="breakpoints"
       class="slider books__slider"
     >
-      <SwiperSlide v-for="item in books" :key="item.id" class="slider__item">
-        <Book :book="item" />
+      <SwiperSlide
+        v-for="item in books.data"
+        :key="item.id"
+        class="slider__item"
+      >
+        <BookCard :book="item" />
       </SwiperSlide>
     </Swiper>
   </div>

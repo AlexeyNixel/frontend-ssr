@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import dayjs from 'dayjs';
 import { type EntryType } from '~/entities/entry';
+import TheBase from 'public/TheBase.vue';
 
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
@@ -25,8 +26,9 @@ const notFoundImage = (e: any) => {
           class="image image-placeholder f-full"
           :onerror="notFoundImage"
           :src="staticUrl + entry.preview?.path"
+          alt=""
         />
-        <TheBase v-else class="image w-full" />
+        <the-base v-else class="image w-full" />
       </div>
       <div class="entry-plate__main">
         <div class="title">{{ entry.title }}</div>

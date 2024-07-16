@@ -1,18 +1,11 @@
 <script setup lang="ts">
-import { ModalsLibraryOnMap, ModalsWorktimeLibrary } from '#components';
-import { useModal } from '#ui/composables/useModal';
-import type { Component } from '@nuxt/schema';
+import LibraryOnMapModal from '~/widgets/library-on-map-modal/ui/LibraryOnMapModal.vue';
+import WorktimeLibraryModal from '~/widgets/worktime-library-modal/ui/WorktimeLibraryModal.vue';
 
 const router = useRouter();
 const darkMode = useDark();
 const toggleDark = useToggle(darkMode);
 const modal = useModal();
-
-async function asd() {}
-
-const openModal = (component: Component) => {
-  modal.open(component);
-};
 
 const ui = {
   size: {
@@ -29,7 +22,6 @@ const buttons = [
   {
     icon: 'i-mdi-search',
     event: () => router.push('/entry/search/'),
-    style: '',
     desc: 'Поиск',
   },
   {
@@ -39,41 +31,39 @@ const buttons = [
         external: true,
         open: { target: '_blanks' },
       }),
-    style: null,
     desc: 'Электронный каталог',
   },
   {
     icon: 'i-mdi-map-marker',
-    event: () => openModal(ModalsLibraryOnMap),
-    style: null,
+    event: () => openModal(LibraryOnMapModal),
     desc: 'Мы на карте',
   },
   {
     icon: 'i-mdi-clock',
-    event: () => openModal(ModalsWorktimeLibrary),
-    style: null,
+    event: () => openModal(WorktimeLibraryModal),
     desc: 'Часы работы',
   },
   {
     icon: 'i-mdi-wheelchair',
     event: () => navigateTo('/entry/dostupnaya-sreda-03-32-22-10-22'),
-    style: null,
     desc: 'Доступная среда',
   },
   {
     icon: 'i-mdi-eye',
     event: () =>
       navigateTo('http://disabled.infomania.ru/', { external: true }),
-    style: null,
     desc: 'Версия для слабовидящих',
   },
   {
     icon: 'i-mdi-academic-cap',
     event: () => navigateTo('/information'),
-    style: null,
     desc: 'Сведения об организации, осуществляющей образовательную деятельность',
   },
 ];
+
+const openModal = (component: any) => {
+  modal.open(component);
+};
 </script>
 
 <template>
@@ -82,17 +72,23 @@ const buttons = [
       <img class="logo" src="/logo.png" alt="НОМБ" />
     </NuxtLink>
     <nav class="navigation">
-      <UTooltip v-for="(item, index) in buttons" :key="index" :text="item.desc">
-        <UButton
-          @click="item.event"
-          variant="link"
-          size="xl"
-          color="blue"
-          :icon="item.icon"
-          :ui="ui"
+      <client-only>
+        <UTooltip
+          v-for="(item, index) in buttons"
+          :key="index"
+          :text="item.desc"
         >
-        </UButton>
-      </UTooltip>
+          <UButton
+            @click="item.event"
+            variant="link"
+            size="xl"
+            color="blue"
+            :ui="ui"
+          >
+            <Icon :name="item.icon"></Icon>
+          </UButton>
+        </UTooltip>
+      </client-only>
       <client-only>
         <UTooltip text="Темная тема">
           <UButton
@@ -101,10 +97,13 @@ const buttons = [
             @click="toggleDark()"
             :ui="ui"
             size="xl"
-            :icon="
-              darkMode ? 'i-mdi-weather-night' : 'i-mdi-white-balance-sunny'
-            "
-          />
+          >
+            <Icon
+              :name="
+                darkMode ? 'i-mdi-weather-night' : 'i-mdi-white-balance-sunny'
+              "
+            ></Icon>
+          </UButton>
         </UTooltip>
       </client-only>
     </nav>

@@ -1,5 +1,5 @@
-import type { ImageType } from '~/models/baseTypes';
 import { type EntryType } from '~/entities/entry';
+import type { ImageType } from '~/shared/types/base';
 
 export interface SliderType {
   id: string;

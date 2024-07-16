@@ -1,17 +1,17 @@
-import type { EntryParams } from '~/entities/entry/api/entry-params';
-import { axiosApi } from '~/api/axios';
+import { type EntryParams } from '~/entities/entry/api/entry-params';
+import { baseApi } from '~/shared/api';
 
 export const fetchEntries = async (params?: EntryParams) => {
-  return await axiosApi.get('/api/entry', { params });
+  return await baseApi.get('/api/entry', { params });
 };
 
 export const fetchEntryById = async (
   id: string,
   params?: EntryParams
 ): Promise<any> => {
-  return await axiosApi.get('/api/entry/' + id, { params });
+  return await baseApi.get('/api/entry/' + id, { params });
 };
 
 export const findEntryPinned = async () => {
-  return await axiosApi.get('/api/entry/' + 'pinned');
+  return await baseApi.get('/api/entry/' + 'pinned');
 };

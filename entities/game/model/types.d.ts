@@ -1,4 +1,4 @@
-import type { MetaType } from '~/models/common';
+import type { MetaType } from '~/shared/types/base';
 
 export interface GameType {
   comment: string;
