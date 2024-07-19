@@ -23,19 +23,6 @@ export default defineNuxtConfig({
     'dayjs-nuxt',
     '@nuxt/ui',
     'nuxt-icon',
-    [
-      '@nuxtjs/google-fonts',
-      {
-        families: {
-          Montserrat: true,
-          Inter: [400],
-          Raleway: {
-            wght: [100, 700],
-            ital: [100],
-          },
-        },
-      },
-    ],
   ],
 
   dayjs: {
@@ -51,7 +38,7 @@ export default defineNuxtConfig({
   ],
 
   tailwindcss: {
-    cssPath: '~/app/styles/main.css',
+    cssPath: '@/assets/styles/main.css',
   },
 
   ui: {

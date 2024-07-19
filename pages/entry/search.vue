@@ -6,7 +6,7 @@ import {
 } from '~/entities/entry';
 
 import { navigateTo } from '#app';
-import TheFilter from '~/components/TheFilter.vue';
+import Filter from '~/widgets/filter/ui/Filter.vue';
 
 const ui = {
   icon: {
@@ -86,7 +86,7 @@ watch(filters, () => {
       v-model="search"
     >
       <template #trailing>
-        <TheFilter v-model="filters" />
+        <Filter v-model="filters" />
       </template>
     </UInput>
     <div class="entry-list">
@@ -94,6 +94,8 @@ watch(filters, () => {
         v-for="entry in entries.data"
         :key="entry.id"
         :entry="entry"
+        date
+        size="full"
       />
     </div>
     <UPagination

@@ -45,24 +45,14 @@ onMounted(() => {
           <div class="bf-83__bottom-wrap">
             <div class="bf-83__btn-wrap">
               <!-- pos-banner-btn_2 не удалять; другие классы не добавлять -->
-              <button
-                class="pos-banner-btn_2"
-                type="button"
-              >
-                Написать
-              </button>
+              <button class="pos-banner-btn_2" type="button">Написать</button>
               <UButton
                 href="https://apps.rustore.ru/app/ru.gosuslugi.pos"
                 target="_blank"
                 class="pos-banner-btn_2 dark:bg-white min-h-[52px] ring-0 mt-2 rounded-[8px]"
-
                 @click="navigateRuStore"
               >
-                <img
-                  class="w-full"
-                  src="/rustore-icon.png"
-                  alt=""
-                />
+                <img class="w-full" src="/rustore-icon.png" alt="" />
               </UButton>
             </div>
           </div>

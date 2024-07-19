@@ -8,8 +8,6 @@ export const useGeneralStore = defineStore('general', () => {
   const device = ref<string>('mobile' || 'desktop');
   const screenWidth = ref<number>();
 
-  if (process.client) screenWidth.value = window.innerWidth;
-
   return {
     isWorkTime,
     isMap,

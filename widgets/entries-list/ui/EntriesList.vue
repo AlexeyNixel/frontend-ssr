@@ -2,6 +2,7 @@
 import {
   EntryCard,
   EntryCarousel,
+  EntryPlate,
   type EntryResponseType,
   useEntryStore,
 } from '~/entities/entry';
@@ -15,23 +16,19 @@ const entries = ref<EntryResponseType>();
 const { entryPinned } = storeToRefs(entryStore);
 const { anonsy, aktualnoe, sobytiya } = storeToRefs(entryStore);
 
-useAsyncData(async () => {
+onMounted(async () => {
   await entryStore.getEntryPinned();
 });
 </script>
 
 <template>
-  <div class="news">
-    <div class="news__item">
-      <nuxt-link
-        class="pinned-entry"
-        v-if="entryPinned"
-        :to="`/entry/${entryPinned.slug}`"
-      >
+  <div class="entries-wrapper">
+    <div class="entries-wrapper__item">
+      <div class="pinned-entry" v-if="entryPinned">
         <img
-          class="pinned-entry__img"
-          :src="staticUrl + entryPinned.preview.path"
-          alt=""
+          :src="entryPinned.preview.path"
+          :alt="entryPinned.title"
+          class="pinned-entry__preview"
         />
         <div class="pinned-entry__content">
           <div class="title">{{ entryPinned.title }}</div>
@@ -43,27 +40,23 @@ useAsyncData(async () => {
             }}
           </div>
         </div>
-      </nuxt-link>
-      <div class="list h-1/2">
-        <div class="entry-list" v-if="anonsy">
-          <template v-for="(item, index) in anonsy.data" :key="item.id">
-            <EntryCard v-if="index < 4" :entry="item" class="w-full h-full" />
-          </template>
-        </div>
-        <nuxt-link
-          :to="{ path: '/entry/search', query: { rubric: 'anonsy' } }"
-          class="flex justify-end mr-4 text-black dark:text-white hover:underline"
+      </div>
+      <div class="entry-list" v-if="anonsy">
+        <div
+          class="entry-list__item"
+          v-for="(item, index) in anonsy.data"
+          :key="item.id"
         >
-          Больше анонсов
-        </nuxt-link>
+          <entry-card v-if="index < 4" :entry="item" />
+        </div>
       </div>
     </div>
-    <div class="news__item_aside news__item">
+    <div class="entries-wrapper__item entries-wrapper__item_aside">
       <EntryCarousel
         v-if="sobytiya"
         :entries="sobytiya"
         rubric="sobytiya"
-        class="h-1/2"
+        class="entry-carousel"
       />
       <EntryCarousel
         v-if="aktualnoe"
@@ -73,43 +66,54 @@ useAsyncData(async () => {
       />
     </div>
   </div>
-  <!--  <div class="block lg:hidden">-->
-  <!--    <entries-list-mobile v-if="anonsy" :entries="anonsy" />-->
-  <!--    <entries-list-mobile v-if="aktualnoe" :entries="aktualnoe" />-->
-  <!--    <entries-list-mobile v-if="sobytiya" :entries="sobytiya" />-->
-  <!--  </div>-->
+  <div class="entry-list entry-list_mobile" v-if="anonsy">
+    <div
+      class="entry-list__item entry-list__item_mobile"
+      v-for="(item, index) in anonsy.data"
+      :key="item.id"
+    >
+      <entry-plate :size="'compact'" v-if="index < 4" :entry="item" />
+    </div>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.news {
-  @apply flex;
+.entries-wrapper {
+  @apply flex my-4;
 
   &__item {
-    @apply hidden  h-[700px]  lg:block bg-white dark:bg-neutral-900 rounded-[10px] w-8/12 p-4;
+    @apply bg-white dark:bg-neutral-900 w-8/12 p-4 rounded-[10px];
 
     &_aside {
-      @apply w-4/12 ml-4;
+      @apply w-4/12 ml-4 flex flex-col mx-auto;
     }
   }
 }
 
 .pinned-entry {
-  @apply flex h-1/2 text-black dark:text-white hover:text-blue-500 hover:dark:text-blue-500 transition;
+  @apply flex flex-col lg:flex-row h-[320px];
 
-  &__img {
-    @apply rounded-l-[10px] h-max w-2/6 lg:w-1/2;
+  &__preview {
+    @apply rounded-[10px] lg:rounded-r-[0] lg:w-1/2 h-max;
   }
 
   &__content {
-    @apply ml-4;
-
+    @apply mt-2 ml-2 lg:w-1/2;
     .title {
-      @apply font-bold xl:text-xl text-base;
+      @apply xl:text-xl font-bold;
     }
   }
 }
 
+.entry-carousel {
+  @apply h-[320px];
+}
+
 .entry-list {
-  @apply flex mt-4;
+  @apply hidden lg:grid lg:grid-cols-4 mt-4;
+
+  &_mobile {
+    @apply grid grid-cols-2 gap-4 my-4 lg:hidden;
+  }
 }
 </style>

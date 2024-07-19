@@ -1,18 +1,17 @@
 <script setup lang="ts">
-import { Calendar } from 'v-calendar';
+import { useBillboardStore } from '~/entities/billboard';
 import dayjs from 'dayjs';
-import { type BillboardType, useBillboardStore } from '~/entities/billboard';
-
-const props = defineProps(['modelValue']);
-const emits = defineEmits(['update:modelValue']);
 
 const billboardStore = useBillboardStore();
+const eventsOnCalendar = ref<any>([]);
 
-const events = ref<BillboardType[]>();
-const currentEvents = ref<BillboardType[]>();
-const currentMonth = ref<number>(Number(dayjs(new Date()).format('M')));
-const eventsOnCalendar = computed(() => {
-  let tempEvents: any = [
+onMounted(() => {
+  fetchEventsCurrentMonth(dayjs(new Date()).format());
+  fetchEventByDay();
+});
+
+const generateEventsCalendar = (month: number) => {
+  eventsOnCalendar.value = [
     {
       key: 'off',
       highlight: {
@@ -20,7 +19,7 @@ const eventsOnCalendar = computed(() => {
       },
       dates: {
         repeat: {
-          weekdays: 6 <= currentMonth.value && currentMonth.value < 9 ? 1 : 2,
+          weekdays: 6 <= month && month < 9 ? 1 : 2,
         },
       },
       popover: {
@@ -28,9 +27,10 @@ const eventsOnCalendar = computed(() => {
       },
     },
   ];
-  if (events.value?.length! > 0) {
-    events.value?.forEach((item) => {
-      tempEvents.push({
+
+  if (billboardStore.billboards) {
+    billboardStore.billboards.forEach((item) => {
+      eventsOnCalendar.value.push({
         key: item.id,
         highlight: true,
         dates: dayjs(item.eventDate).format('YYYY-MM-DD'),
@@ -40,58 +40,54 @@ const eventsOnCalendar = computed(() => {
       });
     });
   }
-  return tempEvents;
-});
+};
 
-const fetchEventsByMonth = async (month: string) => {
-  const startDay = dayjs(month).startOf('month').format();
-  const endDay = dayjs(month).endOf('month').format();
-  events.value = await billboardStore.getBillboards({
+const handleSwapMonth = (val: any) => {
+  const date = val[0].id;
+  fetchEventsCurrentMonth(date);
+};
+
+const fetchEventsCurrentMonth = async (date: string) => {
+  const startDay = dayjs(date).startOf('month').format();
+  const endDay = dayjs(date).endOf('month').format();
+
+  await billboardStore.getBillboards({
     fromDate: startDay,
     toDate: endDay,
     pageSize: 100,
   });
+
+  generateEventsCalendar(+dayjs(date).format('M'));
 };
 
-const fetchEventByDay = async (day?: any) => {
-  const currentDate = day ? day.date : new Date();
-
-  currentEvents.value = await billboardStore.getBillboards({
-    fromDate: dayjs(currentDate).format('YYYY-MM-DD') + 'T00:00:00.000Z',
-    toDate: dayjs(currentDate).format('YYYY-MM-DD') + 'T00:00:00.000Z',
-    orderBy: 'eventTime',
-  });
-
-  emits('update:modelValue', currentEvents.value);
+const fetchEventByDay = async (val?: any) => {
+  const day = dayjs(val ? val.id : new Date()).format('YYYY-MM-DD');
+  await billboardStore.getBillboardByDay(day);
 };
-
-const handleSwapMonth = async (value: any) => {
-  currentMonth.value = value[0].month;
-  const date = value[0].id;
-  await fetchEventsByMonth(date);
-};
-
-await fetchEventsByMonth(dayjs(new Date()).format());
-await fetchEventByDay();
 </script>
 
 <template>
-  <div>
-    <client-only>
-      <Calendar
-        :attributes="eventsOnCalendar"
-        @did-move="handleSwapMonth"
-        @dayclick="fetchEventByDay"
+  <client-only>
+    <div>
+      <VCalendar
+        class="calendar"
         :is-dark="{ selector: 'html', darkClass: 'dark' }"
+        :attributes="eventsOnCalendar"
         transparent
         borderless
         expanded
+        @did-move="handleSwapMonth"
+        @dayclick="fetchEventByDay"
       />
-    </client-only>
-  </div>
+    </div>
+  </client-only>
 </template>
 
 <style scoped lang="scss">
+.calendar {
+  @apply w-full;
+}
+
 :deep(.vc-container) {
   --vc-text-sm: 18px;
 }
@@ -104,5 +100,9 @@ await fetchEventByDay();
 
 :deep(.vc-monthly .is-not-in-month *) {
   @apply opacity-[0.2] text-black dark:text-white font-normal;
+}
+
+:deep(.vc-expanded) {
+  @apply min-w-full sm:min-w-[360px];
 }
 </style>

@@ -8,7 +8,7 @@ import type { ParamsType } from '~/shared/types/base';
 
 export const useBillboardStore = defineStore('billboards', () => {
   const billboards = ref<BillboardType[]>();
-
+  const billboard = ref<BillboardType[]>([]);
   const selectedEvents = ref<BillboardType[]>();
   const activeComp = ref<'event' | 'calendar'>('calendar');
 
@@ -18,14 +18,31 @@ export const useBillboardStore = defineStore('billboards', () => {
     return billboards.value;
   };
 
+  const getBillboardByDay = async (day: string, params?: ParamsType) => {
+    // console.log(
+    //   await findBillboards({
+    //     fromDate: day,
+    //     toDate: day,
+    //     ...params,
+    //   })
+    // );
+    billboard.value = await findBillboards({
+      fromDate: day + 'T00:00:00.000Z',
+      toDate: day + 'T00:00:00.000Z',
+      ...params,
+    });
+  };
+
   const getBillboard = async (slug: string) => {
     return await findBillboard(slug);
   };
 
   return {
+    billboard,
     billboards,
     getBillboards,
     getBillboard,
+    getBillboardByDay,
     activeComp,
     selectedEvents,
   };

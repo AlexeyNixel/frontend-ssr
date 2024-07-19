@@ -23,7 +23,7 @@ const sliceString = (str: string) => {
 </script>
 
 <template>
-  <div>
+  <div class="entry">
     <nuxt-link :to="`/entry/${entry.slug}`" class="entry-link">
       <UCard :ui="ui" class="entry-card">
         <template class="border-0" #header>
@@ -44,6 +44,9 @@ const sliceString = (str: string) => {
 </template>
 
 <style scoped lang="scss">
+.entry {
+  @apply max-w-full;
+}
 .entry-link {
   @apply mx-1 flex;
 }
@@ -52,10 +55,10 @@ const sliceString = (str: string) => {
   @apply shadow-none border-0 dark:bg-neutral-900 bg-white p-0 h-full;
 
   &__preview {
-    @apply w-full object-cover h-[152px] rounded-[10px];
+    @apply w-full object-cover h-[130px] md:h-[152px] rounded-t-[10px];
   }
   &__title {
-    @apply text-sm text-black dark:text-white;
+    @apply text-sm text-black  dark:text-white;
   }
 }
 </style>

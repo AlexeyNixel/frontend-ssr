@@ -9,7 +9,7 @@ import { fetchEntries, findEntryPinned } from '~/entities/entry/api';
 
 export const useEntryStore = defineStore('entry', () => {
   const entry = ref<EntryType>();
-  const entryPinned = ref<any>();
+  const entryPinned = ref<EntryType>();
   const anonsy = ref<EntryResponseType>();
   const aktualnoe = ref<EntryResponseType>();
   const sobytiya = ref<EntryResponseType>();

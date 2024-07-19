@@ -8,16 +8,25 @@ import MainSlider from '~/widgets/main-slider/ui/MainSlider.vue';
 import DepartmentsList from '~/widgets/departments-list/ui/DepartmentsList.vue';
 import ExhibitionsList from '~/widgets/exhibitions-list/ui/ExhibitionsList.vue';
 import GamesList from '~/widgets/games-list/ui/GamesList.vue';
-import CalendarEvent from '~/widgets/calendar-event/ui/CalendarEvent.vue';
-import CalendarEventMobile from '~/widgets/calendar-event/ui/CalendarEventMobile.vue';
 import NavigationMenu from '~/widgets/navigation-menu/ui/NavigationMenu.vue';
 import Bookshelf from '~/widgets/bookshelf/ui/Bookshelf.vue';
+import GosServices from '~/widgets/gos-services/ui/GosServices.vue';
+import EntriesListMobile from '~/widgets/entries-list/ui/EntriesListMobile.vue';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
-const { isDesktop } = useDevice();
+const { width } = useWindowSize({
+  initialWidth: 0,
+  initialHeight: 0,
+});
+
+const isMobile = computed(() => {
+  return width.value < 640;
+});
 
 const { anonsy, aktualnoe, sobytiya } = storeToRefs(entryStore);
+
+const isLoading = ref(false);
 
 const params = {
   pageSize: 6,
@@ -26,6 +35,7 @@ const params = {
 };
 
 onMounted(() => {
+  isLoading.value = true;
   generalStore.token = localStorage.getItem('token') as string;
 });
 
@@ -55,14 +65,18 @@ useAsyncData(async () => {
       content="Новосибирская Областная Молодежная библиотека"
     />
   </Head>
+
   <MainSlider />
   <NavigationMenu />
-  <CalendarEvent v-if="isDesktop" />
-  <client-only v-else><CalendarEventMobile /></client-only>
-  <entries-list />
+
+  <!--  <events-calendar v-if="!isMobile" />-->
+  <!--  <events-calendar-mobile v-else />-->
+  <entries-list v-if="!isMobile && !isLoading" />
+  <entries-list-mobile v-else />
+
   <DepartmentsList />
   <Bookshelf />
-  <client-only><TheGos /></client-only>
+  <client-only><GosServices /></client-only>
   <GamesList />
   <ExhibitionsList />
 </template>

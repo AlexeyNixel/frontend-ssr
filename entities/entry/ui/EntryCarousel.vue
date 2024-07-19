@@ -5,7 +5,8 @@ import EntryCard from '~/entities/entry/ui/EntryCard.vue';
 
 interface Props {
   entries: EntryResponseType;
-  rubric: string;
+  rubric?: string;
+  mobile?: boolean;
 }
 
 const props = defineProps<Props>();
@@ -28,6 +29,22 @@ const breakpoints = {
     slidesPerView: 1,
   },
 };
+
+const breakpointsMobile = {
+  768: {
+    slidesPerView: 3,
+  },
+  640: {
+    slidesPerView: 3,
+  },
+
+  540: {
+    slidesPerView: 3,
+  },
+  420: {
+    slidesPerView: 2,
+  },
+};
 </script>
 
 <template>
@@ -38,7 +55,7 @@ const breakpoints = {
       :modules="[Navigation]"
       :navigation="true"
       trigger="click"
-      :breakpoints="breakpoints"
+      :breakpoints="mobile ? breakpointsMobile : breakpoints"
     >
       <SwiperSlide
         class="slider__item"
@@ -49,6 +66,7 @@ const breakpoints = {
       </SwiperSlide>
     </Swiper>
     <Nuxt-link
+      v-if="rubric"
       :to="{ path: '/entry/search', query: { rubric: rubric } }"
       class="entry-carousel__rubric-link"
     >

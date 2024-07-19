@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
+import type { EntryParams } from '~/entities/entry';
 import dayjs from 'dayjs';
-import { type EntryParams } from '~/entities/entry';
 
-export const useSearchStore = defineStore('search', () => {
+export const useFilterStore = defineStore('filter', () => {
   const route = useRoute();
 
   const orderFilters = ref([
