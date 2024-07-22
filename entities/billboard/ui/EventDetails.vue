@@ -6,22 +6,18 @@ import dayjs from 'dayjs';
 
 const asd = dayjs();
 
-interface Props {
+const props = defineProps<{
   event: BillboardType;
   modelValue: BillboardType;
-}
+}>();
 
-defineProps<Props>();
-
+const generalStore = useGeneralStore();
+const placeName = AffichePlaces;
 const emit = defineEmits(['update:modelValue']);
 
 const handleCloseEvent = () => {
   emit('update:modelValue', undefined);
 };
-
-const generalStore = useGeneralStore();
-
-const placeName = AffichePlaces;
 </script>
 
 <template>
@@ -37,7 +33,9 @@ const placeName = AffichePlaces;
       <div class="aside__item">{{ event.eventTime.slice(11, 16) }}</div>
     </div>
     <div class="main">
-      <div class="title" v-html="event.title"></div>
+      <div class="header">
+        <div class="title" v-html="event.title"></div>
+      </div>
       <div class="desc" v-html="event.desc" />
       <div class="info">
         <div class="info__item">{{ event.phone }}</div>
@@ -65,9 +63,13 @@ const placeName = AffichePlaces;
   .main {
     @apply w-full lg:w-11/12 pr-3 h-[300px] overflow-y-scroll;
 
-    .title {
-      @apply lg:text-2xl my-2;
+    .header {
+      @apply flex justify-between;
+      .title {
+        @apply lg:text-2xl my-2;
+      }
     }
+
     .info {
       @apply flex flex-col;
       &__item {

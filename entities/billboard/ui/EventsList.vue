@@ -26,6 +26,10 @@ watch(billboard, () => {
 const handleGetEvent = async (slug: any) => {
   if (slug) event.value = slug;
 };
+
+const closeWindow = () => {
+  billboard.value = [];
+};
 </script>
 
 <template>
@@ -90,7 +94,7 @@ const handleGetEvent = async (slug: any) => {
 }
 
 .empty-day {
-  @apply flex flex-col justify-center items-center w-full h-full;
+  @apply flex-col justify-center items-center w-full h-full hidden sm:flex;
 
   &__image {
     @apply w-6/12 md:w-5/12 lg:w-4/12 xl:w-3/12;
