@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type EntryType } from '~/entities/entry';
 import TheBase from 'public/TheBase.vue';
+import dayjs from 'dayjs';
 
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
@@ -9,9 +10,10 @@ interface Props {
   isDate?: boolean;
   size: 'full' | 'compact';
   date?: boolean;
+  mobile?: boolean;
 }
 
-defineProps<Props>();
+const props = defineProps<Props>();
 
 const notFoundImage = (e: any) => {
   e.target.src = 'https://cdn1.flamp.ru/b1aea1d7e4be8c57b1e414678d5756f0.png';
@@ -33,7 +35,7 @@ const notFoundImage = (e: any) => {
       </div>
       <div class="entry-plate__main">
         <div class="title">{{ entry.title }}</div>
-        <div class="description" v-html="entry.desc" />
+        <div class="description" v-if="!mobile" v-html="entry.desc" />
         <div class="date" v-if="date">
           {{ dayjs(entry.publishedAt).format('DD.MM.YYYY') }}
         </div>
@@ -66,10 +68,10 @@ const notFoundImage = (e: any) => {
   &__main {
     @apply flex flex-col w-8/12 lg:w-4/5 ml-4;
     .title {
-      @apply text-sm lg:font-bold lg:text-xl lg:mb-2;
+      @apply text-sm  font-bold lg:text-xl lg:mb-2;
     }
     .description {
-      @apply hidden lg:block;
+      @apply text-sm;
     }
     .date {
       @apply self-end mt-4;

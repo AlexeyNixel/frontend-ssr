@@ -27,7 +27,7 @@ const closeWindow = () => {
           variant="link"
           @click="closeWindow"
           color="black"
-          class="header__close"
+          class="close-btn"
           v-if="billboard.length > 0"
         >
           <Icon class="text-3xl" name="pajamas:close" />
@@ -51,6 +51,10 @@ const closeWindow = () => {
   @apply bg-white dark:bg-neutral-900 rounded-[10px] my-4 p-4;
   &__header {
     @apply flex items-center justify-between text-xl font-bold;
+
+    .close-btn {
+      @apply block sm:hidden;
+    }
   }
   &__body {
     @apply relative sm:static flex;

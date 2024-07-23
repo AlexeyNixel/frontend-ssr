@@ -2,7 +2,6 @@
 import {
   EntryCard,
   EntryCarousel,
-  EntryPlate,
   type EntryResponseType,
   useEntryStore,
 } from '~/entities/entry';
@@ -23,7 +22,7 @@ onMounted(async () => {
 
 <template>
   <div class="entries-wrapper">
-    <div class="entries-wrapper__item">
+    <div class="entries-wrapper__item entries-wrapper__item_main">
       <div class="pinned-entry" v-if="entryPinned">
         <img
           :src="entryPinned.preview.path"
@@ -53,6 +52,12 @@ onMounted(async () => {
     </div>
     <div class="entries-wrapper__item entries-wrapper__item_aside">
       <EntryCarousel
+        v-if="aktualnoe"
+        :entries="anonsy"
+        rubric="aktualnoe"
+        class="entry-carousel entry-carousel_mobile"
+      />
+      <EntryCarousel
         v-if="sobytiya"
         :entries="sobytiya"
         rubric="sobytiya"
@@ -62,30 +67,34 @@ onMounted(async () => {
         v-if="aktualnoe"
         :entries="aktualnoe"
         rubric="aktualnoe"
-        class="h-1/2 mt-4"
+        class="entry-carousel"
       />
     </div>
   </div>
-  <div class="entry-list entry-list_mobile" v-if="anonsy">
-    <div
-      class="entry-list__item entry-list__item_mobile"
-      v-for="(item, index) in anonsy.data"
-      :key="item.id"
-    >
-      <entry-plate :size="'compact'" v-if="index < 4" :entry="item" />
-    </div>
-  </div>
+  <!--  <div class="entry-list entry-list_mobile" v-if="anonsy">-->
+  <!--    <div-->
+  <!--      class="entry-list__item entry-list__item_mobile"-->
+  <!--      v-for="(item, index) in anonsy.data"-->
+  <!--      :key="item.id"-->
+  <!--    >-->
+  <!--      <entry-plate mobile size="compact" v-if="index < 4" :entry="item" />-->
+  <!--    </div>-->
+  <!--  </div>-->
 </template>
 
 <style scoped lang="scss">
 .entries-wrapper {
-  @apply flex my-4;
+  @apply flex my-4 justify-center w-full;
 
   &__item {
-    @apply bg-white dark:bg-neutral-900 w-8/12 p-4 rounded-[10px];
+    @apply sm:bg-white sm:dark:bg-neutral-900 w-8/12 sm:p-4 rounded-[10px];
+
+    &_main {
+      @apply hidden sm:flex flex-col;
+    }
 
     &_aside {
-      @apply w-4/12 ml-4 flex flex-col mx-auto;
+      @apply w-full sm:w-4/12 sm:ml-4 flex flex-col mx-auto;
     }
   }
 }
@@ -107,6 +116,10 @@ onMounted(async () => {
 
 .entry-carousel {
   @apply h-[320px];
+
+  &_mobile {
+    @apply block sm:hidden;
+  }
 }
 
 .entry-list {

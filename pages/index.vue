@@ -11,23 +11,10 @@ import NavigationMenu from '~/widgets/navigation-menu/ui/NavigationMenu.vue';
 import Bookshelf from '~/widgets/bookshelf/ui/Bookshelf.vue';
 import GosServices from '~/widgets/gos-services/ui/GosServices.vue';
 import EventsCalendar from '~/widgets/events-calendar/ui/EventsCalendar.vue';
-
-const initWidth = ref();
-
-if (process.client) {
-  initWidth.value = window.innerWidth;
-}
+import EntriesList from '~/widgets/entries-list/ui/EntriesList.vue';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
-const { width } = useWindowSize({
-  initialWidth: initWidth.value,
-  initialHeight: 0,
-});
-
-const isMobile = computed(() => {
-  return width.value < 640;
-});
 
 const { anonsy, aktualnoe, sobytiya } = storeToRefs(entryStore);
 
@@ -73,15 +60,7 @@ useAsyncData(async () => {
   <MainSlider />
   <NavigationMenu />
   <events-calendar />
-  <!--  <USkeleton class="h-[378px]" v-if="!isLoading" />-->
-  <!--  <client-only v-else>-->
-  <!--    -->
-  <!--    <events-calendar-mobile v-else />-->
-  <!--  </client-only>-->
-
-  <!--    <entries-list v-if="!isMobile" />-->
-  <!--    <entries-list-mobile v-else />-->
-
+  <entries-list />
   <DepartmentsList />
   <Bookshelf />
   <client-only><GosServices /></client-only>

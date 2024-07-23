@@ -45,7 +45,7 @@ const sliceString = (str: string) => {
 
 <style scoped lang="scss">
 .entry {
-  @apply max-w-full;
+  //@apply max-w-full;
 }
 .entry-link {
   @apply mx-1 flex;
@@ -58,7 +58,7 @@ const sliceString = (str: string) => {
     @apply w-full object-cover h-[130px] md:h-[152px] rounded-t-[10px];
   }
   &__title {
-    @apply text-sm text-black  dark:text-white;
+    @apply h-[110px] sm:h-full text-sm text-black  dark:text-white;
   }
 }
 </style>

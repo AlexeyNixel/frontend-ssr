@@ -22,7 +22,7 @@ menus.value?.sort((a, b) => (a.oldId < b.oldId ? -1 : 1));
           v-for="link in menu.menuItems"
           :key="link.id"
           :to="link.link ? link.link : '/document/' + link.slug"
-          :external="link.link"
+          :external="!!link.link"
         >
           {{ link.title }}
         </nuxt-link>

@@ -22,27 +22,19 @@ const breakpoints = {
   1024: {
     slidesPerView: 1.5,
   },
-  768: {
-    slidesPerView: 1,
-  },
-  640: {
-    slidesPerView: 1,
-  },
-};
 
-const breakpointsMobile = {
-  768: {
-    slidesPerView: 3,
-  },
-  640: {
-    slidesPerView: 3,
+  641: {
+    slidesPerView: 1,
   },
 
   540: {
     slidesPerView: 3,
   },
-  420: {
+  440: {
     slidesPerView: 2,
+  },
+  396: {
+    slidesPerView: 1.5,
   },
 };
 </script>
@@ -55,7 +47,7 @@ const breakpointsMobile = {
       :modules="[Navigation]"
       :navigation="true"
       trigger="click"
-      :breakpoints="mobile ? breakpointsMobile : breakpoints"
+      :breakpoints="breakpoints"
     >
       <SwiperSlide
         class="slider__item"
@@ -78,7 +70,7 @@ const breakpointsMobile = {
 <style scoped lang="scss">
 .entry-carousel {
   &__rubric-link {
-    @apply flex justify-end mr-4 text-black dark:text-white hover:underline;
+    @apply hidden sm:flex justify-end mr-4 text-black dark:text-white hover:underline;
   }
 }
 
@@ -86,7 +78,7 @@ const breakpointsMobile = {
   @apply flex h-[280px];
 
   &__item {
-    @apply rounded-[10px] flex h-full;
+    @apply rounded-[10px] flex h-full justify-center;
   }
 }
 </style>
