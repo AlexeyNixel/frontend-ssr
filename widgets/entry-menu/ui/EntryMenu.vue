@@ -23,7 +23,11 @@ onMounted(async () => {
 <template>
   <div class="entries-wrapper">
     <div class="entries-wrapper__item entries-wrapper__item_main">
-      <div class="pinned-entry" v-if="entryPinned">
+      <NuxtLink
+        :to="'/entry/' + entryPinned.slug"
+        class="pinned-entry"
+        v-if="entryPinned"
+      >
         <img
           :src="entryPinned.preview.path"
           :alt="entryPinned.title"
@@ -39,7 +43,7 @@ onMounted(async () => {
             }}
           </div>
         </div>
-      </div>
+      </NuxtLink>
       <div class="entry-list" v-if="anonsy">
         <div
           class="entry-list__item"
@@ -71,15 +75,6 @@ onMounted(async () => {
       />
     </div>
   </div>
-  <!--  <div class="entry-list entry-list_mobile" v-if="anonsy">-->
-  <!--    <div-->
-  <!--      class="entry-list__item entry-list__item_mobile"-->
-  <!--      v-for="(item, index) in anonsy.data"-->
-  <!--      :key="item.id"-->
-  <!--    >-->
-  <!--      <entry-plate mobile size="compact" v-if="index < 4" :entry="item" />-->
-  <!--    </div>-->
-  <!--  </div>-->
 </template>
 
 <style scoped lang="scss">
@@ -100,7 +95,7 @@ onMounted(async () => {
 }
 
 .pinned-entry {
-  @apply flex flex-col lg:flex-row h-[320px];
+  @apply flex flex-col lg:flex-row h-[320px] text-black dark:text-white hover:text-blue-500 hover:dark:text-blue-500;
 
   &__preview {
     @apply rounded-[10px] lg:rounded-r-[0] lg:w-1/2 h-max;

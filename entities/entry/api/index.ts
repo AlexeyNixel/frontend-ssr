@@ -1,8 +1,10 @@
 import { type EntryParams } from '~/entities/entry/api/entry-params';
 import { baseApi } from '~/shared/api';
-import type { EntryType } from '~/entities/entry';
+import type { EntryResponseType, EntryType } from '~/entities/entry';
 
-export const fetchEntries = async (params?: EntryParams) => {
+export const fetchEntries = async (
+  params?: EntryParams
+): Promise<EntryResponseType> => {
   return await baseApi.get('/api/entry', { params });
 };
 

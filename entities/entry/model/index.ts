@@ -9,13 +9,22 @@ import { fetchEntries, findEntryPinned } from '~/entities/entry/api';
 
 export const useEntryStore = defineStore('entry', () => {
   const entry = ref<EntryType>();
+  const entries = ref<EntryResponseType>();
   const entryPinned = ref<EntryType>();
   const anonsy = ref<EntryResponseType>();
   const aktualnoe = ref<EntryResponseType>();
   const sobytiya = ref<EntryResponseType>();
 
   const getEntries = async (params?: EntryParams): Promise<any> => {
-    return await fetchEntries(params);
+    const result = await fetchEntries(params);
+
+    if (result.data.length < 1) {
+      return { error: 'not-found', result: undefined };
+    }
+
+    entries.value = result;
+
+    return { result: entries.value, error: null };
   };
 
   const getEntryById = async (id: string, params?: EntryParams) => {
@@ -33,6 +42,7 @@ export const useEntryStore = defineStore('entry', () => {
 
   return {
     entry,
+    entries,
     anonsy,
     aktualnoe,
     sobytiya,

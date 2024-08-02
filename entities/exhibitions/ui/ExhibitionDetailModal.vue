@@ -2,7 +2,7 @@
 const props = defineProps(['path']);
 
 const ui = {
-  width: 'sm:max-w-[60vw]',
+  width: 'w-[300px] sm:max-w-[60vw]',
   height: 'h-[90vh]',
 };
 </script>
@@ -12,7 +12,7 @@ const ui = {
     <nuxt-link target="_blank" :to="path" class="modal__header">
       Открыть в новой вкладке
     </nuxt-link>
-    <iframe class="modal__content" :src="path" />
+    <iframe class="modal__content" width="600px" height="500px" :src="path" />
   </UModal>
 </template>
 
@@ -25,7 +25,7 @@ const ui = {
   }
 
   &__content {
-    @apply h-full w-full;
+    @apply h-[800px] w-[900px];
   }
 }
 </style>

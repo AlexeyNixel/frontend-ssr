@@ -11,7 +11,7 @@ import NavigationMenu from '~/widgets/navigation-menu/ui/NavigationMenu.vue';
 import Bookshelf from '~/widgets/bookshelf/ui/Bookshelf.vue';
 import GosServices from '~/widgets/gos-services/ui/GosServices.vue';
 import EventsCalendar from '~/widgets/events-calendar/ui/EventsCalendar.vue';
-import EntriesList from '~/widgets/entries-list/ui/EntriesList.vue';
+import EntryMenu from '~/widgets/entry-menu/ui/EntryMenu.vue';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
@@ -32,20 +32,21 @@ onMounted(() => {
 });
 
 useAsyncData(async () => {
-  anonsy.value = await entryStore.getEntries({
+  const { result: anonsy1 } = await entryStore.getEntries({
     rubric: 'anonsy',
     ...params,
   });
-
-  aktualnoe.value = await entryStore.getEntries({
+  anonsy.value = anonsy1;
+  const { result: aktualnoe1 } = await entryStore.getEntries({
     rubric: 'aktualnoe',
     ...params,
   });
-
-  sobytiya.value = await entryStore.getEntries({
+  aktualnoe.value = aktualnoe1;
+  const { result: sobytiya1 } = await entryStore.getEntries({
     rubric: 'sobytiya',
     ...params,
   });
+  sobytiya.value = sobytiya1;
 });
 </script>
 
@@ -60,7 +61,7 @@ useAsyncData(async () => {
   <MainSlider />
   <NavigationMenu />
   <events-calendar />
-  <entries-list />
+  <entry-menu />
   <DepartmentsList />
   <Bookshelf />
   <client-only><GosServices /></client-only>

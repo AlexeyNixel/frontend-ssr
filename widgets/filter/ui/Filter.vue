@@ -12,6 +12,10 @@ interface Props {
   };
 }
 
+const orderBy = defineModel('orderBy');
+const department = defineModel('department');
+const year = defineModel('year');
+
 const props = defineProps<Props>();
 
 const searchStore = useFilterStore();
@@ -33,15 +37,15 @@ await departmentStore.getDepartments();
 <template>
   <UPopover>
     <UButton variant="link">
-      <Icon class="text-xl text-current" name="mdi:filter" />
+      <Icon class="link__icon" name="mdi:filter" />
     </UButton>
     <template #panel>
       <div class="filters">
         <div class="header">
-          <div class="header__title">Фильтры</div>
-          <UButton @click="handleClearFilter" class="header__btn"
-            >очистить</UButton
-          >
+          <div class="header__title">{{ orderBy }}</div>
+          <UButton @click="handleClearFilter" class="header__btn">
+            очистить
+          </UButton>
         </div>
         <div class="body">
           <div class="filter">
@@ -83,6 +87,11 @@ await departmentStore.getDepartments();
 </template>
 
 <style scoped lang="scss">
+.link {
+  &__icon {
+    @apply text-xl text-current text-neutral-400 hover:text-neutral-600 transition;
+  }
+}
 .filters {
   @apply w-96 p-3;
   .header {

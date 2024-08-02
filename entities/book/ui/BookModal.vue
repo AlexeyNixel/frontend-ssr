@@ -5,36 +5,63 @@ import type { BookModel } from '~/entities/book';
 interface Props {
   book?: BookModel;
 }
-
+const ui = {
+  width: 'w-max sm:max-w-[50vw]',
+};
 const modal = useModal();
 const props = defineProps<Props>();
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 </script>
 
 <template>
-  <UModal
-    :ui="{
-      width: 'sm:max-w-[50vw]',
-    }"
-    class="w-[30%] p-4"
-    v-if="book"
-  >
-    <div class="flex self-end items-end">
-      <UButton
-        color="gray"
-        variant="ghost"
-        icon="i-heroicons-x-mark-20-solid"
-        @click="modal.close()"
-      />
-    </div>
-    <div class="flex flex-col md:flex-row p-4">
-      <div class="w-full md:w-1/3">
-        <img class="" :src="staticUrl + book?.preview.path" alt="" />
+  <UModal :ui="ui" class="modal" v-if="book">
+    <div class="book-detail">
+      <div class="header">
+        <UButton
+          color="gray"
+          variant="ghost"
+          icon="i-heroicons-x-mark-20-solid"
+          @click="modal.close()"
+        />
       </div>
-      <div class="md:w-2/3 ml-4">
-        <div class="font-bold mb-2">{{ book.desc }}</div>
-        <div class="my-2 text-justify" v-html="book?.content"></div>
+      <div class="body">
+        <img class="preview" :src="staticUrl + book?.preview.path" alt="" />
+        <div class="content">
+          <div class="content__description">{{ book.desc }}</div>
+          <div class="content__text" v-html="book?.content"></div>
+        </div>
       </div>
     </div>
   </UModal>
 </template>
+
+<style lang="scss" scoped>
+.modal {
+  @apply w-full p-4;
+
+  .book-detail {
+    @apply w-[900px];
+    .header {
+      @apply flex self-end items-end;
+    }
+    .body {
+      @apply flex flex-col md:flex-row p-4;
+
+      .preview {
+        @apply w-full md:w-1/2 h-max;
+      }
+      .content {
+        @apply md:w-2/3 ml-4;
+
+        &__desctiption {
+          @apply font-bold mb-2;
+        }
+
+        &__text {
+          @apply my-2 text-justify;
+        }
+      }
+    }
+  }
+}
+</style>

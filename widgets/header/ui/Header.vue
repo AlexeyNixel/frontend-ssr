@@ -9,12 +9,10 @@ const modal = useModal();
 
 const ui = {
   size: {
-    xl: 'text-4xl',
+    xl: 'text-4xl lg:text-4xl',
   },
-  icon: {
-    size: {
-      xl: 'h-6 w-6 lg:h-8 lg:w-8',
-    },
+  padding: {
+    xl: 'p-1: lg:p-4',
   },
 };
 
@@ -102,7 +100,7 @@ const openModal = (component: any) => {
               :name="
                 darkMode ? 'i-mdi-weather-night' : 'i-mdi-white-balance-sunny'
               "
-            ></Icon>
+            />
           </UButton>
         </UTooltip>
       </client-only>

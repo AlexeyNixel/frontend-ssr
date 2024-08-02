@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import {
-  EntryPlate,
-  type EntryResponseType,
-  useEntryStore,
-} from '~/entities/entry';
-
-import { navigateTo } from '#app';
 import Filter from '~/widgets/filter/ui/Filter.vue';
+import { useEntryStore } from '~/entities/entry';
+import EntryList from '~/widgets/entry-list/ui/EntryList.vue';
 
-const ui = {
+const entryStore = useEntryStore();
+
+const isShowNoEntryMessage = ref(false);
+const search = ref<string>('');
+const inputUi = {
   icon: {
     trailing: {
       pointer: '',
@@ -19,93 +18,80 @@ const ui = {
     none: 'bg-white dark:bg-neutral-900 border-0 shadow-0 focus:ring-{color}-500 dark:focus:ring-{color}-400',
   },
 };
-
-const route = useRoute();
-const entryStore = useEntryStore();
-
-const entries = ref<EntryResponseType>();
-
-const filters = reactive({
-  order: (route.query.order as string) || '-publishedAt',
-  department: route.query.department || '',
-  rubric: route.query.rubric || '',
-  year: route.query.year || '',
+const filters = ref({
+  orderBy: '-publishedAt',
+  department: '',
+  rubric: '',
+  year: '',
+  search: '',
 });
 
-const search = ref<string>(route.query.search as string);
-const pages = ref<number>(1);
-const page = ref<number>(Number(route.query.page) || 1);
-
-const handleNavigate = (val?: number) => {
-  if (val) page.value = val;
-
-  navigateTo({
-    path: '/entry/search',
-    query: {
-      page: val || page.value,
-      search: search.value,
-      ...filters,
-    },
-  });
-  fetchData();
-};
-
-const fetchData = async () => {
-  if (process.client) window.scroll(0, 0);
-  entries.value = await entryStore.getEntries({
-    page: page.value,
-    search: search.value,
-    toDate: filters.year ? filters.year + '-12-31T00:00:00.000Z' : undefined,
-    fromDate: filters.year ? filters.year + '-01-01T00:00:00.000Z' : undefined,
-    orderBy: filters.order,
+const fetchEntries = async () => {
+  const { error } = await entryStore.getEntries({
     include: 'preview',
-    department: (filters.department as string) || undefined,
-    rubric: (filters.rubric as string) || undefined,
+    orderBy: filters.value.orderBy,
+    search: search.value || undefined,
+    department: filters.value.department || undefined,
+    rubric: filters.value.rubric || undefined,
+    toDate: filters.value.year
+      ? filters.value.year + '-12-31T00:00:00.000Z'
+      : undefined,
+    fromDate: filters.value.year
+      ? filters.value.year + '-01-01T00:00:00.000Z'
+      : undefined,
   });
-  pages.value = Number(entries.value?.meta?.total);
+  if (error) {
+    isShowNoEntryMessage.value = true;
+  }
 };
-await fetchData();
 
-watch(filters, () => {
-  handleNavigate();
-  page.value = 1;
+useAsyncData(async () => {
+  await fetchEntries();
 });
+
+watch(
+  filters,
+  () => {
+    fetchEntries();
+  },
+  { deep: true }
+);
 </script>
 
 <template>
-  <div v-if="entries">
+  <div class="entry-search">
     <UInput
+      class="entry-search__input"
       @keydown.enter="handleNavigate(1)"
       variant="none"
       icon="i-heroicons-magnifying-glass-20-solid"
-      size="sm"
-      :ui="ui"
-      color="white"
-      :trailing="false"
+      :ui="inputUi"
       placeholder="Поиск..."
-      v-model="search"
+      v-model="filters.search"
     >
       <template #trailing>
-        <Filter v-model="filters" />
+        <Filter
+          v-model="filters"
+          v-model:order-by="filters.orderBy"
+          v-model:department="filters.department"
+          v-model:year="filters.year"
+        />
       </template>
     </UInput>
-    <div class="entry-list">
-      <EntryPlate
-        v-for="entry in entries.data"
-        :key="entry.id"
-        :entry="entry"
-        date
-        size="full"
-      />
+    <div
+      class="entries-list"
+      v-if="!isShowNoEntryMessage && entryStore.entries"
+    >
+      <EntryList :entries="entryStore.entries.data" />
     </div>
-    <UPagination
-      class="flex justify-center my-4"
-      v-model="page"
-      :page-count="entries.meta?.pageSize"
-      :total="entries.meta?.total"
-      @update:model-value="handleNavigate()"
-    />
+    <div class="empty" v-else>Новости не найдены</div>
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.entry-search {
+  .empty {
+    @apply h-full flex items-center justify-center m-auto text-xl font-bold my-12;
+  }
+}
+</style>

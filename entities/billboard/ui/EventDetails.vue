@@ -13,11 +13,6 @@ const props = defineProps<{
 
 const generalStore = useGeneralStore();
 const placeName = AffichePlaces;
-const emit = defineEmits(['update:modelValue']);
-
-const handleCloseEvent = () => {
-  emit('update:modelValue', undefined);
-};
 </script>
 
 <template>
@@ -61,7 +56,7 @@ const handleCloseEvent = () => {
     }
   }
   .main {
-    @apply w-full lg:w-11/12 pr-3 h-[300px] overflow-y-scroll;
+    @apply w-full lg:w-11/12 pr-3 h-[300px] overflow-y-auto;
 
     .header {
       @apply flex justify-between;

@@ -49,6 +49,11 @@ export default defineNuxtConfig({
     },
   },
   vite: {
+    vue: {
+      script: {
+        defineModel: true,
+      },
+    },
     server: {
       proxy: {
         '/site': {

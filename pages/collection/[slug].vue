@@ -38,7 +38,7 @@ collection.value = await collectionStore.getCollection(slug.value);
   }
 
   .body {
-    @apply grid grid-cols-5;
+    @apply grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 xl:grid-cols-5;
   }
 }
 </style>
