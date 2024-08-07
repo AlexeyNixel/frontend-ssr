@@ -20,6 +20,7 @@ export interface EntryType {
 }
 
 export type EntryResponseType = {
+  value: any;
   data: EntryType[];
   meta: MetaType;
 };

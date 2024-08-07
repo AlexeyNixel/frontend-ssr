@@ -42,7 +42,7 @@ await departmentStore.getDepartments();
     <template #panel>
       <div class="filters">
         <div class="header">
-          <div class="header__title">{{ orderBy }}</div>
+          <div class="header__title">Фильтр</div>
           <UButton @click="handleClearFilter" class="header__btn">
             очистить
           </UButton>

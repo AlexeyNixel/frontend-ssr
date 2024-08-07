@@ -5,8 +5,18 @@ import EntryList from '~/widgets/entry-list/ui/EntryList.vue';
 
 const entryStore = useEntryStore();
 
+const route = useRoute();
+const page = ref(Number(route.query.page) || 1);
 const isShowNoEntryMessage = ref(false);
 const search = ref<string>('');
+const filters = ref({
+  orderBy: '-publishedAt',
+  department: '',
+  rubric: '',
+  year: '',
+  search: '',
+});
+
 const inputUi = {
   icon: {
     trailing: {
@@ -18,17 +28,11 @@ const inputUi = {
     none: 'bg-white dark:bg-neutral-900 border-0 shadow-0 focus:ring-{color}-500 dark:focus:ring-{color}-400',
   },
 };
-const filters = ref({
-  orderBy: '-publishedAt',
-  department: '',
-  rubric: '',
-  year: '',
-  search: '',
-});
 
 const fetchEntries = async () => {
   const { error } = await entryStore.getEntries({
     include: 'preview',
+    page: page.value,
     orderBy: filters.value.orderBy,
     search: search.value || undefined,
     department: filters.value.department || undefined,
@@ -40,13 +44,16 @@ const fetchEntries = async () => {
       ? filters.value.year + '-01-01T00:00:00.000Z'
       : undefined,
   });
-  if (error) {
-    isShowNoEntryMessage.value = true;
-  }
+
+  isShowNoEntryMessage.value = !!error;
+};
+const handleNavigate = () => {
+  navigateTo({ path: '/entry/search', query: { page: page.value } });
+  fetchEntries();
 };
 
-useAsyncData(async () => {
-  await fetchEntries();
+onMounted(() => {
+  fetchEntries();
 });
 
 watch(
@@ -62,12 +69,12 @@ watch(
   <div class="entry-search">
     <UInput
       class="entry-search__input"
-      @keydown.enter="handleNavigate(1)"
+      @keydown.enter="fetchEntries()"
       variant="none"
       icon="i-heroicons-magnifying-glass-20-solid"
       :ui="inputUi"
       placeholder="Поиск..."
-      v-model="filters.search"
+      v-model="search"
     >
       <template #trailing>
         <Filter
@@ -83,6 +90,13 @@ watch(
       v-if="!isShowNoEntryMessage && entryStore.entries"
     >
       <EntryList :entries="entryStore.entries.data" />
+      <UPagination
+        class="flex justify-center my-4"
+        v-model="page"
+        :page-count="entryStore.entries.meta.pageSize"
+        :total="entryStore.entries.meta.total"
+        @update:model-value="handleNavigate()"
+      />
     </div>
     <div class="empty" v-else>Новости не найдены</div>
   </div>

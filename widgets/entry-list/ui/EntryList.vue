@@ -17,13 +17,6 @@ const props = defineProps<{
         size="full"
       />
     </div>
-    <!--    <UPagination-->
-    <!--      class="flex justify-center my-4"-->
-    <!--      v-model="page"-->
-    <!--      :page-count="entries.meta?.pageSize"-->
-    <!--      :total="entries.meta?.total"-->
-    <!--      @update:model-value="handleNavigate()"-->
-    <!--    />-->
   </div>
 </template>
 

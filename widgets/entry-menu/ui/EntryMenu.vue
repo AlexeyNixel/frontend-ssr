@@ -71,7 +71,7 @@ onMounted(async () => {
         v-if="aktualnoe"
         :entries="aktualnoe"
         rubric="aktualnoe"
-        class="entry-carousel"
+        class="entry-carousel entry-carousel_margin"
       />
     </div>
   </div>
@@ -111,6 +111,10 @@ onMounted(async () => {
 
 .entry-carousel {
   @apply h-[320px];
+
+  &_margin {
+    @apply mt-4;
+  }
 
   &_mobile {
     @apply block sm:hidden;

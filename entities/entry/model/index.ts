@@ -3,7 +3,7 @@ import {
   type EntryResponseType,
   type EntryType,
 } from '~/entities/entry/model/types';
-import { type EntryParams } from '../api/entry-params';
+import { type EntryParams } from '~/entities/entry';
 import { EntryApi } from '../index';
 import { fetchEntries, findEntryPinned } from '~/entities/entry/api';
 
@@ -17,7 +17,6 @@ export const useEntryStore = defineStore('entry', () => {
 
   const getEntries = async (params?: EntryParams): Promise<any> => {
     const result = await fetchEntries(params);
-
     if (result.data.length < 1) {
       return { error: 'not-found', result: undefined };
     }
