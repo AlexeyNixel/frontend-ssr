@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import LibraryOnMapModal from '~/widgets/library-on-map-modal/ui/LibraryOnMapModal.vue';
 import WorktimeLibraryModal from '~/widgets/worktime-library-modal/ui/WorktimeLibraryModal.vue';
+import HeaderNavigation from '~/widgets/header-navigation/ui/HeaderNavigation.vue';
 
 const router = useRouter();
 const darkMode = useDark();
@@ -69,42 +70,7 @@ const openModal = (component: any) => {
     <NuxtLink to="/">
       <img class="logo" src="/logo.png" alt="НОМБ" />
     </NuxtLink>
-    <nav class="navigation">
-      <client-only>
-        <UTooltip
-          v-for="(item, index) in buttons"
-          :key="index"
-          :text="item.desc"
-        >
-          <UButton
-            @click="item.event"
-            variant="link"
-            size="xl"
-            color="blue"
-            :ui="ui"
-          >
-            <Icon :name="item.icon"></Icon>
-          </UButton>
-        </UTooltip>
-      </client-only>
-      <client-only>
-        <UTooltip text="Темная тема">
-          <UButton
-            color="orange"
-            variant="link"
-            @click="toggleDark()"
-            :ui="ui"
-            size="xl"
-          >
-            <Icon
-              :name="
-                darkMode ? 'i-mdi-weather-night' : 'i-mdi-white-balance-sunny'
-              "
-            />
-          </UButton>
-        </UTooltip>
-      </client-only>
-    </nav>
+    <header-navigation />
   </header>
 </template>
 
@@ -114,10 +80,6 @@ const openModal = (component: any) => {
 
   .logo {
     @apply w-40 lg:w-64;
-  }
-
-  .navigation {
-    @apply grid md:grid-cols-8 grid-cols-4;
   }
 }
 </style>
