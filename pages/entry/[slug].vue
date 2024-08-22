@@ -29,6 +29,12 @@ const getEntry = async () => {
 <template>
   <div class="entry-detail">
     <EntryDetails v-if="!isShowNoEntryMessage" :entry="entryStore.entry" />
-    <div v-else class="items-center">Новость не найдена</div>
+    <div v-else class="not-found-entry">Новость не найдена</div>
   </div>
 </template>
+
+<style scoped lang="scss">
+.not-found-entry {
+  @apply items-center;
+}
+</style>

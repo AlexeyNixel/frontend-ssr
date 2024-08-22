@@ -58,7 +58,6 @@ const isOpen = ref(false);
 
 .nested-enter-active,
 .nested-leave-active {
-  overflow: hidden;
   transition: all 1s;
   max-height: 500px;
 }

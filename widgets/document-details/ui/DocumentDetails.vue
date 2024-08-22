@@ -4,6 +4,20 @@ import type { DocumentType } from '~/entities/document';
 const props = defineProps<{
   document: DocumentType;
 }>();
+
+onMounted(async () => {
+  setTimeout(() => includeImageTable(), 1500);
+});
+
+const includeImageTable = () => {
+  const table = document.querySelector('.table');
+  if (table) {
+    const wrapper = document.createElement('div');
+    wrapper.setAttribute('class', 'entry-table');
+    table.parentNode?.insertBefore(wrapper, table);
+    wrapper.appendChild(table);
+  }
+};
 </script>
 
 <template>
@@ -31,5 +45,13 @@ const props = defineProps<{
     font-size: 1.4rem;
     font-weight: bold;
   }
+}
+
+:deep(.entry-table) {
+  @apply overflow-x-scroll;
+}
+
+:deep(.table) {
+  @apply w-[1500px] md:w-full;
 }
 </style>

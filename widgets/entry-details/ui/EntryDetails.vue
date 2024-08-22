@@ -11,13 +11,12 @@ const props = defineProps<{
 
 const generalStore = useGeneralStore();
 
-onMounted(() => {
-  includeImageTable();
+onMounted(async () => {
+  setTimeout(() => includeImageTable(), 1500);
 });
 
 const includeImageTable = () => {
   const table = document.querySelector('.table');
-
   if (table) {
     const wrapper = document.createElement('div');
     wrapper.setAttribute('class', 'entry-table');
@@ -65,7 +64,7 @@ const includeImageTable = () => {
         Обновить
       </nuxt-link>
       <nuxt-link
-        class="link link_red admin-button admin-button_red ml-2"
+        class="link link_red admin-button admin-button_red"
         :to="`http://admin.infomania.ru/entry/update/${entry.slug}?editor=alt`"
         :external="true"
         target="_blank"
@@ -105,8 +104,12 @@ const includeImageTable = () => {
   }
 }
 
-.entry-table {
-  @apply w-full overflow-x-scroll;
+:deep(.entry-table) {
+  @apply overflow-x-scroll;
+}
+
+:deep(.table) {
+  @apply w-[1500px] md:w-full;
 }
 
 .ck-content {

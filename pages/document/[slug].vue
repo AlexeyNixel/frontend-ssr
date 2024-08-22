@@ -34,7 +34,3 @@ const getDocument = async () => {
     <div v-else class="">Страница не найдена</div>
   </div>
 </template>
-<style>
-.asd {
-}
-</style>
