@@ -12,12 +12,14 @@ const entries = ref<EntryResponseType>();
 const page = ref<number>(Number(route.query.page) || 1);
 
 const fetchData = async () => {
-  entries.value = await entryStore.getEntries({
+  const { result } = await entryStore.getEntries({
     rubric: 'konkursy',
     include: 'preview',
     orderBy: '-publishedAt',
     page: page.value,
   });
+  entries.value = result;
+  console.log(entries.value);
 };
 
 const swapPage = async () => {
@@ -39,8 +41,10 @@ useAsyncData(async () => {
       :key="item.id"
       :entry="item"
       :is-date="true"
+      class="entry"
     />
     <UPagination
+      v-if="entries.meta"
       class="flex items-center justify-center my-4"
       v-model="page"
       :page-count="entries.meta.pageSize"
@@ -50,4 +54,8 @@ useAsyncData(async () => {
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.entry {
+  @apply my-2;
+}
+</style>
