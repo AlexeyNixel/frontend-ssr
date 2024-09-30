@@ -56,7 +56,7 @@ const includeImageTable = () => {
 
     <div class="footer" v-if="generalStore.token">
       <nuxt-link
-        :to="`http://admin.infomania.ru/entry/update/${entry.slug}`"
+        :to="`https://admin.infomania.ru/entry/update/${entry.slug}`"
         :external="true"
         target="_blank"
         class="link admin-button admin-button_blue"
@@ -65,7 +65,7 @@ const includeImageTable = () => {
       </nuxt-link>
       <nuxt-link
         class="link link_red admin-button admin-button_red"
-        :to="`http://admin.infomania.ru/entry/update/${entry.slug}?editor=alt`"
+        :to="`https://admin.infomania.ru/entry/update/${entry.slug}?editor=alt`"
         :external="true"
         target="_blank"
       >
