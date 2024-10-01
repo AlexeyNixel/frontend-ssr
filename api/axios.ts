@@ -1,9 +1,7 @@
 import axios from 'axios';
 
 export const axiosApi = axios.create({
-  baseURL: import.meta.client
-    ? import.meta.env['VITE_BASE_URL']
-    : import.meta.env['VITE_SERVER_BASE_URL'],
+  baseURL: import.meta.env['VITE_BASE_URL'],
   timeout: 0,
 });
 
