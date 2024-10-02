@@ -13,7 +13,7 @@ module.exports = {
       user: 'admin_web',
       host: ['192.168.0.35'],
       ref: 'origin/master',
-      repo: 'git@github.com:AlexeyNixel/frontend-ssr.git',
+      repo: 'https://github.com/AlexeyNixel/frontend-ssr.git',
       path: "/home/admin_web/infomania-front",
       'post-deploy' : 'npm i && npm run build && pm2 startOrRestart ecosystem.config.cjs'
     }
