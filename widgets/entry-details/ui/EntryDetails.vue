@@ -112,7 +112,7 @@ const includeImageTable = () => {
 
 .ck-content {
   :deep(p) {
-    margin: 10px 0 !important;
+    //margin: 10px 0 !important;
   }
 }
 </style>
