@@ -49,9 +49,7 @@ const includeImageTable = () => {
           <div class="date">{{ dateReduction(entry.publishedAt) }}</div>
         </div>
       </header>
-      <viewer rebuild>
-        <div class="body ck-content" v-html="entry.content" />
-      </viewer>
+      <div class="body ck-content" v-html="entry.content" />
     </article>
 
     <div class="footer" v-if="generalStore.token">
