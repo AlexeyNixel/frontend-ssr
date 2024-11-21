@@ -62,7 +62,7 @@ useAsyncData(async () => {
   <NavigationMenu />
   <events-calendar />
   <entry-menu />
-  <DepartmentsList />
+  <!--  <DepartmentsList />-->
   <Bookshelf />
   <client-only><GosServices /></client-only>
   <GamesList />

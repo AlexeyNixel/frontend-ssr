@@ -31,10 +31,11 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '/app/styles/ckeditor.css',
-    '/app/styles/ckeditorImage.css',
+    // '/app/styles/ckeditor.css',
+    // '/app/styles/ckeditorImage.css',
     '/app/styles/gosWidget.css',
     'viewerjs/dist/viewer.css',
+    'ckeditor5/ckeditor5.css',
   ],
 
   tailwindcss: {

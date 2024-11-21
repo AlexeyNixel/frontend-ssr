@@ -87,7 +87,7 @@ const includeImageTable = () => {
   }
 
   .body {
-    @apply indent-12 overflow-hidden;
+    @apply overflow-hidden;
   }
 }
 

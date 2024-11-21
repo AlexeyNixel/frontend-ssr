@@ -35,6 +35,10 @@ const socialsLinks = [
     icon: 'tabler:brand-ok-ru',
     link: 'https://ok.ru/group/70000001168881',
   },
+  {
+    icon: 'i-arcticons:zen',
+    link: 'https://dzen.ru/id/623e98c0d08b342d1f9163c4',
+  },
 ];
 </script>
 
