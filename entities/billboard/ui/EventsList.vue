@@ -79,7 +79,7 @@ const closeWindow = () => {
   }
 
   .body {
-    @apply h-[290px] overflow-y-scroll;
+    @apply h-[290px] overflow-y-auto;
 
     &__item {
       @apply odd:bg-neutral-200 odd:dark:bg-neutral-800 flex p-2 rounded-[10px];
