@@ -12,6 +12,7 @@ import GosServices from '~/widgets/gos-services/ui/GosServices.vue';
 import EventsCalendar from '~/widgets/events-calendar/ui/EventsCalendar.vue';
 import EntryMenu from '~/widgets/entry-menu/ui/EntryMenu.vue';
 import { BookVoteMenu } from '~/widgets/book-vote-menu';
+import { MinkultGolosovanie } from '~/widgets/minkult-golosovanie';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
@@ -79,6 +80,7 @@ useAsyncData(async () => {
   <!--  <DepartmentsList />-->
   <Bookshelf />
   <client-only><GosServices /></client-only>
+  <minkult-golosovanie />
   <GamesList />
   <ExhibitionsList />
 </template>
