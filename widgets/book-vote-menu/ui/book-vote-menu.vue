@@ -4,7 +4,7 @@ import { useCollectionStore } from '~/entities/collection';
 const collectionStore = useCollectionStore();
 const collection = ref<any>();
 const ui = {
-  width: 'w-max sm:max-w-[50vw]',
+  width: 'w-max sm:max-w-[10vw]',
 };
 collection.value = await collectionStore.getBookByCollection(
   '9f8c2aec-2279-4163-8f2f-6fbfa0e2aae9'

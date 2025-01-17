@@ -2,6 +2,7 @@
 import { useSliderStore } from '~/entities/slide';
 import { storeToRefs } from 'pinia';
 import { useGeneralStore } from '~/stores/generalStore';
+import { BookVoteMenu } from '~/widgets/book-vote-menu';
 
 const ui = {
   base: 'animate-pulse',
@@ -14,6 +15,11 @@ const sliderStore = useSliderStore();
 const { slides } = storeToRefs(sliderStore);
 const isLoading = computed(() => slides.value.length > 0);
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
+
+const { open: modal } = useModal();
+const openModal = () => {
+  modal(BookVoteMenu);
+};
 
 useAsyncData(async () => {
   await sliderStore.getSlides({
@@ -33,6 +39,9 @@ useAsyncData(async () => {
     :autoplay="{ delay: 6000, disableOnInteraction: true }"
     class="carousel"
   >
+    <SwiperSlide @click="openModal" class="carousel__item">
+      <img src="./bunner.png" alt="" />
+    </SwiperSlide>
     <SwiperSlide class="carousel__item" v-for="item in slides" :key="item.id">
       <NuxtLink
         v-if="item.entry"
