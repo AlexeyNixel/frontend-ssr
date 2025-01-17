@@ -136,7 +136,7 @@ collection.value = await collectionStore.getBookByCollection(
       }
 
       .desc {
-        @apply text-[10pt] w-4/6 text-black;
+        @apply text-[10pt] w-4/6 text-black font-bold border border-black p-2 rounded-lg;
       }
     }
 
