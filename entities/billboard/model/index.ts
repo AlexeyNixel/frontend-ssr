@@ -19,13 +19,6 @@ export const useBillboardStore = defineStore('billboards', () => {
   };
 
   const getBillboardByDay = async (day: string, params?: ParamsType) => {
-    // console.log(
-    //   await findBillboards({
-    //     fromDate: day,
-    //     toDate: day,
-    //     ...params,
-    //   })
-    // );
     billboard.value = await findBillboards({
       fromDate: day + 'T00:00:00.000Z',
       toDate: day + 'T00:00:00.000Z',

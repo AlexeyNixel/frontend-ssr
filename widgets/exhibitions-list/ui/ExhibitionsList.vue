@@ -23,7 +23,7 @@ const breakpoints = {
   640: {
     slidesPerView: 2,
   },
-};
+};  
 
 const handleOpenModal = (path: string) => {
   modal.open(ExhibitionDetailModal, { path: path });

@@ -4,7 +4,6 @@ import { useEntryStore } from '~/entities/entry';
 import { storeToRefs } from 'pinia';
 import { useAsyncData } from '#app';
 import MainSlider from '~/widgets/main-slider/ui/MainSlider.vue';
-import DepartmentsList from '~/widgets/departments-list/ui/DepartmentsList.vue';
 import ExhibitionsList from '~/widgets/exhibitions-list/ui/ExhibitionsList.vue';
 import GamesList from '~/widgets/games-list/ui/GamesList.vue';
 import NavigationMenu from '~/widgets/navigation-menu/ui/NavigationMenu.vue';
@@ -12,18 +11,25 @@ import Bookshelf from '~/widgets/bookshelf/ui/Bookshelf.vue';
 import GosServices from '~/widgets/gos-services/ui/GosServices.vue';
 import EventsCalendar from '~/widgets/events-calendar/ui/EventsCalendar.vue';
 import EntryMenu from '~/widgets/entry-menu/ui/EntryMenu.vue';
+import { BookVoteMenu } from '~/widgets/book-vote-menu';
 
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
 
-const { anonsy, aktualnoe, sobytiya } = storeToRefs(entryStore);
+const isShowEventButton = ref(true);
 
+const { anonsy, aktualnoe, sobytiya } = storeToRefs(entryStore);
+const { open: modal } = useModal();
 const isLoading = ref(false);
 
 const params = {
   pageSize: 6,
   orderBy: '-publishedAt',
   include: 'preview',
+};
+
+const openModal = () => {
+  modal(BookVoteMenu);
 };
 
 onMounted(() => {
@@ -61,6 +67,14 @@ useAsyncData(async () => {
   <MainSlider />
   <NavigationMenu />
   <events-calendar />
+  <div class="event-btn" v-if="isShowEventButton">
+    <div>
+      <div class="close-btn" @click="isShowEventButton = !isShowEventButton">
+        <Icon name="i-iconoir-xmark"></Icon>
+      </div>
+      <img class="logo" @click="openModal" src="/button-temp.svg" alt="" />
+    </div>
+  </div>
   <entry-menu />
   <!--  <DepartmentsList />-->
   <Bookshelf />
@@ -75,5 +89,17 @@ useAsyncData(async () => {
 }
 .notification {
   @apply top-0 bottom-auto;
+}
+
+.event-btn {
+  @apply flex z-50 fixed bottom-[50px] right-[250px];
+
+  .close-btn {
+    @apply float-end bg-white dark:bg-neutral-800 flex w-max p-2 rounded-2xl shadow-xl active:scale-90 transition cursor-pointer;
+  }
+
+  .logo {
+    @apply cursor-pointer;
+  }
 }
 </style>
