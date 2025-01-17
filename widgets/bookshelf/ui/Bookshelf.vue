@@ -30,7 +30,7 @@ const items = [
       <div class="title">Книги</div>
       <nuxt-link to="/book" class="link"> Полный список книг </nuxt-link>
     </section>
-    <BooksTab class="book-tab" />
+    <BooksTab :is-video="false" class="book-tab" />
     <!--    <UTabs :ui="bookshelfUi" :items="items" class="m-0">-->
     <!--      <template class="" #item="{ item }">-->
     <!--        <div class="asd">-->
