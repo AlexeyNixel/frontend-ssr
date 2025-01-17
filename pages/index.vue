@@ -14,6 +14,8 @@ import EntryMenu from '~/widgets/entry-menu/ui/EntryMenu.vue';
 import { BookVoteMenu } from '~/widgets/book-vote-menu';
 import { MinkultGolosovanie } from '~/widgets/minkult-golosovanie';
 
+const route = useRoute();
+
 const generalStore = useGeneralStore();
 const entryStore = useEntryStore();
 
@@ -36,6 +38,10 @@ const openModal = () => {
 onMounted(() => {
   isLoading.value = true;
   generalStore.token = localStorage.getItem('token') as string;
+
+  if (route.query.event === 'readaboutwar') {
+    openModal();
+  }
 });
 
 useAsyncData(async () => {
@@ -83,6 +89,7 @@ useAsyncData(async () => {
   <minkult-golosovanie />
   <GamesList />
   <ExhibitionsList />
+  <UNotifications />
 </template>
 
 <style lang="scss" scoped>

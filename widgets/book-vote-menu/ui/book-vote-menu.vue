@@ -1,11 +1,46 @@
 <script setup lang="ts">
 import { useCollectionStore } from '~/entities/collection';
+import axios from 'axios';
 
 const collectionStore = useCollectionStore();
 const collection = ref<any>();
-const ui = {
-  width: 'w-max sm:max-w-[10vw]',
+
+const toast = useToast();
+const voteText = ref('');
+
+const handleVote = async () => {
+  if (voteText.value) {
+    await axios.post('http://api.infomania.ru/api/eventWar', {
+      message: voteText.value,
+    });
+    toast.add({ title: 'Спасибо за ваш голос' });
+    voteText.value = '';
+  } else {
+    toast.add({ title: 'Поле не должно быть пустым' });
+  }
 };
+
+const ui = {
+  width: 'w-full sm:max-w-[10vw]',
+};
+const breakpoints = {
+  1280: {
+    slidesPerView: 2,
+  },
+  1024: {
+    slidesPerView: 2,
+  },
+  768: {
+    slidesPerView: 2,
+  },
+  640: {
+    slidesPerView: 1.2,
+  },
+  364: {
+    slidesPerView: 1.2,
+  },
+};
+
 collection.value = await collectionStore.getBookByCollection(
   '9f8c2aec-2279-4163-8f2f-6fbfa0e2aae9'
 );
@@ -26,6 +61,8 @@ collection.value = await collectionStore.getBookByCollection(
           size="xl"
           :ui="{ rounded: 'rounded-xl' }"
           variant="outlined"
+          v-model="voteText"
+          @keydown.enter="handleVote"
         >
           <template #trailing>
             <img class="vote-input__icon" src="./star.png" alt="" />
@@ -43,7 +80,7 @@ collection.value = await collectionStore.getBookByCollection(
         <swiper
           class="slider"
           :centeredSlides="true"
-          :slides-per-view="2"
+          :breakpoints="breakpoints"
           :loop="true"
         >
           <swiper-slide class="slide" v-for="book in collection" :key="book.id">
@@ -68,7 +105,7 @@ collection.value = await collectionStore.getBookByCollection(
   @apply w-full p-4 rounded-lg;
 
   .wrapper {
-    @apply w-[1200px] rounded-lg;
+    @apply w-full rounded-lg;
     background-image: url('./background-original.jpg');
 
     .header {
@@ -91,7 +128,7 @@ collection.value = await collectionStore.getBookByCollection(
       }
 
       .vote-input {
-        @apply w-1/4 rounded-lg shadow-lg mb-4 text-black;
+        @apply w-full md:w-1/4 rounded-lg shadow-lg mb-4 text-black;
 
         &__icon {
           @apply w-[30px];
@@ -106,14 +143,14 @@ collection.value = await collectionStore.getBookByCollection(
     .slider {
       @apply mb-4;
       .slide {
-        @apply p-4 bg-[#7C0201];
+        @apply p-4 bg-[#7C0201] w-[400px];
 
         .book {
-          @apply flex;
+          @apply flex flex-col md:flex-row items-center;
           .aside {
-            @apply w-[450px];
+            @apply w-full md:w-[450px];
             .preview {
-              @apply w-full;
+              @apply w-[600px];
             }
             .title {
               @apply font-bold text-xl  text-white;
