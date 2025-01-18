@@ -2,7 +2,7 @@
 import { useSliderStore } from '~/entities/slide';
 import { storeToRefs } from 'pinia';
 import { useGeneralStore } from '~/stores/generalStore';
-import { BookVoteMenu } from '~/widgets/book-vote-menu';
+import { BookVoteModal } from '~/widgets/book-vote-menu';
 
 const ui = {
   base: 'animate-pulse',
@@ -18,7 +18,7 @@ const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);
 
 const { open: modal } = useModal();
 const openModal = () => {
-  modal(BookVoteMenu);
+  modal(BookVoteModal);
 };
 
 useAsyncData(async () => {
