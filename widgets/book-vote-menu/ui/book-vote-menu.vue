@@ -20,9 +20,6 @@ const handleVote = async () => {
   }
 };
 
-const ui = {
-  width: 'w-full sm:max-w-[10vw]',
-};
 const breakpoints = {
   1280: {
     slidesPerView: 2,
@@ -49,7 +46,11 @@ collection.value = await collectionStore.getBookByCollection(
 <template>
   <div class="wrapper">
     <div class="header">
-      <img src="./title.png" alt="" class="title" />
+      <div class="sub-header">
+        <img src="./title.png" alt="" class="title" />
+        <div class="mt-6">Акция-иследование</div>
+        <img class="sub-title" src="./title-2.png" alt="" />
+      </div>
       <img src="./logo.png" alt="" class="logo" />
     </div>
     <div class="vote">
@@ -76,12 +77,7 @@ collection.value = await collectionStore.getBookByCollection(
     </div>
 
     <client-only>
-      <swiper
-        class="slider"
-        :centeredSlides="true"
-        :breakpoints="breakpoints"
-        :loop="true"
-      >
+      <swiper class="slider" :centeredSlides="true" :breakpoints="breakpoints">
         <swiper-slide class="slide" v-for="book in collection" :key="book.id">
           <div class="book">
             <div class="aside">
@@ -106,8 +102,15 @@ collection.value = await collectionStore.getBookByCollection(
   .header {
     @apply flex justify-between;
 
-    .title {
-      @apply w-1/5 h-full p-5;
+    .sub-header {
+      @apply h-full text-black text-3xl p-5;
+
+      .title {
+        @apply w-[75%] h-full;
+      }
+      .sub-title {
+        @apply w-1/2 mt-6;
+      }
     }
 
     .logo {
@@ -116,7 +119,7 @@ collection.value = await collectionStore.getBookByCollection(
   }
 
   .vote {
-    @apply p-2 flex flex-col;
+    @apply p-5 flex flex-col;
 
     .text {
       @apply text-5xl mb-4 text-black;
