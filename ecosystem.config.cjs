@@ -1,27 +1,19 @@
 module.exports = {
   apps: [
     {
-      name: 'nuxt-app',
+      name: 'frontend',
       script: './node_modules/nuxt/bin/nuxt.js',
       args: 'start',
       env: {
         NODE_ENV: 'production',
       },
-      post_deploy: ['npm install', 'npm run build', 'pm2 restart nuxt-app'],
+      // Это укажет PM2 запускать команду после деплоя
+      post_deploy: [
+        'npm install', // Устанавливаем зависимости
+        'npm run build', // Собираем проект
+        'pm2 restart nuxt-app', // Перезапускаем приложение через PM2
+      ],
+      watch: false, // Не следим за изменениями (убираем, если не нужно)
     },
   ],
-
-  deploy: {
-    production: {
-      user: 'admin_web',
-      host: '192.168.0.35', // IP или домен сервера
-      ref: 'origin/master', // Ветка, на которую будем делать деплой
-      repo: 'https://github.com/AlexeyNixel/frontend-ssr.git', // URL репозитория
-      path: '/home/admin_web/infomania-web/frontend', // Путь на сервере, куда будет клонирован репозиторий
-      'post-deploy': 'npm install && npm run build && pm2 restart nuxt-app', // Действия после деплоя
-      env: {
-        NODE_ENV: 'production',
-      },
-    },
-  },
 };
