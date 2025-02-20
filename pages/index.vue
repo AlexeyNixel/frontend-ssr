@@ -11,7 +11,7 @@ import Bookshelf from '~/widgets/bookshelf/ui/Bookshelf.vue';
 import GosServices from '~/widgets/gos-services/ui/GosServices.vue';
 import EventsCalendar from '~/widgets/events-calendar/ui/EventsCalendar.vue';
 import EntryMenu from '~/widgets/entry-menu/ui/EntryMenu.vue';
-import { BookVoteMenu } from '~/widgets/book-vote-menu';
+import { BookVoteModal } from '~/widgets/book-vote-menu';
 import { MinkultGolosovanie } from '~/widgets/minkult-golosovanie';
 
 const route = useRoute();
@@ -32,7 +32,7 @@ const params = {
 };
 
 const openModal = () => {
-  modal(BookVoteMenu);
+  modal(BookVoteModal);
 };
 
 onMounted(() => {
