@@ -1,19 +1,20 @@
 module.exports = {
   apps: [
     {
-      name: 'frontend',
-      script: './node_modules/nuxt/bin/nuxt.js',
-      args: 'start',
+      name: 'frontend', // Имя приложения для PM2
+      script: './node_modules/nuxt/bin/nuxt.js', // Путь до Nuxt-скрипта для старта приложения
+      args: 'start', // Команда для старта приложения
       env: {
-        NODE_ENV: 'production',
+        NODE_ENV: '.env', // Переменные окружения для разработки
       },
-      // Это укажет PM2 запускать команду после деплоя
+      env_production: {
+        NODE_ENV: '.env', // Переменные окружения для продакшн
+      },
       post_deploy: [
-        'npm install', // Устанавливаем зависимости
-        'npm run build', // Собираем проект
-        'pm2 restart nuxt-app', // Перезапускаем приложение через PM2
+        'npm install', // Установить зависимости
+        'npm run build', // Собрать проект
+        'pm2 restart nuxt-app', // Перезапустить приложение
       ],
-      watch: false, // Не следим за изменениями (убираем, если не нужно)
     },
   ],
 };
