@@ -58,11 +58,11 @@ export default defineNuxtConfig({
     server: {
       proxy: {
         '/site': {
-          target: 'http://static.infomania.ru/',
+          target: 'http://192.168.0.41:10001/',
           changeOrigin: true,
         },
         '/media': {
-          target: 'http://static.infomania.ru/site',
+          target: 'http://192.168.0.41:10001/site',
           changeOrigin: true,
         },
         '/news': {
