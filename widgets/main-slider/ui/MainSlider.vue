@@ -34,11 +34,18 @@ useAsyncData(async () => {
   <USkeleton :ui="ui" v-if="!isLoading" class="carousel skeleton" />
   <Swiper
     v-else
-    :modules="[SwiperAutoplay]"
+    :modules="[SwiperAutoplay, SwiperPagination, SwiperNavigation]"
     :loop="true"
+    pagination
+    navigation
     :autoplay="{ delay: 6000, disableOnInteraction: true }"
     class="carousel"
   >
+    <SwiperSlide class="carousel__item">
+      <nuxt-link to="http://search.infomania.ru/jirbis2/" target="_blank">
+        <img src="/banner_EC.png" alt="" />
+      </nuxt-link>
+    </SwiperSlide>
     <SwiperSlide @click="openModal" class="carousel__item">
       <img src="./bunner.png" alt="" />
     </SwiperSlide>
