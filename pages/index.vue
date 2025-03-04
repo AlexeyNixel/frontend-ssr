@@ -85,10 +85,14 @@ useAsyncData(async () => {
   <entry-menu />
   <!--  <DepartmentsList />-->
   <Bookshelf />
-  <client-only><GosServices /></client-only>
-  <minkult-golosovanie />
+  <div class="block md:flex my-4">
+    <client-only>
+      <gos-services />
+    </client-only>
+    <MinkultGolosovanie class="" />
+  </div>
   <GamesList />
-  <ExhibitionsList />
+  <!-- <ExhibitionsList /> -->
   <UNotifications />
 </template>
 
