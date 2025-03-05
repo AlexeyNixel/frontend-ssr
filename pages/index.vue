@@ -92,7 +92,7 @@ useAsyncData(async () => {
     <MinkultGolosovanie class="" />
   </div>
   <GamesList />
-  <!-- <ExhibitionsList /> -->
+  <ExhibitionsList />
   <UNotifications />
 </template>
 
