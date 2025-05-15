@@ -46,9 +46,6 @@ useAsyncData(async () => {
         <img src="/banner_EC.png" alt="" />
       </nuxt-link>
     </SwiperSlide>
-    <SwiperSlide @click="openModal" class="carousel__item">
-      <img src="./bunner.png" alt="" />
-    </SwiperSlide>
     <SwiperSlide class="carousel__item" v-for="item in slides" :key="item.id">
       <NuxtLink
         v-if="item.entry"

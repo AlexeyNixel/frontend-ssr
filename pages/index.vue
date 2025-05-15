@@ -74,14 +74,6 @@ useAsyncData(async () => {
   <MainSlider />
   <NavigationMenu />
   <events-calendar />
-  <div class="event-btn" v-if="isShowEventButton">
-    <div>
-      <div class="close-btn" @click="isShowEventButton = !isShowEventButton">
-        <Icon name="i-iconoir-xmark"></Icon>
-      </div>
-      <img class="logo" @click="openModal" src="/button-temp.svg" alt="" />
-    </div>
-  </div>
   <entry-menu />
   <!--  <DepartmentsList />-->
   <Bookshelf />
