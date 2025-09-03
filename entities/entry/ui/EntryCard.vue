@@ -28,7 +28,7 @@ const sliceString = (str: string) => {
       <UCard :ui="ui" class="entry-card">
         <template class="border-0" #header>
           <img
-            v-if="entry?.preview.path"
+            v-if="entry?.preview?.path"
             class="entry-card__preview"
             :src="staticUrl + entry.preview?.path"
             alt=""

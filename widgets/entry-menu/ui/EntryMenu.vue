@@ -29,7 +29,7 @@ onMounted(async () => {
         v-if="entryPinned"
       >
         <img
-          :src="entryPinned.preview.path"
+          :src="entryPinned.preview?.path"
           :alt="entryPinned.title"
           class="pinned-entry__preview"
         />

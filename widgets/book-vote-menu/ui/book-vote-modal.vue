@@ -4,6 +4,7 @@ import { BookVoteMenu } from '~/widgets/book-vote-menu';
 const ui = {
   width: 'w-full sm:max-w-[10vw]',
 };
+
 </script>
 
 <template>
