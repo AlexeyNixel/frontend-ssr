@@ -70,7 +70,10 @@ const buttons = ref([
   },
   {
     icon: 'i-mdi-academic-cap',
-    event: () => navigateTo('/information'),
+    event: () =>
+      navigateTo(
+        '/entry/svedeniya-ob-organizacii-osushestvlyayushej-obrazovatelnuyu-deyatelnost-2025-09-12'
+      ),
     desc: 'Сведения об организации, осуществляющей образовательную деятельность',
     color: undefined,
   },

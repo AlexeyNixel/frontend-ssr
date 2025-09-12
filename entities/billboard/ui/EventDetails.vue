@@ -4,8 +4,6 @@ import { useGeneralStore } from '~/stores/generalStore';
 import type { BillboardType } from '~/entities/billboard';
 import dayjs from 'dayjs';
 
-const asd = dayjs();
-
 const props = defineProps<{
   event: BillboardType;
   modelValue: BillboardType;
