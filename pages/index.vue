@@ -75,7 +75,6 @@ useAsyncData(async () => {
   <NavigationMenu />
   <events-calendar />
   <entry-menu />
-  <!--  <DepartmentsList />-->
   <Bookshelf />
   <div class="block md:flex my-4">
     <client-only>
