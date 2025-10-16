@@ -56,7 +56,7 @@ const buttons = [
   {
     icon: 'i-mdi-academic-cap',
     event: () => navigateTo('/information'),
-    desc: 'Сведения об организации, осуществляющей образовательную деятельность',
+    desc: 'Сведения об образовательной организации',
   },
 ];
 
