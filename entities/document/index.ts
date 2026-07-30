@@ -1,2 +1,2 @@
 export { useDocumentStore } from './model';
-export { type DocumentType } from './model/types';
+export type { DocumentType } from './model/types';

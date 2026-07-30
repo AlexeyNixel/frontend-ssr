@@ -1,2 +1,2 @@
 export { useCollectionStore } from './model';
-export { type CollectionModel, type CollectionParams } from './model/types';
+export type { CollectionModel, CollectionParams } from './model/types';

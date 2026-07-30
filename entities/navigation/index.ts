@@ -4,5 +4,5 @@ import Colleagues from './ui/Colleagues.vue';
 import Documents from './ui/Documents.vue';
 
 export { useNavigationStore } from './model';
-export { type MenuType, type MenuItemType } from './model/types';
+export type { MenuType, MenuItemType } from './model/types';
 export { About, Reader, Colleagues, Documents };

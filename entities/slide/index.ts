@@ -1,2 +1,2 @@
-export { type SliderType } from './model/types';
+export type { SliderType } from './model/types';
 export { useSliderStore } from './model';

@@ -3,7 +3,7 @@ import EntryPlate from './ui/EntryPlate.vue';
 import EntryCarousel from './ui/EntryCarousel.vue';
 
 export * as EntryApi from './api';
-export { type EntryType, type EntryResponseType } from './model/types';
+export type { EntryType, EntryResponseType } from './model/types';
 export { useEntryStore } from './model/index';
 export { EntryCard, EntryPlate, EntryCarousel };
-export { type EntryParams } from './api/entry-params';
+export type { EntryParams } from './api/entry-params';

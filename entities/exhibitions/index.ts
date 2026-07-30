@@ -3,4 +3,4 @@ import ExhibitionDetailModal from '~/entities/exhibitions/ui/ExhibitionDetailMod
 
 export { useExhibitionStore } from './model';
 export { ExhibitionDetailModal };
-export { type ExhibitionsType } from './model/types';
+export type { ExhibitionsType } from './model/types';
