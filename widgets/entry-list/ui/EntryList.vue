@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { EntryPlate, type EntryType } from '~/entities/entry';
+import { EntryPlate } from '~/entities/entry';
+import type { EntryType } from '~/entities/entry';
 
 const props = defineProps<{
   entries: EntryType[];

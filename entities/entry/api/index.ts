@@ -1,4 +1,4 @@
-import { type EntryParams } from '~/entities/entry/api/entry-params';
+import type { EntryParams } from '~/entities/entry/api/entry-params';
 import { baseApi } from '~/shared/api';
 import type { EntryResponseType, EntryType } from '~/entities/entry';
 

@@ -1,6 +1,6 @@
-import { type NavigationParams } from '~/entities/navigation/api/navigation-params';
+import type { NavigationParams } from '~/entities/navigation/api/navigation-params';
 import { findDocument, findMenu, findMenus } from '~/entities/navigation/api';
-import { type MenuType } from '~/entities/navigation/model/types';
+import type { MenuType } from '~/entities/navigation/model/types';
 import { defineStore } from 'pinia';
 
 export const useNavigationStore = defineStore('navigation', () => {

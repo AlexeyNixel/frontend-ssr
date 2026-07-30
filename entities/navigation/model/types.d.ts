@@ -1,4 +1,4 @@
-import { type DocumentType } from '~/entities/document';
+import type { DocumentType } from '~/entities/document';
 
 export type MenuType = {
   id: string;

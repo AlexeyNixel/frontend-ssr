@@ -1,7 +1,7 @@
 import { findGame, findGames, findGamesRandom, findGenres } from '../api';
-import { type GameType, type GenresType } from '~/entities/game';
+import type { GameType, GenresType } from '~/entities/game';
 import { defineStore } from 'pinia';
-import { type ParamsType } from '~/shared/types/base';
+import type { ParamsType } from '~/shared/types/base';
 
 export const useGameStore = defineStore('games', () => {
   const games = ref<GameType[]>([]);

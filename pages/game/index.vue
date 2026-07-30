@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { GameCard, type GameResponseType, useGameStore } from '~/entities/game';
+import { GameCard, useGameStore } from '~/entities/game';
+import type { GameResponseType } from '~/entities/game';
 
 const ui = {
   icon: {

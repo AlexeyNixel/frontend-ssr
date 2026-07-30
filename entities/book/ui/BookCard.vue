@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useModal } from '#ui/composables/useModal';
-import { type BookModel } from '~/entities/book';
+import type { BookModel } from '~/entities/book';
 import BookModal from '~/entities/book/ui/BookModal.vue';
 
 const props = defineProps<{

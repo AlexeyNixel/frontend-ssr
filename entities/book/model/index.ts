@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { findAll, findOne } from '~/entities/book/api';
-import { type BookParams } from '~/entities/book/api/book-params';
+import type { BookParams } from '~/entities/book/api/book-params';
 
 export const useBookStore = defineStore('book', () => {
   const getAll = async (params?: BookParams): Promise<any> => {

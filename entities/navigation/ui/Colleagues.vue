@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type MenuType, useNavigationStore } from '~/entities/navigation';
+import { useNavigationStore } from '~/entities/navigation';
+import type { MenuType } from '~/entities/navigation';
 
 const menuStore = useNavigationStore();
 const menus = ref<MenuType[]>();

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type EntryType, useEntryStore } from '~/entities/entry';
+import { useEntryStore } from '~/entities/entry';
+import type { EntryType } from '~/entities/entry';
 import Dropdown from '~/entities/dropdown/ui/dropdown.vue';
 import dayjs from 'dayjs';
 

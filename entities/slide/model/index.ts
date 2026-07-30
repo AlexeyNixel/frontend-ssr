@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { findSlider } from '~/entities/slide/api';
-import { type SliderType } from './types';
+import type { SliderType } from './types';
 
 export const useSliderStore = defineStore('slider', () => {
   const slides = ref<SliderType[]>([]);

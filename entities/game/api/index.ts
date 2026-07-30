@@ -1,6 +1,6 @@
 import { Routes } from '~/api/routes';
 import { baseApi } from '~/shared/api';
-import { type ParamsType } from '~/shared/types/base';
+import type { ParamsType } from '~/shared/types/base';
 
 const { GENRE_ROUTE, GAMES_ROUTE, GAMES_RANDOM_ROUTE } = Routes;
 

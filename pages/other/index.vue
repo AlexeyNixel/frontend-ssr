@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Dropdown from '~/entities/dropdown/ui/dropdown.vue';
-import { type EntryType, useEntryStore } from '~/entities/entry';
+import { useEntryStore } from '~/entities/entry';
+import type { EntryType } from '~/entities/entry';
 import dayjs from 'dayjs';
 
 const years = [2021, 2022, 2023, 2024];

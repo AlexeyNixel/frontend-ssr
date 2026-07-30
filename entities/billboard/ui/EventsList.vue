@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { type BillboardType, useBillboardStore } from '~/entities/billboard';
+import { useBillboardStore } from '~/entities/billboard';
+import type { BillboardType } from '~/entities/billboard';
 import dayjs from 'dayjs';
 import EventDetails from './EventDetails.vue';
 import { storeToRefs } from 'pinia';

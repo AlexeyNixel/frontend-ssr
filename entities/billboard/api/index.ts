@@ -1,6 +1,6 @@
-import { type BillboardType } from '../model/types';
+import type { BillboardType } from '../model/types';
 import { baseApi } from '~/shared/api';
-import { type ParamsType } from '~/shared/types/base';
+import type { ParamsType } from '~/shared/types/base';
 
 export const findBillboards = async (
   params?: ParamsType

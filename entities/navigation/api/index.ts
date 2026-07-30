@@ -1,4 +1,4 @@
-import { type NavigationParams } from './navigation-params';
+import type { NavigationParams } from './navigation-params';
 import { baseApi } from '~/shared/api';
 
 export const findMenu = async (slug: string, params?: NavigationParams) => {

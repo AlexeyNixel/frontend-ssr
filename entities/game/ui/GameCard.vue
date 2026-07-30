@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type GameType } from '~/entities/game';
+import type { GameType } from '~/entities/game';
 
 interface Props {
   game: GameType;

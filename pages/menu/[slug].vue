@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router';
-import { type MenuType, useNavigationStore } from '~/entities/navigation';
+import { useNavigationStore } from '~/entities/navigation';
+import type { MenuType } from '~/entities/navigation';
 
 const route = useRoute();
 const menuStore = useNavigationStore();

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type EntryType } from '~/entities/entry';
+import type { EntryType } from '~/entities/entry';
 import TheBase from 'public/TheBase.vue';
 import dayjs from 'dayjs';
 

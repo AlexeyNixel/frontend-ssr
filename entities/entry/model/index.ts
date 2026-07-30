@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia';
-import {
-  type EntryResponseType,
-  type EntryType,
+import type {
+  EntryResponseType,
+  EntryType,
 } from '~/entities/entry/model/types';
-import { type EntryParams } from '~/entities/entry';
+import type { EntryParams } from '~/entities/entry';
 import { EntryApi } from '../index';
 import { fetchEntries, findEntryPinned } from '~/entities/entry/api';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type DepartmentType } from '~/entities/department';
+import type { DepartmentType } from '~/entities/department';
 
 const props = defineProps<{
   department: DepartmentType;

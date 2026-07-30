@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { type DepartmentType } from './types';
+import type { DepartmentType } from './types';
 import { findDepartments } from '~/entities/department/api';
 import type { ParamsType } from '~/shared/types/base';
 

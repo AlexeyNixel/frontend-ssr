@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type EntryType } from '~/entities/entry';
+import type { EntryType } from '~/entities/entry';
 import { useGeneralStore } from '~/stores/generalStore';
 import { dateReduction } from '~/features/date-reduction';
 
