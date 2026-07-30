@@ -2,9 +2,12 @@ module.exports = {
   apps: [
     {
       name: 'Frontend',
-      port: '3000',
       script: './.output/server/index.mjs',
       cwd: __dirname,
+      env: {
+        VITE_BASE_URL: 'http://api.infomania.ru',
+        VITE_STATIC_URL: 'http://static.infomania.ru',
+      },
     },
   ],
   deploy: {
