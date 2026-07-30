@@ -23,14 +23,14 @@ const socialsLinks = [
     icon: 'uil:vk',
     link: 'https://vk.com/oub_nsk',
   },
-  {
-    icon: 'uil:telegram',
-    link: 'https://t.me/oub_nsk',
-  },
-  {
-    icon: 'mdi:youtube',
-    link: 'https://www.youtube.com/user/noub77nsk',
-  },
+  // {
+  //   icon: 'uil:telegram',
+  //   link: 'https://t.me/oub_nsk',
+  // },
+  // {
+  //   icon: 'mdi:youtube',
+  //   link: 'https://www.youtube.com/user/noub77nsk',
+  // },
   {
     icon: 'tabler:brand-ok-ru',
     link: 'https://ok.ru/group/70000001168881',
