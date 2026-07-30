@@ -1,10 +1,6 @@
 <script lang="ts" setup>
-import {
-  EntryCard,
-  EntryCarousel,
-  type EntryResponseType,
-  useEntryStore,
-} from '~/entities/entry';
+import { EntryCard, EntryCarousel, useEntryStore } from '~/entities/entry';
+import type { EntryResponseType } from '~/entities/entry';
 import { storeToRefs } from 'pinia';
 
 const staticUrl = ref(import.meta.env['VITE_STATIC_URL']);

@@ -1,9 +1,6 @@
 <script setup lang="ts">
-import {
-  EntryPlate,
-  type EntryResponseType,
-  useEntryStore,
-} from '~/entities/entry';
+import { EntryPlate, useEntryStore } from '~/entities/entry';
+import type { EntryResponseType } from '~/entities/entry';
 
 const route = useRoute();
 const entryStore = useEntryStore();

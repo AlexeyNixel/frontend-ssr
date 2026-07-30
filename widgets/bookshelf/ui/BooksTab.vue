@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { Navigation } from 'swiper/modules';
-import {
-  BookCard,
-  type BookResponseModel,
-  useBookStore,
-} from '~/entities/book';
+import { BookCard, useBookStore } from '~/entities/book';
+import type { BookResponseModel } from '~/entities/book';
 
 interface Props {
   isVideo: boolean;

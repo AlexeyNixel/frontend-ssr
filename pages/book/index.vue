@@ -1,10 +1,7 @@
 <script lang="ts" setup>
 import { useModal } from '#ui/composables/useModal';
-import {
-  BookCard,
-  type BookResponseModel,
-  useBookStore,
-} from '~/entities/book';
+import { BookCard, useBookStore } from '~/entities/book';
+import type { BookResponseModel } from '~/entities/book';
 
 const route = useRoute();
 const bookStore = useBookStore();

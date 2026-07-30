@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import {
-  type CollectionModel,
-  useCollectionStore,
-} from '~/entities/collection';
+import { useCollectionStore } from '~/entities/collection';
+import type { CollectionModel } from '~/entities/collection';
 
 const collectionStore = useCollectionStore();
 const collections = ref<CollectionModel[]>([]);

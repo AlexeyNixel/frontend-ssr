@@ -1,9 +1,6 @@
 import { defineStore } from 'pinia';
-import {
-  type BillboardType,
-  findBillboard,
-  findBillboards,
-} from '~/entities/billboard';
+import { findBillboard, findBillboards } from '~/entities/billboard';
+import type { BillboardType } from '~/entities/billboard';
 import type { ParamsType } from '~/shared/types/base';
 
 export const useBillboardStore = defineStore('billboards', () => {
